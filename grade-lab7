@@ -1,0 +1,73 @@
+#!/usr/bin/env python
+
+from gradelib import *
+
+r = Runner(save("jos.out"),
+           stop_breakpoint("cons_getc"))
+
+@test(10, "PTE_SHARE [testpteshare]")
+def test_pte_share():
+    r.user_test("testpteshare")
+    r.match('fork handles PTE_SHARE right',
+            'spawn handles PTE_SHARE right')
+
+@test(20, "start the shell [icode]")
+def test_icode():
+    r.user_test("icode")
+    r.match('icode: read /motd',
+            'This is /motd, the message of the day.',
+            'icode: spawn /init',
+            'init: running',
+            'init: data seems okay',
+            'icode: exiting',
+            'init: bss seems okay',
+            "init: args: 'init' 'initarg1' 'initarg2'",
+            'init: running sh',
+            '\$ ')
+
+@test(20)
+def test_testshell():
+    r.user_test("testshell", timeout=60)
+    r.match("shell ran correctly")
+
+# Obsolete
+#@test(10)
+def test_testpipe():
+    r.user_test("testpipe", stop_on_line("pipe tests passed"),
+                stop_on_line(".*panic"))
+    r.match("pipe read closed properly",
+            "pipe write closed properly")
+
+# Obsolete
+#@test(10)
+def test_testpiperace():
+    r.user_test("testpiperace", stop_on_line("race didn't happen"),
+                stop_on_line(".*panic"))
+    r.match("race didn't happen",
+            no=["child detected race",
+                "RACE: pipe appears closed"])
+
+# Obsolete
+#@test(10)
+def test_testpiperace2():
+    r.user_test("testpiperace2", stop_on_line("race didn't happen"),
+                stop_on_line(".*panic"))
+    r.match("race didn't happen",
+            no=["child detected race",
+                "RACE: pipe appears closed"])
+
+def gen_primes(n):
+    rest = range(2, n)
+    while rest:
+        yield rest[0]
+        rest = [n for n in rest if n % rest[0]]
+
+@test(10)
+def test_primespipe():
+    r.user_test("primespipe", stop_on_line("[0-9]{4}$"), timeout=120)
+    primes = set(gen_primes(1000))
+    nonprimes = set(range(1000)) - primes
+    r.match(no=["%d$" % np for np in nonprimes],
+            *["%d$" % p for p in primes])
+
+run_tests()
