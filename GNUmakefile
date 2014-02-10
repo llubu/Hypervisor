@@ -195,6 +195,16 @@ bochsrc: .bochsrc.tmpl
 bochs: $(IMAGES) bochsrc
 	$(BOCHS) $(BOCHSOPTS)
 
+bochs-nox: $(IMAGES) bochsrc
+	$(BOCHS) $(BOCHSOPTS) 'display_library: term'
+
+bochs-gdb: $(IMAGES) bochsrc
+	$(BOCHS) $(BOCHSOPTS) 'gdbstub: enabled=1, port=1234'
+
+bochs-nox-gdb: $(IMAGES) bochsrc
+	$(BOCHS) $(BOCHSOPTS) 'display_library: term' 'gdbstub: enabled=1, port=1234'
+
+
 qemu: $(IMAGES) pre-qemu
 	$(QEMU) $(QEMUOPTS)
 

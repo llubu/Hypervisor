@@ -32,7 +32,7 @@ private_colormap: enabled=0
 clock: sync=none, time0=local, rtc_sync=0
 # no cmosimage
 # no loader
-log: -
+log: bochs.log
 logprefix: %t%e%d
 debug: action=ignore
 info: action=report
@@ -40,7 +40,7 @@ error: action=report
 panic: action=ask
 keyboard: type=mf, serial_delay=250, paste_delay=100000, user_shortcut=none
 mouse: type=ps2, enabled=0, toggle=ctrl+mbutton
-parport1: enabled=1, file=none
+parport1: enabled=1, file=bochs.out
 parport2: enabled=0
 com1: enabled=1, mode=null, dev=none
 com2: enabled=0
