@@ -185,6 +185,7 @@ guestvm: $(GUESTDIR)/$(OBJDIR)/kern/kernel $(GUESTDIR)/$(OBJDIR)/boot/boot
 
 BOCHS := bochs
 BOCHSOPTS = -q
+BOCHSOPTS += $(BOCHSEXTRA)
 
 bochsrc: .bochsrc.tmpl
 #	BOCHS expects absolute paths
