@@ -1,0 +1,20 @@
+6828 decimal is XXX octal!
+
+e820 MEMORY MAP
+size: 20, address: 0x0000000000000000, length: 0x000000000009f000, type: 1
+size: 20, address: 0x000000000009f000, length: 0x0000000000001000, type: 2
+size: 20, address: 0x00000000000e8000, length: 0x0000000000018000, type: 2
+size: 20, address: 0x0000000000100000, length: 0x0000000007ef0000, type: 1
+size: 20, address: 0x0000000007ff0000, length: 0x0000000000010000, type: 3
+size: 20, address: 0x00000000fffc0000, length: 0x0000000000040000, type: 2
+
+Physical memory: 128M available, base = 636K, extended = 130048K, npages = 32768
+kernel panic on CPU 0 at kern/pmap.c:230: x64_vm_init: this function is not finished
+
+Welcome to the JOS kernel monitor!
+Type 'help' for a list of commands.
+K> help
+help - Display this list of commands
+kerninfo - Display information about the kernel
+K> pkerninfo
+K> 
