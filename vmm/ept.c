@@ -145,3 +145,68 @@ int ept_alloc_static(epte_t *eptrt, struct VmxGuestInfo *ginfo) {
     return 0;
 }
 
+#ifdef TEST_EPT_MAP
+#include <kern/env.h>
+#include <kern/syscall.h>
+int _export_sys_ept_map(envid_t srcenvid, void *srcva,
+	    envid_t guest, void* guest_pa, int perm);
+
+int test_ept_map(void)
+{
+	struct Env *srcenv, *dstenv;
+	struct Page *pp;
+	epte_t *epte;
+	int r;
+
+	/* Initialize source env */
+	if ((r = env_alloc(&srcenv, 0)) < 0)
+		panic("Failed to allocate env (%d)\n", r);
+	if (!(pp = page_alloc(ALLOC_ZERO)))
+		panic("Failed to allocate page (%d)\n", r);
+	if ((r = page_insert(srcenv->env_pml4e, pp, UTEMP, 0)) < 0)
+		panic("Failed to insert page (%d)\n", r);
+	curenv = srcenv;
+
+	/* 1. Check if sys_ept_map correctly verify the target env */
+	if ((r = env_alloc(&dstenv, srcenv->env_id)) < 0)
+		panic("Failed to allocate env (%d)\n", r);
+	if ((r = _export_sys_ept_map(srcenv->env_id, UTEMP, dstenv->env_id, UTEMP, 0)) < 0)
+		cprintf("EPT map to non-guest env failed as expected (%d).\n", r);
+	else
+		panic("sys_ept_map success on non-guest env.\n");
+
+	/*env_destroy(dstenv);*/
+
+	if ((r = env_guest_alloc(&dstenv, srcenv->env_id)) < 0)
+		panic("Failed to allocate guest env (%d)\n", r);
+	dstenv->env_vmxinfo.phys_sz = (uint64_t)UTEMP;
+
+	/* 2. Check if sys_ept_map can verify guest phys_sz correctly */
+	if ((r = _export_sys_ept_map(srcenv->env_id, UTEMP, dstenv->env_id, UTEMP + PGSIZE, 0)) < 0)
+		cprintf("EPT map to out-of-boundary area failed as expected (%d).\n", r);
+	else
+		panic("sys_ept_map success on out-of-boundary area\n");
+
+	/* 3. Check if the sys_ept_map can succeed on correct setup */
+	if ((r = _export_sys_ept_map(srcenv->env_id, UTEMP, dstenv->env_id, UTEMP, 0)) < 0)
+		panic("Failed to do sys_ept_map (%d)\n", r);
+	else
+		cprintf("sys_ept_map finished normally.\n");
+
+	/* 4. Check if the mapping is valid */
+	if ((r = ept_lookup_gpa(dstenv->env_pml4e, UTEMP, 0, &epte)) < 0)
+		panic("Failed on ept_lookup_gpa (%d)\n", r);
+	if (page2pa(pp) != (epte_addr(*epte)))
+		panic("EPT mapping address mismatching (%x vs %x).\n",
+				page2pa(pp), epte_addr(*epte));
+	else
+		cprintf("EPT mapping address looks good: %x vs %x.\n",
+				page2pa(pp), epte_addr(*epte));
+
+	/* stop running after test, as this is just a test run. */
+	panic("Cheers! sys_ept_map seems to work correctly.\n");
+
+	return 0;
+}
+#endif
+

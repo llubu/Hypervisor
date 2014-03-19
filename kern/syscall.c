@@ -348,3 +348,12 @@ syscall(uint64_t syscallno, uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
     }
 }
 
+#ifdef TEST_EPT_MAP
+int
+_export_sys_ept_map(envid_t srcenvid, void *srcva,
+	    envid_t guest, void* guest_pa, int perm)
+{
+	return sys_ept_map(srcenvid, srcva, guest, guest_pa, perm);
+}
+#endif
+
