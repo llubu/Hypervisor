@@ -20,6 +20,9 @@ enum {
 	SYS_time_msec,
 	SYS_ept_map,
 	SYS_env_mkguest,
+	SYS_env_transmit_packet,
+	SYS_env_receive_packet,
+	SYS_get_block_info,
 	NSYSCALLS
 };
 

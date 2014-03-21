@@ -1,4 +1,4 @@
-6828 decimal is XXX octal!
+6828 decimal is 15254 octal!
 
 e820 MEMORY MAP
 size: 20, address: 0x0000000000000000, length: 0x000000000009f000, type: 1
@@ -9,12 +9,15 @@ size: 20, address: 0x0000000007ff0000, length: 0x0000000000010000, type: 3
 size: 20, address: 0x00000000fffc0000, length: 0x0000000000040000, type: 2
 
 Physical memory: 128M available, base = 636K, extended = 130048K, npages = 32768
-kernel panic on CPU 0 at kern/pmap.c:230: x64_vm_init: this function is not finished
-
-Welcome to the JOS kernel monitor!
-Type 'help' for a list of commands.
-K> help
-help - Display this list of commands
-kerninfo - Display information about the kernel
-K> pkerninfo
-K> 
+check_page_alloc() succeeded!
+failing 8003c03000 ffffffffffffffff
+page_check() succeeded!
+check_boot_pml4e() succeeded!
+SMP: too many CPUs, CPU 0 disabled
+SMP: CPU 0 found 1 CPU(s)
+enabled interrupts: 1 2 4
+PCI: 00:00.0: 8086:1237: class: 8000000006.8000000000 (Bridge device) irq: 549755813888
+PCI: 00:01.0: 8086:7000: class: 8000000006.8000000001 (Bridge device) irq: 549755813888
+PCI: 00:01.1: 8086:7010: class: 8000000001.8000000001 (Storage controller) irq: 549755813888
+PCI: 00:01.2: 8086:7020: class: 800000000c.8000000003 (Unknown) irq: 549755813897
+PCI: 00:01.3: 8086:7113: class: 8000000006.8000000080 (Bridge device) irq: 549755813897

@@ -24,6 +24,7 @@ sys_cputs(const char *s, size_t len)
     // Destroy the environment if not.
 
     // LAB 3: Your code here.
+    user_mem_assert(curenv, (void*)s, len, PTE_P | PTE_U);
 
     // Print the string supplied by the user.
     cprintf("%.*s", len, s);
@@ -335,16 +336,63 @@ syscall(uint64_t syscallno, uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
     // Return any appropriate return value.
     // LAB 3: Your code here.
 
-    panic("syscall not implemented");
+//    panic("syscall not implemented");
 
-    switch (syscallno) {
+    int err;
+    switch (syscallno) 
+    {
+	case SYS_cputs:
+	    sys_cputs((char*)a1, a2);
+	    break;
+	case SYS_cgetc:
+	    return sys_cgetc();
+	case SYS_getenvid:
+	    return sys_getenvid();
+	case SYS_env_destroy:
+	    return sys_env_destroy(a1);
+	case SYS_yield:
+	    sys_yield();
+	    break;
+	case SYS_exofork:
+	    return sys_exofork();
+	case SYS_env_set_status:
+	    return sys_env_set_status(a1, a2);
+	case SYS_page_alloc:
+	    return sys_page_alloc(a1, (void*)a2, a3);
+	case SYS_page_map:
+	    return sys_page_map(a1, (void*)a2, a3, (void*)a4, a5);
+	case SYS_page_unmap:
+	    return sys_page_unmap(a1, (void*)a2);
+	case SYS_env_set_pgfault_upcall:
+	    return sys_env_set_pgfault_upcall(a1, (void*)a2);
+	case SYS_ipc_try_send:
+	    return sys_ipc_try_send(a1, a2, (void*)a3, a4);
+	case SYS_ipc_recv:
+	    return sys_ipc_recv((void*)a1);
+	case SYS_env_set_trapframe:
+	    return sys_env_set_trapframe(a1, (struct Trapframe*)a2);
+	case SYS_time_msec:
+	    return sys_time_msec();
+//	case SYS_env_transmit_packet:
+//	    return sys_env_transmit_packet(a1, (char*)a2, a3);
+//	case SYS_env_receive_packet:
+//	    return sys_env_receive_packet(a1, (char*)a2, (size_t*)a3);
+//	case SYS_get_block_info:
+//	    return sys_get_block_info();
+//	default:
+//	    return -E_INVAL;
+//	    break;
+// Virtualization related Syscalls
+
         case SYS_ept_map:
 	    return sys_ept_map(a1, (void*) a2, a3, (void*) a4, a5);
+
         case SYS_env_mkguest:
             return sys_env_mkguest(a1, a2);
 
         default:
             return -E_NO_SYS;
     }
+    return 0;
 }
 

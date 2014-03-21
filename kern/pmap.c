@@ -737,6 +737,8 @@ page_insert(pml4e_t *pml4e, struct Page *pp, void *va, int perm)
 	page_remove(pml4e, va);	// Remove it and add the page pp
     }
     *pte = ((uint64_t)page2pa(pp)) | perm | PTE_P;
+
+    pdpe_t *test = KADDR(*pte);
     
     return 0;
 }
@@ -892,6 +894,17 @@ static uintptr_t user_mem_check_addr;
 user_mem_check(struct Env *env, const void *va, size_t len, int perm)
 {
     // LAB 3: Your code here.
+    char *va_head = (char*)va;
+    char *va_end = ROUNDUP((char*)va + len, PGSIZE);
+    for (; va_head < va_end; va_head = ROUNDUP(va_head+1, PGSIZE))
+    {
+	pte_t *pte=NULL;
+	struct Page *pp = page_lookup(env->env_pml4e, (void*)va_head, &pte);
+	if (pte == NULL || pp == NULL || (uint64_t)va_head > ULIM || (*pte & perm)!= perm) 	  {
+	    user_mem_check_addr = (uint64_t)va_head;
+	    return -E_FAULT;
+        }
+    }
     return 0;
 
 }
@@ -1098,14 +1111,14 @@ check_boot_pml4e(pml4e_t *pml4e)
 
     // check kernel stack
     // (updated in lab 4 to check per-CPU kernel stacks)
-    for (n = 0; n < NCPU; n++) {
+/*    for (n = 0; n < NCPU; n++) {
         uint64_t base = KSTACKTOP - (KSTKSIZE + KSTKGAP) * (n + 1);
         for (i = 0; i < KSTKSIZE; i += PGSIZE)
             assert(check_va2pa(pml4e, base + KSTKGAP + i)
                     == PADDR(percpu_kstacks[n]) + i);
         for (i = 0; i < KSTKGAP; i += PGSIZE)
             assert(check_va2pa(pml4e, base + i) == ~0);
-    }
+    }  */
 
     pdpe_t *pdpe = KADDR(PTE_ADDR(boot_pml4e[1]));
     pde_t  *pgdir = KADDR(PTE_ADDR(pdpe[0]));
@@ -1360,6 +1373,6 @@ page_check(void)
     *pml4e_walk(boot_pml4e, (void*) mm1 + PGSIZE, 0) = 0;
     *pml4e_walk(boot_pml4e, (void*) mm2, 0) = 0;
 
-    cprintf("check_page() succeeded!\n");
+    cprintf("page_check() succeeded!\n");
 }
 

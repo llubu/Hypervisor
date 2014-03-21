@@ -4,6 +4,7 @@
 /jos.log
 /jos.out
 /jos.out.*
+/README.md
 /jos.cmd
 /.gdbinit
 /wget.log
