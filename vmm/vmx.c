@@ -28,8 +28,15 @@ static inline bool vmx_check_support() {
     uint32_t eax, ebx, ecx, edx;
     cpuid( 1, &eax, &ebx, &ecx, &edx );
     /* Your code here */ 
-    panic ("vmx check not implemented\n");
-    return false;
+    if (1 == BIT(ecx, 5))
+    {
+	return true;
+    }
+    else
+    {
+//	panic ("vmx check not implemented\n");
+	return false;
+    }
 }
 
 /* This function reads the VMX-specific MSRs
@@ -47,8 +54,15 @@ static inline bool vmx_check_support() {
  */
 static inline bool vmx_check_ept() {
     /* Your code here */
-    panic ("ept check not implemented\n");
-    return false;
+    if ( (1 == BIT( read_msr(IA32_VMX_PROCBASED_CTLS), 63))  && (1 == BIT( read_msr(IA32_VMX_PROCBASED_CTLS2), 33)) )
+    {
+	return true;
+    }
+    else
+    {
+//	panic ("ept check not implemented\n");
+	return false;
+    }
 }
 
 /* Checks if curr_val is compatible with fixed0 and fixed1 
