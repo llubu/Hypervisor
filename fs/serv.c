@@ -165,7 +165,7 @@ try_open:
 
     // Share the FD page with the caller
     *pg_store = o->o_fd;
-    *perm_store = PTE_P|PTE_U|PTE_W;
+    *perm_store = PTE_P|PTE_U|PTE_W | PTE_SHARE;
     return 0;
 }
 
