@@ -186,7 +186,7 @@ sys_env_set_pgfault_upcall(envid_t envid, void *func)
     // LAB 4: Your code here.
     struct Env *env;
     int err = envid2env(envid, &env, 1);
-    cprintf("\n IN SYSCALL: set PFH:%d:%x:\n", err, func);
+//    cprintf("\n IN SYSCALL: set PFH:%d:%x:\n", err, func);
     if (err < 0)
     {
 	return err;

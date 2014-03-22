@@ -40,5 +40,5 @@ set_pgfault_handler(void (*handler)(struct UTrapframe *utf))
 
     // Save handler pointer for assembly to call.
     _pgfault_handler = handler;
-    cprintf("\n Setting Page Fault Handler in USpace:%x:\n", handler);
+//    cprintf("\n Setting Page Fault Handler in USpace:%x:\n", handler);
 }

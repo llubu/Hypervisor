@@ -415,7 +415,7 @@ page_fault_handler(struct Trapframe *tf)
 	// LAB 4: Your code here.
 	
 	if (!curenv->env_pgfault_upcall) {
-	    cprintf("\n IN TRAP.c PAGE FAULT HAN NOT FOUND:%d\n", curenv->env_pgfault_upcall);
+//	    cprintf("\n IN TRAP.c PAGE FAULT HAN NOT FOUND:%d\n", curenv->env_pgfault_upcall);
 
                // Destroy the environment that caused the fault.
                cprintf("[%08x] user fault va %08x ip %08x\n",
@@ -424,7 +424,7 @@ page_fault_handler(struct Trapframe *tf)
                env_destroy(curenv);
        	}
 		
-	cprintf("\n PFH found \n");
+//	cprintf("\n PFH found \n");
         //Verify that stack is allocated.
        	user_mem_assert(curenv, (void*)UXSTACKTOP-1, 1, PTE_P|PTE_W|PTE_U);
 
