@@ -21,3 +21,50 @@ PCI: 00:01.0: 8086:7000: class: 8000000006.8000000001 (Bridge device) irq: 54975
 PCI: 00:01.1: 8086:7010: class: 8000000001.8000000001 (Storage controller) irq: 549755813888
 PCI: 00:01.2: 8086:7020: class: 800000000c.8000000003 (Unknown) irq: 549755813897
 PCI: 00:01.3: 8086:7113: class: 8000000006.8000000080 (Bridge device) irq: 549755813897
+[00000000] new env 00001000
+[00000000] new env 00001001
+In IDLE
+
+ IN SYSCALL: set PFH:0:801df4:
+
+ Setting Page Fault Handler in USpace:800044:
+
+ PFH found 
+fault deadbeef
+
+ PFH found 
+fault ef800000
+
+ PFH found 
+Exception stack overflow for env:
+TRAP frame at 0x800454f160 from CPU 0
+  r15  0x206465746c756166
+  r14  0x6665207461206e69
+  r13  0x303030303038
+  r12  0x00000000
+  r11  0x00000000
+  r10  0x00000023
+  r9  0x00000000
+  r8  0x00000000
+  rdi  0x00000000
+  rsi  0x00000000
+  rbp  0x00000000
+  rbx  0x00000000
+  rdx  0x00000000
+  rcx  0x00000000
+  rax  0x00000000
+  es   0x----0023
+  ds   0x----0023
+  trap 0x0000000e Page Fault
+  cr2  0xfffffffffffffff8
+  err  0x00000004 [user, read, not-present]
+  rip  0x00801e7f
+  cs   0x----001b
+  flag 0x00010202
+  rsp  0xfffffffffffffff8
+  ss   0x----0023
+[00001001] free env 00001001
+No more runnable environments!
+Welcome to the JOS kernel monitor!
+Type 'help' for a list of commands.
+K> тту

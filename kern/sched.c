@@ -44,6 +44,25 @@ sched_yield(void)
     // below to switch to this CPU's idle environment.
 
     // LAB 4: Your code here.
+    if (curenv) 
+    {
+	for (i = ENVX(curenv->env_id)+1; i != ENVX(curenv->env_id); i = (i+1)%NENV)
+	{
+	    if (envs[i].env_type != ENV_TYPE_IDLE && 
+			     #ifdef RUN_POSTPROCESS_DEDUP_ON_IDLE
+			     envs[i].env_type != ENV_TYPE_PP_DEDUP &&
+			     #endif
+        	             envs[i].env_status == ENV_RUNNABLE)
+                	        break;
+	}
+	if (i != ENVX(curenv->env_id) || // Termination condition of circular queue
+		    (i == ENVX(curenv->env_id) && envs[i].env_type != ENV_TYPE_IDLE &&
+		    #ifdef RUN_POSTPROCESS_DEDUP_ON_IDLE
+                    envs[i].env_type != ENV_TYPE_PP_DEDUP &&
+		    #endif
+		    envs[i].env_status == ENV_RUNNING)) // Choose only if current is in running state
+			env_run(&envs[i]);
+    }
 
     // For debugging and testing purposes, if there are no
     // runnable environments other than the idle environments,

@@ -324,8 +324,8 @@ x64_vm_init(void)
     // llubu:- required ??
     //////////////////////////////////////////////////////////////////////
     // Map the descriptors
- //   boot_map_segment(boot_pml4e, (uint64_t)transDespList, (64*16), PADDR(transDespList), PTE_W | PTE_P | PTE_U);
- //   boot_map_segment(boot_pml4e, (uint64_t)rcvDespList, (64*16), PADDR(rcvDespList), PTE_W | PTE_P | PTE_U);
+//    boot_map_segment(boot_pml4e, (uint64_t)transDespList, (64*16), PADDR(transDespList), PTE_W | PTE_P | PTE_U);
+//    boot_map_segment(boot_pml4e, (uint64_t)rcvDespList, (64*16), PADDR(rcvDespList), PTE_W | PTE_P | PTE_U);
 
     // Your code goes here: 
     // Check that the initial page directory has been set up correctly.

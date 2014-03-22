@@ -58,7 +58,21 @@ KERN_SRCFILES := $(wildcard $(KERN_SRCFILES))
 
 # Binary program images to embed within the kernel.
 KERN_BINFILES :=	user/hello
+KERN_BINFILES += user/spin
+KERN_BINFILES += user/my_prog
 KERN_BINFILES += user/idle
+
+#Binary files added by abhiroop
+
+KERN_BINFILES += user/divzero \
+		 user/softint \
+		 user/badsegment \
+		 user/buggyhello \
+		 user/evilhello \
+		 user/forktree \
+		 user/sendpage \
+		 user/pingpong \
+		 user/primes
 # Binary files for LAB5
 KERN_BINFILES +=	user/testfile \
 			user/writemotd \

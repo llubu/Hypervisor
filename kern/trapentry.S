@@ -104,31 +104,3 @@ _alltraps:
 
 	#TODO: POP? iretq?
 
-  /* from Amogh
-_alltraps:
-	//int $0x30;
-     subq $16, %rsp
-     movl $0, 12(%rsp)
-     movw $0, 10(%rsp)
-     movw %ds, 8(%rsp)
-     movl $0, 4(%rsp)
-     movw $0, 2(%rsp)
-     movw %es, 0(%rsp)
-     PUSHA
-     //	int3
-     xorq %rax,%rax
-     movw $GD_KD, %ax
-     movw %ax, %ds
-     movw %ax, %es
-     movq %rsp, %rdi
-     //call to traphandler
-     call trap
-     //restore system
-     POPA_
-     movq	(%rsp), %rcx
-     movw %cx,	%es
-     movq	8(%rsp), %rcx	
-     movw	%cx, %ds
-     //	addq $24, %rsp
-     iretq
-    */

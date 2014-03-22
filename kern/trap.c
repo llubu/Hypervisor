@@ -14,9 +14,10 @@
 #include <kern/cpu.h>
 #include <kern/spinlock.h>
 #include <kern/time.h>
+#include <inc/string.h>
 
 extern uintptr_t gdtdesc_64;
-struct Taskstate ts;
+static struct Taskstate ts;	//llubu: added static
 extern struct Segdesc gdt[];
 extern long gdt_pd;
 
@@ -119,13 +120,14 @@ trap_init(void)
     SETGATE(idt[T_SEGNP], 0, GD_KT, segment_not_present_handler, 3);
     SETGATE(idt[T_STACK], 0, GD_KT, stack_exception_handler, 3);
     SETGATE(idt[T_GPFLT], 0, GD_KT, general_protection_fault_handler, 3);
-    SETGATE(idt[T_PGFLT], 0, GD_KT, page_fault_handler_1, 0);
+    SETGATE(idt[T_PGFLT], 0, GD_KT, page_fault_handler_1, 0);	// lubu: change from pfh_1
     //SETGATE(idt[T_RES], 1, GD_KT, reserved_15_handler, 3);
     SETGATE(idt[T_FPERR], 0, GD_KT, floating_point_error_handler, 3);
     SETGATE(idt[T_ALIGN], 0, GD_KT, allign_check_handler, 3);
     SETGATE(idt[T_MCHK], 0, GD_KT, machine_check_handler, 3);
     SETGATE(idt[T_SIMDERR], 0, GD_KT, SIMD_floating_point_error_handler, 3);
     SETGATE(idt[T_SYSCALL], 0, GD_KT, system_call_handler, 3); //Diable interrupts if an env is in middle of a syscall.
+    //IRQ
     SETGATE(idt[IRQ_TIMER+IRQ_OFFSET], 0, GD_KT, irq_timer_handler, 0);
     SETGATE(idt[IRQ_KBD+IRQ_OFFSET], 0, GD_KT, irq_kbd_handler, 0);
     SETGATE(idt[IRQ_SERIAL+IRQ_OFFSET], 0, GD_KT, irq_serial_handler, 0);
@@ -264,6 +266,13 @@ trap_dispatch(struct Trapframe *tf)
 	// Handle clock interrupts. Don't forget to acknowledge the
 	// interrupt using lapic_eoi() before calling the scheduler!
 	// LAB 4: Your code here.
+	
+	if (tf->tf_trapno == IRQ_OFFSET + IRQ_TIMER) {
+		time_tick(); //TODO: Multi CPU?
+		lapic_eoi();
+		sched_yield();
+		return;
+	}
 
 	// Add time tick increment to clock interrupts.
 	// Be careful! In multiprocessors, clock interrupts are
@@ -275,6 +284,7 @@ trap_dispatch(struct Trapframe *tf)
 	// LAB 7: Your code here.
 
 	// Unexpected trap: The user process or the kernel has a bug.
+	cprintf("\n IN TRAP DISPATCH, user process or kernel has a bug\n");
 	print_trapframe(tf);
 	if (tf->tf_cs == GD_KT)
 		panic("unhandled trap in kernel");
@@ -302,12 +312,13 @@ trap(struct Trapframe *tf)
 	// the interrupt path.
 	assert(!(read_eflags() & FL_IF));
 
-	if ((tf->tf_cs & 3) == 3) {
+	if ((tf->tf_cs & 0x03) != 0) {
 		// Trapped from user mode.
 		// Acquire the big kernel lock before doing any
 		// serious kernel work.
 		// LAB 4: Your code here.
 		assert(curenv);
+//		lock_kernel();
 
 		// Garbage collect if current enviroment is a zombie
 		if (curenv->env_status == ENV_DYING) {
@@ -393,11 +404,67 @@ page_fault_handler(struct Trapframe *tf)
 	//   (the 'tf' variable points at 'curenv->env_tf').
 
 	// LAB 4: Your code here.
+	
+	if (!curenv->env_pgfault_upcall) {
+	    cprintf("\n IN TRAP.c PAGE FAULT HAN NOT FOUND:%d\n", curenv->env_pgfault_upcall);
 
-	// Destroy the environment that caused the fault.
-	cprintf("[%08x] user fault va %08x ip %08x\n",
-		curenv->env_id, fault_va, tf->tf_rip);
-	print_trapframe(tf);
-	env_destroy(curenv);
+               // Destroy the environment that caused the fault.
+               cprintf("[%08x] user fault va %08x ip %08x\n",
+                curenv->env_id, fault_va, tf->tf_rip);
+               print_trapframe(tf);
+               env_destroy(curenv);
+       	}
+		
+	cprintf("\n PFH found \n");
+        //Verify that stack is allocated.
+       	user_mem_assert(curenv, (void*)UXSTACKTOP-1, 1, PTE_P|PTE_W|PTE_U);
+
+	//Check for stack overflow.
+	if (tf->tf_rsp-sizeof(arr)-8 >= UXSTACKTOP) {
+               cprintf("Exception stack overflow for env:\n", curenv->env_id);
+               print_trapframe(tf);
+               env_destroy(curenv);
+	}
+
+	//Store the trapframe
+       	memcpy(&(curenv->env_tf), tf, sizeof(struct Trapframe));
+
+	//Assign stacktop appropriately. In non-recursive case, stack top is UXSTACKTOP-sizeof(UTrapframe)
+	//In recursive case, stack top will point to tf->tf_rsp-sizeof(UTrapframe)-8. Note that 8 is scratch space.
+       	if (tf->tf_rsp < UXSTACKTOP && tf->tf_rsp > UXSTACKTOP - PGSIZE)
+       		stktop = tf->tf_rsp-sizeof(arr)-8;
+       	else
+		stktop = UXSTACKTOP-sizeof(arr);
+
+	//Prepare reverse-UTrapframe
+	arr[0]=fault_va;
+	arr[1]=tf->tf_err;
+	arr[2]=tf->tf_regs.reg_r15;
+	arr[3]=tf->tf_regs.reg_r14;
+	arr[4]=tf->tf_regs.reg_r13;
+	arr[5]=tf->tf_regs.reg_r12;
+	arr[6]=tf->tf_regs.reg_r11;
+	arr[7]=tf->tf_regs.reg_r10;
+	arr[8]=tf->tf_regs.reg_r9;
+	arr[9]=tf->tf_regs.reg_r8;
+	arr[10]=tf->tf_regs.reg_rsi;
+	arr[11]=tf->tf_regs.reg_rdi;
+	arr[12]=tf->tf_regs.reg_rbp;
+	arr[13]=tf->tf_regs.reg_rdx;
+	arr[14]=tf->tf_regs.reg_rcx;
+	arr[15]=tf->tf_regs.reg_rbx;
+	arr[16]=tf->tf_regs.reg_rax;
+	arr[17]=tf->tf_rip;
+	arr[18]=tf->tf_eflags;
+	arr[19]=tf->tf_rsp;
+
+	//Copy these values on the stack.
+	memcpy((void*)(stktop), (void*)arr, sizeof(arr));
+	tf->tf_rsp =  stktop;
+
+	//Force the env to execute _pgfault_upcall from pgfault.S
+        curenv->env_tf.tf_rip = (uintptr_t)curenv->env_pgfault_upcall;
+        env_run(curenv);
+	
 }
 

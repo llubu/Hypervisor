@@ -501,6 +501,7 @@ env_alloc(struct Env **newenv_store, envid_t parent_id)
 
     // Enable interrupts while in user mode.
     // LAB 4: Your code here.
+    e->env_tf.tf_eflags = FL_IF;
 
     // Clear the page fault handler until user installs one.
     e->env_pgfault_upcall = 0;
@@ -666,7 +667,15 @@ load_icode(struct Env *e, uint8_t *binary)
 	// Now map one page for the program's initial stack
 	// at virtual address USTACKTOP - PGSIZE.
 	region_alloc(e, (void*)(USTACKTOP-PGSIZE), PGSIZE);
+//	pdpe_t *abhi = pml4e_walk(e->env_pml4e, (void*)(USTACKTOP-PGSIZE), 0);
 
+//	    lcr3(e->env_cr3);
+//	pdpe_t *abhi1 = KADDR(PTE_ADDR(USTACKTOP-PGSIZE));
+
+
+
+
+//	    lcr3(boot_cr3);
 	// Magic to start executing environment at its address.
 	e->env_tf.tf_rip = elf->e_entry;
 
@@ -719,7 +728,7 @@ env_free(struct Env *e)
         lcr3(boot_cr3);
 
     // Note the environment's demise.
-    // cprintf("[%08x] free env %08x\n", curenv ? curenv->env_id : 0, e->env_id);
+     cprintf("[%08x] free env %08x\n", curenv ? curenv->env_id : 0, e->env_id);
 
     // Flush all mapped pages in the user portion of the address space
     pdpe_t *env_pdpe = KADDR(PTE_ADDR(e->env_pml4e[0]));
