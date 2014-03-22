@@ -13,7 +13,9 @@ int ept_alloc_static(epte_t *eptrt, struct VmxGuestInfo *ginfo);
 void free_guest_mem(epte_t* eptrt);
 void ept_gpa2hva(epte_t* eptrt, void *gpa, void **hva);
 int ept_page_insert(epte_t* eptrt, struct Page* pp, void* gpa, int perm);
-
+uint64_t e_pml4e_walk(epte_t *eptrt, void *gpa, int create);
+uint64_t e_pdpe_walk(pdpe_t *pdpe, void *gpa, int create);
+uint64_t e_pgdir_walk(pde_t *pgdir, void *gpa, int create);
 #define EPT_LEVELS 4
 
 #define VMX_EPT_FAULT_READ	0x01

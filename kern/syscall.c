@@ -532,6 +532,34 @@ sys_ept_map(envid_t srcenvid, void *srcva,
 	    envid_t guest, void* guest_pa, int perm)
 {
     /* Your code here */
+    int val = 0;
+    if ((uint64_t)srcenvid >= UTOP || (srcva != ROUNDUP(srcva, PGSIZE) && srcva != ROUNDDOWN(srcva, PGSIZE)) ||
+	    (uint64_t)guest_pa >= UTOP || (guest_pa != ROUNDUP(guest_pa, PGSIZE) && guest_pa != ROUNDDOWN(guest_pa, PGSIZE)))
+                return -E_INVAL;
+
+	if (!(perm & PTE_U) || !(perm & PTE_P))
+                return -E_INVAL;
+
+        struct Env *srcenv, *dstenv;
+        int srcerr = envid2env(srcenvid, &srcenv, 1);
+        int dsterr = envid2env(guest, &dstenv, 1);
+        if (srcerr < 0)
+                return srcerr;
+	else if (dsterr < 0)
+		return dsterr;
+// ERROR CHECK DONE
+	if (srcerr == 0 && dsterr == 0)
+	    val = ept_map_hva2gpa(dstenv->env_pml4e, (void *)srcva, (void *)guest_pa, perm, 1);
+
+	if (val < 0)
+	{
+	    return val;
+	}
+	else
+	{
+	    return 0;
+	}
+
     panic ("sys_ept_map not implemented");
     return 0;
 }
