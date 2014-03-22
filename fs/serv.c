@@ -202,6 +202,8 @@ serve_read(envid_t envid, union Fsipc *ipc)
 {
     struct Fsreq_read *req = &ipc->read;
     struct Fsret_read *ret = &ipc->readRet;
+    struct OpenFile *o;
+    int r;
 
     if (debug)
         cprintf("serve_read %08x %08x %08x\n", envid, req->req_fileid, req->req_n);
@@ -215,6 +217,22 @@ serve_read(envid_t envid, union Fsipc *ipc)
     // Hint: Use file_read.
     // Hint: The seek position is stored in the struct Fd.
     // LAB 5: Your code here
+
+    size_t toReadBytes, numBytesRead;
+
+    if (ipc->read.req_n > PGSIZE)
+	toReadBytes = PGSIZE;
+    else
+	toReadBytes = req->req_n;
+
+    if ((r = openfile_lookup(envid, req->req_fileid, &o)) < 0)
+	return r;
+
+//	cprintf("toReadBytes=%d r=%x ret=%x o->o_fd->fd_offset=%d\n",toReadBytes,r,ret,o->o_fd->fd_offset);
+    numBytesRead = file_read(o->o_file, (void*)ret, toReadBytes, o->o_fd->fd_offset);
+    o->o_fd->fd_offset+=numBytesRead;
+    return numBytesRead;
+
     panic("serve_read not implemented");
 }
 
@@ -225,10 +243,23 @@ serve_read(envid_t envid, union Fsipc *ipc)
     int
 serve_write(envid_t envid, struct Fsreq_write *req)
 {
+    struct OpenFile *o;
+    int r;
+    size_t numBytesWritten;
+
     if (debug)
         cprintf("serve_write %08x %08x %08x\n", envid, req->req_fileid, req->req_n);
 
     // LAB 5: Your code here.
+
+    if ((r = openfile_lookup(envid, req->req_fileid, &o)) < 0)
+	return r;
+
+    numBytesWritten = file_write(o->o_file, (void*)req->req_buf, req->req_n, o->o_fd->fd_offset);
+    o->o_fd->fd_offset+=numBytesWritten;
+    return numBytesWritten;
+
+    
     panic("serve_write not implemented");
 }
 

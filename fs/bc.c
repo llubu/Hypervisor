@@ -49,7 +49,16 @@ bc_pgfault(struct UTrapframe *utf)
     // the page dirty).
     //
     // LAB 5: Your code here
-    panic("bc_pgfault not implemented");
+    void *block_addr = ROUNDDOWN(addr, BLKSIZE);
+    if((r = sys_page_alloc(thisenv->env_id, block_addr, PTE_SYSCALL)) < 0)
+	panic("bc_pgfault:failed(err = %d) to map page at block %d\n",r,blockno);
+
+    if((r = ide_read(BLKSECTS * blockno, block_addr, BLKSECTS) < 0))
+	panic("bc_pgfault:failed to read the sector\n");
+
+    if((r = sys_page_map(thisenv->env_id, block_addr, thisenv->env_id, block_addr, PTE_SYSCALL)) < 0)
+	panic("bc_pgfault:failed to map the page back as not-dirty\n");
+
 
     // Check that the block we read was allocated. (exercise for
     // the reader: why do we do this *after* reading the block
@@ -74,7 +83,16 @@ flush_block(void *addr)
         panic("flush_block of bad va %08x", addr);
 
     // LAB 5: Your code here.
-    panic("flush_block not implemented");
+    int r;
+    void *block_addr = ROUNDDOWN(addr, BLKSIZE);
+    if (va_is_mapped(block_addr) && va_is_dirty(block_addr))
+    {
+	if((r = ide_write(BLKSECTS * blockno, block_addr, BLKSECTS) < 0))
+	    panic("flush_block:failed to write the sector\n");
+	if((r = sys_page_map(thisenv->env_id, block_addr, thisenv->env_id, block_addr, PTE_SYSCALL) < 0))
+	    panic("flush_block:failed to map the page as not-dirty\n");
+    }
+
 }
 
 // Test that the block cache works, by smashing the superblock and
