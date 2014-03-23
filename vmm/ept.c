@@ -179,7 +179,7 @@ int test_ept_map(void)
 
 	if ((r = env_guest_alloc(&dstenv, srcenv->env_id)) < 0)
 		panic("Failed to allocate guest env (%d)\n", r);
-	dstenv->env_vmxinfo.phys_sz = (uint64_t)UTEMP;
+	dstenv->env_vmxinfo.phys_sz = (uint64_t)UTEMP + PGSIZE;
 
 	/* 2. Check if sys_ept_map can verify guest phys_sz correctly */
 	if ((r = _export_sys_ept_map(srcenv->env_id, UTEMP, dstenv->env_id, UTEMP + PGSIZE, 0)) < 0)
