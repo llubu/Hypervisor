@@ -28,6 +28,7 @@ static inline bool vmx_check_support() {
     uint32_t eax, ebx, ecx, edx;
     cpuid( 1, &eax, &ebx, &ecx, &edx );
     /* Your code here */ 
+    cprintf("\n ECX :%x\n",ecx);
     if (1 == BIT(ecx, 5))
     {
 	return true;

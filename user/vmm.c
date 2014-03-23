@@ -40,6 +40,8 @@ umain(int argc, char **argv) {
     int ret;
     envid_t guest;
 
+    cprintf("\n IN USER VMM \n");
+
     if ((ret = sys_env_mkguest( GUEST_MEM_SZ, JOS_ENTRY )) < 0) {
         cprintf("Error creating a guest OS env: %e\n", ret );
         exit();

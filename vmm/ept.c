@@ -288,13 +288,17 @@ int ept_map_hva2gpa(epte_t* eptrt, void* hva, void* gpa, int perm,
     {
 	return -E_INVAL;
     }
+    if((perm & PTE_W) && (!(*pte_host & PTE_W)))
+    {
+	return -E_INVAL;
+    }
     host_ad = PTE_ADDR(*pte_host);
 
     val = ept_lookup_gpa(eptrt, gpa, 1, (epte_t**) &(pte_guest));
 
-    if (val == E_NO_ENT || val == E_NO_MEM)
+    if (val < 0)
     {
-	return -val;
+	return val;
     }
     else
     {
@@ -302,16 +306,22 @@ int ept_map_hva2gpa(epte_t* eptrt, void* hva, void* gpa, int perm,
 	{
 	    return -E_INVAL;
 	}
-	else
+	else if (*pte_guest && overwrite == 1 )
 	{
 	    *pte_guest = host_ad | perm;
 	    return 0;
 	}
+	if (!(*pte_guest))
+	{
+	    *pte_guest = host_ad | perm;
+	    return 0;
+	}
+
     }
 
  //   panic("ept_map_hva2gpa not implemented\n");
 
-//    return 0;
+    return 0;
 }
 
 int ept_alloc_static(epte_t *eptrt, struct VmxGuestInfo *ginfo) {

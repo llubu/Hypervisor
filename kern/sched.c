@@ -64,6 +64,15 @@ sched_yield(void)
 			env_run(&envs[i]);
     }
 
+    for (i = 0; i < NENV; i++) {
+	if (envs[i].env_type == ENV_TYPE_GUEST && envs[i].env_status == ENV_RUNNABLE)
+	{
+	    cprintf("GUEST starting in sched_yield");
+	    if ( !vmxon())
+		env_run(&envs[i]);
+	}
+    }
+
     // For debugging and testing purposes, if there are no
     // runnable environments other than the idle environments,
     // drop into the kernel monitor.

@@ -28,7 +28,8 @@ struct vmx_msr_entry {
 int vmx_init_vmxon();
 int vmx_vmrun( struct Env *e );
 struct Page * vmx_init_vmcs();
-
+static inline bool vmx_check_support();
+static inline bool vmx_check_ept();
 /* VMX Capalibility MSRs */
 #define IA32_VMX_BASIC 0X480
 #define IA32_VMX_PINBASED_CTLS 0X481

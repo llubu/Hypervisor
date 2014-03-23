@@ -543,14 +543,15 @@ sys_ept_map(envid_t srcenvid, void *srcva,
         struct Env *srcenv, *dstenv;
         int srcerr = envid2env(srcenvid, &srcenv, 1);
         int dsterr = envid2env(guest, &dstenv, 1);
-        if (srcerr < 0)
-                return srcerr;
-	else if (dsterr < 0)
-		return dsterr;
+        if (srcerr < 0 || dsterr < 0)
+	    return -E_BAD_ENV;
 // ERROR CHECK DONE
 	if (srcerr == 0 && dsterr == 0)
+	{
+	    if ((uint64_t)guest_pa + PGSIZE > dstenv->env_vmxinfo.phys_sz)
+		            return -E_INVAL;
 	    val = ept_map_hva2gpa(dstenv->env_pml4e, (void *)srcva, (void *)guest_pa, perm, 1);
-
+	}
 	if (val < 0)
 	{
 	    return val;

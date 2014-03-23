@@ -55,3 +55,7 @@ Error copying page into the guest - 4294967280
 [00001004] exiting gracefully
 [00001004] free env 00001004
 $ 
+[00002002] new env 00002004
+[00002004] exiting gracefully
+[00002004] free env 00002004
+$ 
