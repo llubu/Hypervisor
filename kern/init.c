@@ -108,13 +108,9 @@ i386_init(void)
 	test_ept_map();
 #endif
 	ENV_CREATE(user_icode, ENV_TYPE_USER);
-<<<<<<< HEAD
 //	ENV_CREATE(user_primes, ENV_TYPE_USER);
 //	ENV_CREATE(user_yield, ENV_TYPE_USER);
-#endif // TEST*
-=======
 #endif // No environments until lab3
->>>>>>> ab51840e6147135bda341117dfbfec24f2c1248b
 
 	// Should not be necessary - drains keyboard because interrupt has given up.
 	kbd_intr();
