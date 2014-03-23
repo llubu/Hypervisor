@@ -517,7 +517,7 @@ sys_time_msec(void)
 //		or the caller doesn't have permission to change one of them.
 //	-E_INVAL if srcva >= UTOP or srcva is not page-aligned,
 //		or guest_pa >= guest physical size or guest_pa is not page-aligned.
-//	-E_INVAL is guest_pa is not mapped in srcenvid's address space.
+//	-E_INVAL is srcva is not mapped in srcenvid's address space.
 //	-E_INVAL if perm is inappropriate 
 //	-E_INVAL if (perm & PTE_W), but srcva is read-only in srcenvid's
 //		address space.
@@ -646,4 +646,13 @@ syscall(uint64_t syscallno, uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
     }
     return 0;
 }
+
+#ifdef TEST_EPT_MAP
+int
+_export_sys_ept_map(envid_t srcenvid, void *srcva,
+	    envid_t guest, void* guest_pa, int perm)
+{
+	return sys_ept_map(srcenvid, srcva, guest, guest_pa, perm);
+}
+#endif
 
