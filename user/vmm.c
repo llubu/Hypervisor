@@ -47,7 +47,7 @@ umain(int argc, char **argv) {
         exit();
     }
     guest = ret;
-
+cprintf("\n AFTER CREATING VMM ENV \n");
     // Copy the guest kernel code into guest phys mem.
     if((ret = copy_guest_kern_gpa(guest, GUEST_KERN)) < 0) {
 	cprintf("Error copying page into the guest - %d\n.", ret);

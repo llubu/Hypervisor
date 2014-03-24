@@ -335,7 +335,8 @@ env_guest_alloc(struct Env **newenv_store, envid_t parent_id)
 {
     int32_t generation;
     struct Env *e;
-
+    
+    cprintf("\n IN ENV_GUEST_ALLOC \n");
     if (!(e = env_free_list))
         return -E_NO_FREE_ENV;
 

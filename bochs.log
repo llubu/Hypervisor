@@ -1,0 +1,365 @@
+00000000000i[     ] Bochs x86 Emulator 2.6.2
+00000000000i[     ]   Built from SVN snapshot on May 26, 2013
+00000000000i[     ] Compiled on May 26 2013 at 09:29:19
+00000000000i[     ] System configuration
+00000000000i[     ]   processors: 1 (cores=1, HT threads=1)
+00000000000i[     ]   A20 line support: yes
+00000000000i[     ] IPS is set to 4000000
+00000000000i[     ] CPU configuration
+00000000000i[     ]   SMP support: no
+00000000000i[     ]   level: 6
+00000000000i[     ]   APIC support: xapic
+00000000000i[     ]   FPU support: yes
+00000000000i[     ]   MMX support: yes
+00000000000i[     ]   3dnow! support: no
+00000000000i[     ]   SEP support: yes
+00000000000i[     ]   SSE support: sse2
+00000000000i[     ]   XSAVE support: no 
+00000000000i[     ]   AES support: no
+00000000000i[     ]   MOVBE support: no
+00000000000i[     ]   ADX support: no
+00000000000i[     ]   x86-64 support: yes
+00000000000i[     ]   1G paging support: no
+00000000000i[     ]   MWAIT support: yes
+00000000000i[     ]   VMX support: 2
+00000000000i[     ] Optimization configuration
+00000000000i[     ]   RepeatSpeedups support: yes
+00000000000i[     ]   Fast function calls: yes
+00000000000i[     ]   Handlers Chaining speedups: yes
+00000000000i[     ] Devices configuration
+00000000000i[     ]   NE2000 support: yes
+00000000000i[     ]   PCI support: yes, enabled=yes
+00000000000i[     ]   SB16 support: yes
+00000000000i[     ]   USB support: yes
+00000000000i[     ]   VGA extension support: vbe cirrus voodoo
+00000000000i[MEM0 ] allocated memory at 0x7f242e12a010. after alignment, vector=0x7f242e12b000
+00000000000i[MEM0 ] 128.00MB
+00000000000i[MEM0 ] mem block size = 0x00100000, blocks=128
+00000000000i[MEM0 ] rom at 0xfffe0000/131072 ('/usr/share/bochs/BIOS-bochs-latest')
+00000000000i[     ] lt_dlhandle is 0x43fcfc0
+00000000000i[PLGIN] loaded plugin libbx_hdimage.so
+00000000000i[     ] lt_dlhandle is 0x43fda30
+00000000000i[PLGIN] loaded plugin libbx_pci.so
+00000000000i[     ] lt_dlhandle is 0x43fe380
+00000000000i[PLGIN] loaded plugin libbx_pci2isa.so
+00000000000i[     ] lt_dlhandle is 0x43fedf0
+00000000000i[PLGIN] loaded plugin libbx_usb_uhci.so
+00000000000i[     ] lt_dlhandle is 0x44014b0
+00000000000i[PLGIN] loaded plugin libbx_usb_common.so
+00000000000i[     ] lt_dlhandle is 0x4401df0
+00000000000i[PLGIN] loaded plugin libbx_acpi.so
+00000000000i[     ] lt_dlhandle is 0x44027d0
+00000000000i[PLGIN] loaded plugin libbx_cmos.so
+00000000000i[     ] lt_dlhandle is 0x4403040
+00000000000i[PLGIN] loaded plugin libbx_dma.so
+00000000000i[     ] lt_dlhandle is 0x4403a80
+00000000000i[PLGIN] loaded plugin libbx_pic.so
+00000000000i[     ] lt_dlhandle is 0x4404330
+00000000000i[PLGIN] loaded plugin libbx_pit.so
+00000000000i[     ] lt_dlhandle is 0x4404d40
+00000000000i[PLGIN] loaded plugin libbx_floppy.so
+00000000000i[     ] lt_dlhandle is 0x44058c0
+00000000000i[PLGIN] loaded plugin libbx_vga.so
+00000000000i[     ] lt_dlhandle is 0x4406020
+00000000000i[PLGIN] loaded plugin libbx_ioapic.so
+00000000000i[     ] lt_dlhandle is 0x4406a20
+00000000000i[PLGIN] loaded plugin libbx_keyboard.so
+00000000000i[     ] lt_dlhandle is 0x4407530
+00000000000i[PLGIN] loaded plugin libbx_harddrv.so
+00000000000i[     ] lt_dlhandle is 0x4419380
+00000000000i[PLGIN] loaded plugin libbx_pci_ide.so
+00000000000i[PLGIN] init_dev of 'pci' plugin device by virtual method
+00000000000i[DEV  ] i440FX PMC present at device 0, function 0
+00000000000i[PLGIN] init_dev of 'pci2isa' plugin device by virtual method
+00000000000i[DEV  ] PIIX3 PCI-to-ISA bridge present at device 1, function 0
+00000000000i[PLGIN] init_dev of 'cmos' plugin device by virtual method
+00000000000i[CMOS ] Using local time for initial clock
+00000000000i[CMOS ] Setting initial clock to: Sun Mar 23 20:18:49 2014 (time0=1395620329)
+00000000000i[PLGIN] init_dev of 'dma' plugin device by virtual method
+00000000000i[DMA  ] channel 4 used by cascade
+00000000000i[PLGIN] init_dev of 'pic' plugin device by virtual method
+00000000000i[PLGIN] init_dev of 'pit' plugin device by virtual method
+00000000000i[PLGIN] init_dev of 'floppy' plugin device by virtual method
+00000000000i[DMA  ] channel 2 used by Floppy Drive
+00000000000i[PLGIN] init_dev of 'vga' plugin device by virtual method
+00000000000i[MEM0 ] Register memory access handlers: 0x0000000a0000 - 0x0000000bffff
+00000000000i[VGA  ] interval=200000
+00000000000i[MEM0 ] Register memory access handlers: 0x0000e0000000 - 0x0000e0ffffff
+00000000000i[BXVGA] VBE Bochs Display Extension Enabled
+00000000000i[MEM0 ] rom at 0xc0000/41472 ('/usr/share/bochs/VGABIOS-lgpl-latest')
+00000000000i[PLGIN] init_dev of 'acpi' plugin device by virtual method
+00000000000i[DEV  ] ACPI Controller present at device 1, function 3
+00000000000i[PLGIN] init_dev of 'ioapic' plugin device by virtual method
+00000000000i[IOAP ] initializing I/O APIC
+00000000000i[MEM0 ] Register memory access handlers: 0x0000fec00000 - 0x0000fec00fff
+00000000000i[IOAP ] IOAPIC enabled (base address = 0xfec00000)
+00000000000i[PLGIN] init_dev of 'keyboard' plugin device by virtual method
+00000000000i[KBD  ] will paste characters every 400 keyboard ticks
+00000000000i[PLGIN] init_dev of 'harddrv' plugin device by virtual method
+00000000000i[HD   ] HD on ata0-0: '/home/cse591/virtualization/cse591/lab/obj/kern/kernel.img', 'flat' mode
+00000000000i[IMG  ] hd_size: 10240000
+00000000000i[HD   ] ata0-0: using specified geometry: CHS=1/1/32
+00000000000i[HD   ] ata0-0: extra data outside of CHS address range
+00000000000i[HD   ] HD on ata0-1: '/home/cse591/virtualization/cse591/lab/obj/fs/fs.img', 'flat' mode
+00000000000i[IMG  ] hd_size: 16777216
+00000000000i[HD   ] ata0-1: using specified geometry: CHS=1/1/32
+00000000000i[HD   ] ata0-1: extra data outside of CHS address range
+00000000000i[HD   ] translation on ata0-0 set to 'none'
+00000000000i[HD   ] translation on ata0-1 set to 'none'
+00000000000i[HD   ] Using boot sequence floppy, disk, none
+00000000000i[HD   ] Floppy boot signature check is enabled
+00000000000i[PLGIN] init_dev of 'pci_ide' plugin device by virtual method
+00000000000i[DEV  ] PIIX3 PCI IDE controller present at device 1, function 1
+00000000000i[PLGIN] init_dev of 'unmapped' plugin device by virtual method
+00000000000i[PLGIN] init_dev of 'biosdev' plugin device by virtual method
+00000000000i[PLGIN] init_dev of 'speaker' plugin device by virtual method
+00000000000i[PLGIN] init_dev of 'extfpuirq' plugin device by virtual method
+00000000000i[PLGIN] init_dev of 'parallel' plugin device by virtual method
+00000000000i[PAR  ] parallel port 1 at 0x0378 irq 7
+00000000000i[PLGIN] init_dev of 'serial' plugin device by virtual method
+00000000000i[SER  ] com1 at 0x03f8 irq 4
+00000000000i[PLGIN] init_dev of 'gameport' plugin device by virtual method
+00000000000i[PLGIN] init_dev of 'usb_uhci' plugin device by virtual method
+00000000000i[DEV  ] Experimental USB UHCI present at device 1, function 2
+00000000000i[UHCI ] USB UHCI initialized
+00000000000i[PLGIN] register state of 'pci' plugin device by virtual method
+00000000000i[PLGIN] register state of 'pci2isa' plugin device by virtual method
+00000000000i[PLGIN] register state of 'cmos' plugin device by virtual method
+00000000000i[PLGIN] register state of 'dma' plugin device by virtual method
+00000000000i[PLGIN] register state of 'pic' plugin device by virtual method
+00000000000i[PLGIN] register state of 'pit' plugin device by virtual method
+00000000000i[PLGIN] register state of 'floppy' plugin device by virtual method
+00000000000i[PLGIN] register state of 'vga' plugin device by virtual method
+00000000000i[PLGIN] register state of 'unmapped' plugin device by virtual method
+00000000000i[PLGIN] register state of 'biosdev' plugin device by virtual method
+00000000000i[PLGIN] register state of 'speaker' plugin device by virtual method
+00000000000i[PLGIN] register state of 'extfpuirq' plugin device by virtual method
+00000000000i[PLGIN] register state of 'parallel' plugin device by virtual method
+00000000000i[PLGIN] register state of 'serial' plugin device by virtual method
+00000000000i[PLGIN] register state of 'gameport' plugin device by virtual method
+00000000000i[PLGIN] register state of 'usb_uhci' plugin device by virtual method
+00000000000i[PLGIN] register state of 'acpi' plugin device by virtual method
+00000000000i[PLGIN] register state of 'ioapic' plugin device by virtual method
+00000000000i[PLGIN] register state of 'keyboard' plugin device by virtual method
+00000000000i[PLGIN] register state of 'harddrv' plugin device by virtual method
+00000000000i[PLGIN] register state of 'pci_ide' plugin device by virtual method
+00000000000i[SYS  ] bx_pc_system_c::Reset(HARDWARE) called
+00000000000i[CPU0 ] cpu hardware reset
+00000000000i[APIC0] allocate APIC id=0 (MMIO enabled) to 0x0000fee00000
+00000000000i[CPU0 ] CPUID[0x00000000]: 00000005 68747541 444d4163 69746e65
+00000000000i[CPU0 ] CPUID[0x00000001]: 00000633 00010800 00002028 1fcbfbff
+00000000000i[CPU0 ] CPUID[0x00000002]: 00410601 00000000 00000000 00000000
+00000000000i[CPU0 ] CPUID[0x00000003]: 00000000 00000000 00000000 00000000
+00000000000i[CPU0 ] CPUID[0x00000004]: 00000000 00000000 00000000 00000000
+00000000000i[CPU0 ] CPUID[0x00000005]: 00000040 00000040 00000003 00000020
+00000000000i[CPU0 ] CPUID[0x80000000]: 80000008 00000000 00000000 00000000
+00000000000i[CPU0 ] CPUID[0x80000001]: 00000000 00000000 00000101 2a100000
+00000000000i[CPU0 ] CPUID[0x80000002]: 20444d41 6c687441 74286e6f 7020296d
+00000000000i[CPU0 ] CPUID[0x80000003]: 65636f72 726f7373 00000000 00000000
+00000000000i[CPU0 ] CPUID[0x80000004]: 00000000 00000000 00000000 00000000
+00000000000i[CPU0 ] CPUID[0x80000005]: 01ff01ff 01ff01ff 40020140 40020140
+00000000000i[CPU0 ] CPUID[0x80000006]: 00000000 42004200 02008140 00000000
+00000000000i[CPU0 ] CPUID[0x80000007]: 00000000 00000000 00000000 00000000
+00000000000i[CPU0 ] CPUID[0x80000008]: 00003028 00000000 00000000 00000000
+00000000000i[PLGIN] reset of 'pci' plugin device by virtual method
+00000000000i[PLGIN] reset of 'pci2isa' plugin device by virtual method
+00000000000i[PLGIN] reset of 'cmos' plugin device by virtual method
+00000000000i[PLGIN] reset of 'dma' plugin device by virtual method
+00000000000i[PLGIN] reset of 'pic' plugin device by virtual method
+00000000000i[PLGIN] reset of 'pit' plugin device by virtual method
+00000000000i[PLGIN] reset of 'floppy' plugin device by virtual method
+00000000000i[PLGIN] reset of 'vga' plugin device by virtual method
+00000000000i[PLGIN] reset of 'acpi' plugin device by virtual method
+00000000000i[PLGIN] reset of 'ioapic' plugin device by virtual method
+00000000000i[PLGIN] reset of 'keyboard' plugin device by virtual method
+00000000000i[PLGIN] reset of 'harddrv' plugin device by virtual method
+00000000000i[PLGIN] reset of 'pci_ide' plugin device by virtual method
+00000000000i[PLGIN] reset of 'unmapped' plugin device by virtual method
+00000000000i[PLGIN] reset of 'biosdev' plugin device by virtual method
+00000000000i[PLGIN] reset of 'speaker' plugin device by virtual method
+00000000000e[SPEAK] Failed to open /dev/console: Permission denied
+00000000000e[SPEAK] Deactivating beep on console
+00000000000i[PLGIN] reset of 'extfpuirq' plugin device by virtual method
+00000000000i[PLGIN] reset of 'parallel' plugin device by virtual method
+00000000000i[PLGIN] reset of 'serial' plugin device by virtual method
+00000000000i[PLGIN] reset of 'gameport' plugin device by virtual method
+00000000000i[PLGIN] reset of 'usb_uhci' plugin device by virtual method
+00000000019i[MEM0 ] allocate_block: block=0x0 used 0x1 of 0x80
+00000004655i[BIOS ] $Revision: 11545 $ $Date: 2012-11-11 09:11:17 +0100 (So, 11. Nov 2012) $
+00000318061i[KBD  ] reset-disable command received
+00000320697i[BIOS ] Starting rombios32
+00000321138i[BIOS ] Shutdown flag 0
+00000321709i[BIOS ] ram_size=0x08000000
+00000322189i[BIOS ] ram_end=128MB
+00001251762i[BIOS ] Found 1 cpu(s)
+00001266002i[BIOS ] bios_table_addr: 0x000fa448 end=0x000fcc00
+00001593001i[PCI  ] i440FX PMC write to PAM register 59 (TLB Flush)
+00001921743i[P2I  ] PCI IRQ routing: PIRQA# set to 0x0b
+00001921768i[P2I  ] PCI IRQ routing: PIRQB# set to 0x09
+00001921768i[P2I  ] PCI IRQ routing: PIRQC# set to 0x0b
+00001921768i[P2I  ] PCI IRQ routing: PIRQD# set to 0x09
+00001921768i[P2I  ] write: ELCR2 = 0x0a
+00001922422i[BIOS ] PIIX3/PIIX4 init: elcr=00 0a
+00001930005i[BIOS ] PCI: bus=0 devfn=0x00: vendor_id=0x8086 device_id=0x1237 class=0x0600
+00001932162i[BIOS ] PCI: bus=0 devfn=0x08: vendor_id=0x8086 device_id=0x7000 class=0x0601
+00001934271i[BIOS ] PCI: bus=0 devfn=0x09: vendor_id=0x8086 device_id=0x7010 class=0x0101
+00001934890i[PIDE ] new BM-DMA address: 0xc000
+00001935411i[BIOS ] region 4: 0x0000c000
+00001937119i[BIOS ] PCI: bus=0 devfn=0x0a: vendor_id=0x8086 device_id=0x7020 class=0x0c03
+00001937713i[UHCI ] new base address: 0xc020
+00001938234i[BIOS ] region 4: 0x0000c020
+00001938400i[UHCI ] new irq line = 9
+00001940004i[BIOS ] PCI: bus=0 devfn=0x0b: vendor_id=0x8086 device_id=0x7113 class=0x0680
+00001940379i[ACPI ] new irq line = 11
+00001940608i[ACPI ] new irq line = 9
+00001940629i[ACPI ] new PM base address: 0xb000
+00001940629i[ACPI ] new SM base address: 0xb100
+00001940661i[PCI  ] setting SMRAM control register to 0x4a
+00002104779i[CPU0 ] Enter to System Management Mode
+00002104779i[CPU0 ] enter_system_management_mode: temporary disable VMX while in SMM mode
+00002104783i[CPU0 ] RSM: Resuming from System Management Mode
+00002268802i[PCI  ] setting SMRAM control register to 0x0a
+00002283374i[BIOS ] MP table addr=0x000fa520 MPC table addr=0x000fa450 size=0xc8
+00002285322i[BIOS ] SMBIOS table addr=0x000fa530
+00002285541i[MEM0 ] allocate_block: block=0x7f used 0x2 of 0x80
+00002287265i[BIOS ] ACPI tables: RSDP addr=0x000fa650 ACPI DATA addr=0x07ff0000 size=0xf72
+00002290690i[BIOS ] Firmware waking vector 0x7ff00cc
+00002292668i[PCI  ] i440FX PMC write to PAM register 59 (TLB Flush)
+00002293222i[BIOS ] bios_table_cur_addr: 0x000fa674
+00002421026i[VBIOS] VGABios $Id: vgabios.c,v 1.75 2011/10/15 14:07:21 vruppert Exp $
+00002421096i[BXVGA] VBE known Display Interface b0c0
+00002421128i[BXVGA] VBE known Display Interface b0c5
+00002424054i[VBIOS] VBE Bios $Id: vbe.c,v 1.64 2011/07/19 18:25:05 vruppert Exp $
+00002763260i[BIOS ] ata0-0: PCHS=1/1/32 translation=none LCHS=1/1/32
+00002816805i[BIOS ] ata0-1: PCHS=1/1/32 translation=none LCHS=1/1/32
+00015020340i[BIOS ] Booting from 0000:7c00
+00015024704i[MEM0 ] allocate_block: block=0x1 used 0x3 of 0x80
+00015035677i[MEM0 ] allocate_block: block=0x2 used 0x4 of 0x80
+00015428730i[MEM0 ] allocate_block: block=0x3 used 0x5 of 0x80
+00015821946i[MEM0 ] allocate_block: block=0x4 used 0x6 of 0x80
+00016215162i[MEM0 ] allocate_block: block=0x5 used 0x7 of 0x80
+00024141617i[MEM0 ] allocate_block: block=0x6 used 0x8 of 0x80
+00040915737i[MEM0 ] allocate_block: block=0x7e used 0x9 of 0x80
+00041202969i[MEM0 ] allocate_block: block=0x7d used 0xa of 0x80
+00041490201i[MEM0 ] allocate_block: block=0x7c used 0xb of 0x80
+00041777433i[MEM0 ] allocate_block: block=0x7b used 0xc of 0x80
+00042064665i[MEM0 ] allocate_block: block=0x7a used 0xd of 0x80
+00042351897i[MEM0 ] allocate_block: block=0x79 used 0xe of 0x80
+00042639129i[MEM0 ] allocate_block: block=0x78 used 0xf of 0x80
+00042926361i[MEM0 ] allocate_block: block=0x77 used 0x10 of 0x80
+00043213593i[MEM0 ] allocate_block: block=0x76 used 0x11 of 0x80
+00043500825i[MEM0 ] allocate_block: block=0x75 used 0x12 of 0x80
+00043788057i[MEM0 ] allocate_block: block=0x74 used 0x13 of 0x80
+00044075289i[MEM0 ] allocate_block: block=0x73 used 0x14 of 0x80
+00044362521i[MEM0 ] allocate_block: block=0x72 used 0x15 of 0x80
+00044649753i[MEM0 ] allocate_block: block=0x71 used 0x16 of 0x80
+00044936985i[MEM0 ] allocate_block: block=0x70 used 0x17 of 0x80
+00045224217i[MEM0 ] allocate_block: block=0x6f used 0x18 of 0x80
+00045511449i[MEM0 ] allocate_block: block=0x6e used 0x19 of 0x80
+00045798681i[MEM0 ] allocate_block: block=0x6d used 0x1a of 0x80
+00046085913i[MEM0 ] allocate_block: block=0x6c used 0x1b of 0x80
+00046373145i[MEM0 ] allocate_block: block=0x6b used 0x1c of 0x80
+00046660377i[MEM0 ] allocate_block: block=0x6a used 0x1d of 0x80
+00046947609i[MEM0 ] allocate_block: block=0x69 used 0x1e of 0x80
+00047234841i[MEM0 ] allocate_block: block=0x68 used 0x1f of 0x80
+00047522073i[MEM0 ] allocate_block: block=0x67 used 0x20 of 0x80
+00047809305i[MEM0 ] allocate_block: block=0x66 used 0x21 of 0x80
+00048096537i[MEM0 ] allocate_block: block=0x65 used 0x22 of 0x80
+00048383769i[MEM0 ] allocate_block: block=0x64 used 0x23 of 0x80
+00048671001i[MEM0 ] allocate_block: block=0x63 used 0x24 of 0x80
+00048958233i[MEM0 ] allocate_block: block=0x62 used 0x25 of 0x80
+00049245465i[MEM0 ] allocate_block: block=0x61 used 0x26 of 0x80
+00049532697i[MEM0 ] allocate_block: block=0x60 used 0x27 of 0x80
+00049819929i[MEM0 ] allocate_block: block=0x5f used 0x28 of 0x80
+00050107161i[MEM0 ] allocate_block: block=0x5e used 0x29 of 0x80
+00050394393i[MEM0 ] allocate_block: block=0x5d used 0x2a of 0x80
+00050681625i[MEM0 ] allocate_block: block=0x5c used 0x2b of 0x80
+00050968857i[MEM0 ] allocate_block: block=0x5b used 0x2c of 0x80
+00051256089i[MEM0 ] allocate_block: block=0x5a used 0x2d of 0x80
+00051543321i[MEM0 ] allocate_block: block=0x59 used 0x2e of 0x80
+00051830553i[MEM0 ] allocate_block: block=0x58 used 0x2f of 0x80
+00052117785i[MEM0 ] allocate_block: block=0x57 used 0x30 of 0x80
+00052405017i[MEM0 ] allocate_block: block=0x56 used 0x31 of 0x80
+00052692249i[MEM0 ] allocate_block: block=0x55 used 0x32 of 0x80
+00052979481i[MEM0 ] allocate_block: block=0x54 used 0x33 of 0x80
+00053266713i[MEM0 ] allocate_block: block=0x53 used 0x34 of 0x80
+00053553945i[MEM0 ] allocate_block: block=0x52 used 0x35 of 0x80
+00053841177i[MEM0 ] allocate_block: block=0x51 used 0x36 of 0x80
+00054128409i[MEM0 ] allocate_block: block=0x50 used 0x37 of 0x80
+00054415641i[MEM0 ] allocate_block: block=0x4f used 0x38 of 0x80
+00054702873i[MEM0 ] allocate_block: block=0x4e used 0x39 of 0x80
+00054990105i[MEM0 ] allocate_block: block=0x4d used 0x3a of 0x80
+00055277337i[MEM0 ] allocate_block: block=0x4c used 0x3b of 0x80
+00055564569i[MEM0 ] allocate_block: block=0x4b used 0x3c of 0x80
+00055851801i[MEM0 ] allocate_block: block=0x4a used 0x3d of 0x80
+00056139033i[MEM0 ] allocate_block: block=0x49 used 0x3e of 0x80
+00056426265i[MEM0 ] allocate_block: block=0x48 used 0x3f of 0x80
+00056713497i[MEM0 ] allocate_block: block=0x47 used 0x40 of 0x80
+00057000729i[MEM0 ] allocate_block: block=0x46 used 0x41 of 0x80
+00057287961i[MEM0 ] allocate_block: block=0x45 used 0x42 of 0x80
+00057575193i[MEM0 ] allocate_block: block=0x44 used 0x43 of 0x80
+00057862425i[MEM0 ] allocate_block: block=0x43 used 0x44 of 0x80
+00058149657i[MEM0 ] allocate_block: block=0x42 used 0x45 of 0x80
+00058436889i[MEM0 ] allocate_block: block=0x41 used 0x46 of 0x80
+00058724121i[MEM0 ] allocate_block: block=0x40 used 0x47 of 0x80
+00059011353i[MEM0 ] allocate_block: block=0x3f used 0x48 of 0x80
+00059298585i[MEM0 ] allocate_block: block=0x3e used 0x49 of 0x80
+00059585817i[MEM0 ] allocate_block: block=0x3d used 0x4a of 0x80
+00059873049i[MEM0 ] allocate_block: block=0x3c used 0x4b of 0x80
+00060160281i[MEM0 ] allocate_block: block=0x3b used 0x4c of 0x80
+00060447513i[MEM0 ] allocate_block: block=0x3a used 0x4d of 0x80
+00060734745i[MEM0 ] allocate_block: block=0x39 used 0x4e of 0x80
+00061021977i[MEM0 ] allocate_block: block=0x38 used 0x4f of 0x80
+00061309209i[MEM0 ] allocate_block: block=0x37 used 0x50 of 0x80
+00061596441i[MEM0 ] allocate_block: block=0x36 used 0x51 of 0x80
+00061883673i[MEM0 ] allocate_block: block=0x35 used 0x52 of 0x80
+00062170905i[MEM0 ] allocate_block: block=0x34 used 0x53 of 0x80
+00062458137i[MEM0 ] allocate_block: block=0x33 used 0x54 of 0x80
+00062503327i[NGUI ] ips = 62.503M
+00062745369i[MEM0 ] allocate_block: block=0x32 used 0x55 of 0x80
+00063032601i[MEM0 ] allocate_block: block=0x31 used 0x56 of 0x80
+00063319833i[MEM0 ] allocate_block: block=0x30 used 0x57 of 0x80
+00063607065i[MEM0 ] allocate_block: block=0x2f used 0x58 of 0x80
+00063894297i[MEM0 ] allocate_block: block=0x2e used 0x59 of 0x80
+00064181529i[MEM0 ] allocate_block: block=0x2d used 0x5a of 0x80
+00064468761i[MEM0 ] allocate_block: block=0x2c used 0x5b of 0x80
+00064755993i[MEM0 ] allocate_block: block=0x2b used 0x5c of 0x80
+00065043225i[MEM0 ] allocate_block: block=0x2a used 0x5d of 0x80
+00065330457i[MEM0 ] allocate_block: block=0x29 used 0x5e of 0x80
+00065617689i[MEM0 ] allocate_block: block=0x28 used 0x5f of 0x80
+00065904921i[MEM0 ] allocate_block: block=0x27 used 0x60 of 0x80
+00066192153i[MEM0 ] allocate_block: block=0x26 used 0x61 of 0x80
+00066479385i[MEM0 ] allocate_block: block=0x25 used 0x62 of 0x80
+00066766617i[MEM0 ] allocate_block: block=0x24 used 0x63 of 0x80
+00067053849i[MEM0 ] allocate_block: block=0x23 used 0x64 of 0x80
+00067341081i[MEM0 ] allocate_block: block=0x22 used 0x65 of 0x80
+00067628313i[MEM0 ] allocate_block: block=0x21 used 0x66 of 0x80
+00067915545i[MEM0 ] allocate_block: block=0x20 used 0x67 of 0x80
+00068202777i[MEM0 ] allocate_block: block=0x1f used 0x68 of 0x80
+00068490009i[MEM0 ] allocate_block: block=0x1e used 0x69 of 0x80
+00068777241i[MEM0 ] allocate_block: block=0x1d used 0x6a of 0x80
+00069064473i[MEM0 ] allocate_block: block=0x1c used 0x6b of 0x80
+00069351705i[MEM0 ] allocate_block: block=0x1b used 0x6c of 0x80
+00069638937i[MEM0 ] allocate_block: block=0x1a used 0x6d of 0x80
+00069926169i[MEM0 ] allocate_block: block=0x19 used 0x6e of 0x80
+00070213401i[MEM0 ] allocate_block: block=0x18 used 0x6f of 0x80
+00070500633i[MEM0 ] allocate_block: block=0x17 used 0x70 of 0x80
+00070787865i[MEM0 ] allocate_block: block=0x16 used 0x71 of 0x80
+00071075097i[MEM0 ] allocate_block: block=0x15 used 0x72 of 0x80
+00071362329i[MEM0 ] allocate_block: block=0x14 used 0x73 of 0x80
+00071649561i[MEM0 ] allocate_block: block=0x13 used 0x74 of 0x80
+00071936793i[MEM0 ] allocate_block: block=0x12 used 0x75 of 0x80
+00072224025i[MEM0 ] allocate_block: block=0x11 used 0x76 of 0x80
+00072511257i[MEM0 ] allocate_block: block=0x10 used 0x77 of 0x80
+00072798489i[MEM0 ] allocate_block: block=0xf used 0x78 of 0x80
+00073085721i[MEM0 ] allocate_block: block=0xe used 0x79 of 0x80
+00073372953i[MEM0 ] allocate_block: block=0xd used 0x7a of 0x80
+00073660185i[MEM0 ] allocate_block: block=0xc used 0x7b of 0x80
+00073947417i[MEM0 ] allocate_block: block=0xb used 0x7c of 0x80
+00074234649i[MEM0 ] allocate_block: block=0xa used 0x7d of 0x80
+00074521881i[MEM0 ] allocate_block: block=0x9 used 0x7e of 0x80
+00074809113i[MEM0 ] allocate_block: block=0x8 used 0x7f of 0x80
+00075096345i[MEM0 ] allocate_block: block=0x7 used 0x80 of 0x80
+00114831681i[NGUI ] ips = 52.328M
+00164900979i[NGUI ] ips = 50.069M
+00215027072i[NGUI ] ips = 50.126M

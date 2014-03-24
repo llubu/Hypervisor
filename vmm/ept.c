@@ -52,6 +52,7 @@ static int ept_lookup_gpa(epte_t* eptrt, void *gpa,
     uint64_t val = 0;
 
     /* Your code here */
+    cprintf("\n IN EPT_LOOKUP_GPA\n");
     if ( NULL == eptrt)
     {
 	return -E_INVAL;
@@ -97,6 +98,7 @@ uint64_t e_pml4e_walk(epte_t *eptrt, void *gpa, int create)
 
 	    if (NULL == new_epdpe )
 	    {
+		cprintf("LINE %d\n", __LINE__);
 		return E_NO_MEM;
 	    }
 
@@ -104,9 +106,11 @@ uint64_t e_pml4e_walk(epte_t *eptrt, void *gpa, int create)
 	    epdpe_base = (pdpe_t *)(page2pa(new_epdpe));
 	    pte_t *epte = (pte_t *) e_pdpe_walk((pdpe_t *)page2kva(new_epdpe), gpa, create);
 
-	    if (NULL == epte )
+	    if (NULL == epte || epte == (pte_t *)E_NO_MEM || epte == (pte_t *)E_NO_ENT)
 	    {
+		cprintf("LINE %d %p\n", __LINE__, epte);
 		page_decref(new_epdpe);
+		return E_NO_MEM;
 	    }
 	    else
 	    {
@@ -119,7 +123,7 @@ uint64_t e_pml4e_walk(epte_t *eptrt, void *gpa, int create)
     {
 	return (uint64_t) e_pdpe_walk(KADDR((uint64_t)epdpe_base), gpa, create);
     }
-    return 0;
+//    return 0;
 }
 
 // Helper to walk ePdpe level PT same as pdpe_walk
@@ -130,7 +134,7 @@ uint64_t e_pdpe_walk(pdpe_t *pdpe, void *gpa, int create)
     pdpe_t *offset_ptr_in_epdpe = pdpe + index_in_epdp;
     pde_t *epgdir_base = (pde_t *) PTE_ADDR(*offset_ptr_in_epdpe);
 
-    if ( 0 == epgdir_base )
+    if ( NULL == epgdir_base )
     {
 	if ( 0 == create )
 	{
@@ -142,6 +146,7 @@ uint64_t e_pdpe_walk(pdpe_t *pdpe, void *gpa, int create)
 
 	    if (!new_epde)
 	    {
+		cprintf("LINE %d\n", __LINE__);
 		return E_NO_MEM;
 	    }
 
@@ -149,9 +154,11 @@ uint64_t e_pdpe_walk(pdpe_t *pdpe, void *gpa, int create)
 	    epgdir_base = (pde_t *)page2pa(new_epde);
 	    pte_t *epte = (pte_t *) e_pgdir_walk(page2kva(new_epde), gpa, create);
 
-	    if (NULL == epte)
+	    if (NULL == epte || epte == (pte_t *)E_NO_MEM || epte == (pte_t *)E_NO_ENT)
 	    {
+		cprintf("LINE %d %p\n", __LINE__, epte);
 		page_decref(new_epde);
+		return E_NO_MEM; 
 	    }
 	    else
 	    {
@@ -164,7 +171,7 @@ uint64_t e_pdpe_walk(pdpe_t *pdpe, void *gpa, int create)
     {
 	return (uint64_t) e_pgdir_walk(KADDR((uint64_t)epgdir_base), gpa, create);
     }
-    return 0;
+//    return 0;
 }
 
 // Helper for pgdir walk for EPT, same as pgdir_walk
@@ -180,6 +187,7 @@ uint64_t e_pgdir_walk(pde_t *pgdir, void *gpa, int create)
     {
 	if (!create)
 	{
+	    cprintf("LINE %d\n", __LINE__);
 	    return E_NO_ENT;
 	}
 	else
@@ -188,6 +196,7 @@ uint64_t e_pgdir_walk(pde_t *pgdir, void *gpa, int create)
 
 	    if (NULL == new_PT)
 	    {
+		cprintf("LINE %d\n", __LINE__);
 		return E_NO_MEM;
 	    }
 	    new_PT->pp_ref++;
@@ -196,6 +205,7 @@ uint64_t e_pgdir_walk(pde_t *pgdir, void *gpa, int create)
 
 	    uintptr_t index_in_epage_table = PTX(gpa);
 	    pte_t *offset_ptr_in_epage_table = epage_table_base + index_in_epage_table;
+		cprintf("LINE %d\n", __LINE__);
 	    return (uint64_t)KADDR((uint64_t) offset_ptr_in_epage_table);
 	}
     }
@@ -203,6 +213,7 @@ uint64_t e_pgdir_walk(pde_t *pgdir, void *gpa, int create)
     {
 	uintptr_t index_in_epage_table = PTX(gpa);
 	pte_t *offset_ptr_in_epage_table = epage_table_base + index_in_epage_table;
+		cprintf("LINE %d\n", __LINE__);
 	return (uint64_t)KADDR((uint64_t)offset_ptr_in_epage_table);
     }
 }
@@ -283,37 +294,50 @@ int ept_map_hva2gpa(epte_t* eptrt, void* hva, void* gpa, int perm,
     int val = 0;
     physaddr_t host_ad = 0x0;
 
+    cprintf("LINE %d\n", __LINE__);
     pg_pt = page_lookup(curenv->env_pml4e, hva, (pte_t **) &(pte_host));
     if (NULL == pg_pt)
     {
 	return -E_INVAL;
     }
-    if((perm & PTE_W) && (!(*pte_host & PTE_W)))
+    cprintf("LINE %d\n", __LINE__);
+    if (!(perm & __EPTE_FULL))
     {
 	return -E_INVAL;
     }
+
+    if((perm & __EPTE_WRITE) && (!(*pte_host & PTE_W)))	// Permission mismatch write in guest but not write in host
+    {
+	return -E_INVAL;
+    }
+    
+    cprintf("LINE %d\n", __LINE__);
     host_ad = PTE_ADDR(*pte_host);
 
     val = ept_lookup_gpa(eptrt, gpa, 1, (epte_t**) &(pte_guest));
+    cprintf("LINE %d\n", __LINE__);
 
     if (val < 0)
     {
+	cprintf("LINE %d\n", __LINE__);
 	return val;
     }
-    else
+    else if (0 == val) 
     {
+	cprintf("LINE %d\n", __LINE__);
 	if ((*pte_guest) && overwrite == 0 )
 	{
+	    cprintf("LINE %d\n", __LINE__);
 	    return -E_INVAL;
 	}
 	else if (*pte_guest && overwrite == 1 )
 	{
-	    *pte_guest = host_ad | perm;
+	    *pte_guest = (uint64_t )host_ad | perm;
 	    return 0;
 	}
 	if (!(*pte_guest))
 	{
-	    *pte_guest = host_ad | perm;
+	    *pte_guest = (uint64_t)host_ad | perm;
 	    return 0;
 	}
 
@@ -321,7 +345,7 @@ int ept_map_hva2gpa(epte_t* eptrt, void* hva, void* gpa, int perm,
 
  //   panic("ept_map_hva2gpa not implemented\n");
 
-    return 0;
+    return val;
 }
 
 int ept_alloc_static(epte_t *eptrt, struct VmxGuestInfo *ginfo) {

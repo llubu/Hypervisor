@@ -533,12 +533,12 @@ sys_ept_map(envid_t srcenvid, void *srcva,
 {
     /* Your code here */
     int val = 0;
-    if ((uint64_t)srcenvid >= UTOP || (srcva != ROUNDUP(srcva, PGSIZE) && srcva != ROUNDDOWN(srcva, PGSIZE)) ||
-	    (uint64_t)guest_pa >= UTOP || (guest_pa != ROUNDUP(guest_pa, PGSIZE) && guest_pa != ROUNDDOWN(guest_pa, PGSIZE)))
-                return -E_INVAL;
+    if ((uint64_t)srcva >= UTOP || (srcva != ROUNDUP(srcva, PGSIZE) && srcva != ROUNDDOWN(srcva, PGSIZE)) ||
+	     (guest_pa != ROUNDUP(guest_pa, PGSIZE) && guest_pa != ROUNDDOWN(guest_pa, PGSIZE)))
+	return -E_INVAL;
 
-	if (!(perm & PTE_U) || !(perm & PTE_P))
-                return -E_INVAL;
+//	if (!(perm & PTE_U) || !(perm & PTE_P)) check if necessary
+//                return -E_INVAL;
 
         struct Env *srcenv, *dstenv;
         int srcerr = envid2env(srcenvid, &srcenv, 1);
@@ -562,14 +562,14 @@ sys_ept_map(envid_t srcenvid, void *srcva,
 	}
 
     panic ("sys_ept_map not implemented");
-    return 0;
+//    return 0;
 }
 
 static envid_t
 sys_env_mkguest(uint64_t gphysz, uint64_t gRIP) {
     int r;
     struct Env *e;
-
+	cprintf("\n Making guest environment \n");
     if ((r = env_guest_alloc(&e, curenv->env_id)) < 0)
         return r;
     e->env_status = ENV_NOT_RUNNABLE;
@@ -642,7 +642,9 @@ syscall(uint64_t syscallno, uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
             return sys_env_mkguest(a1, a2);
 
         default:
+	    panic("SYS CALL NOT IMPLEMENTED");
             return -E_NO_SYS;
+	    break;
     }
     return 0;
 }

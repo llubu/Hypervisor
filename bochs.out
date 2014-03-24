@@ -1,0 +1,46 @@
+6828 decimal is 15254 octal!
+
+e820 MEMORY MAP
+size: 20, address: 0x0000000000000000, length: 0x000000000009f000, type: 1
+size: 20, address: 0x000000000009f000, length: 0x0000000000001000, type: 2
+size: 20, address: 0x00000000000e8000, length: 0x0000000000018000, type: 2
+size: 20, address: 0x0000000000100000, length: 0x0000000007ef0000, type: 1
+size: 20, address: 0x0000000007ff0000, length: 0x0000000000010000, type: 3
+size: 20, address: 0x00000000fffc0000, length: 0x0000000000040000, type: 2
+
+Physical memory: 128M available, base = 636K, extended = 130048K, npages = 32768
+check_page_alloc() succeeded!
+failing 8003c03000 ffffffffffffffff
+page_check() succeeded!
+check_boot_pml4e() succeeded!
+enabled interrupts: 1 2 4
+[00000000] new env 00001000
+[00000000] new env 00001001
+[00000000] new env 00001002
+In IDLE
+FS is running
+FS can do I/O
+Device 1 presence: 1
+block cache is good
+superblock is good
+bitmap is good
+
+ IN USER VMM 
+
+ Making guest environment 
+
+ IN ENV_GUEST_ALLOC 
+
+ AFTER CREATING VMM ENV 
+Error copying page into the guest - 4294967280
+.[00001002] exiting gracefully
+[00001002] free env 00001002
+GUEST starting in sched_yield
+  IN ECX :2028
+
+ VM SUPPORT CHECK PASS 
+VMXON
+No more runnable environments!
+Welcome to the JOS kernel monitor!
+Type 'help' for a list of commands.
+K> 
