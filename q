@@ -1,0 +1,651 @@
+ELF Header:
+  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF64
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           Advanced Micro Devices X86-64
+  Version:                           0x1
+  Entry point address:               0x100000
+  Start of program headers:          64 (bytes into file)
+  Start of section headers:          3883664 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               64 (bytes)
+  Size of program headers:           56 (bytes)
+  Number of program headers:         4
+  Size of section headers:           64 (bytes)
+  Number of section headers:         17
+  Section header string table index: 14
+
+Section Headers:
+  [Nr] Name              Type             Address           Offset
+       Size              EntSize          Flags  Link  Info  Align
+  [ 0]                   NULL             0000000000000000  00000000
+       0000000000000000  0000000000000000           0     0     0
+  [ 1] .bootstrap        PROGBITS         0000000000100000  00001000
+       0000000000007004  0000000000000000 WAX       0     0     4096
+  [ 2] .text             PROGBITS         0000008004200000  00009000
+       000000000001c1f5  0000000000000000  AX       0     0     8
+  [ 3] .rodata           PROGBITS         000000800421c200  00025200
+       0000000000003a44  0000000000000000   A       0     0     32
+  [ 4] .data             PROGBITS         0000008004220000  00029000
+       0000000000363c70  0000000000000000  WA       0     0     4096
+  [ 5] .bss              NOBITS           0000008004584000  0038cc70
+       0000000000014010  0000000000000000  WA       0     0     4096
+  [ 6] .debug_aranges    PROGBITS         0000000000000000  0038cc70
+       00000000000005d0  0000000000000000           0     0     16
+  [ 7] .debug_info       PROGBITS         0000000000000000  0038d240
+       000000000001549f  0000000000000000           0     0     1
+  [ 8] .debug_abbrev     PROGBITS         0000000000000000  003a26df
+       0000000000003585  0000000000000000           0     0     1
+  [ 9] .debug_line       PROGBITS         0000000000000000  003a5c64
+       0000000000004a4a  0000000000000000           0     0     1
+  [10] .debug_str        PROGBITS         0000000000000000  003aa6ae
+       00000000000032d4  0000000000000001  MS       0     0     1
+  [11] .debug_loc        PROGBITS         0000000000000000  003ad982
+       00000000000067b0  0000000000000000           0     0     1
+  [12] .comment          PROGBITS         0000000000000000  003b4132
+       000000000000002a  0000000000000001  MS       0     0     1
+  [13] .debug_ranges     PROGBITS         0000000000000000  003b415c
+       0000000000000090  0000000000000000           0     0     1
+  [14] .shstrtab         STRTAB           0000000000000000  003b41ec
+       00000000000000a1  0000000000000000           0     0     1
+  [15] .symtab           SYMTAB           0000000000000000  003b46d0
+       0000000000003438  0000000000000018          16   217     8
+  [16] .strtab           STRTAB           0000000000000000  003b7b08
+       0000000000002185  0000000000000000           0     0     1
+Key to Flags:
+  W (write), A (alloc), X (execute), M (merge), S (strings), l (large)
+  I (info), L (link order), G (group), T (TLS), E (exclude), x (unknown)
+  O (extra OS processing required) o (OS specific), p (processor specific)
+
+There are no section groups in this file.
+
+Program Headers:
+  Type           Offset             VirtAddr           PhysAddr
+                 FileSiz            MemSiz              Flags  Align
+  LOAD           0x0000000000001000 0x0000000000100000 0x0000000000100000
+                 0x0000000000007004 0x0000000000007004  RWE    1000
+  LOAD           0x0000000000009000 0x0000008004200000 0x0000000000200000
+                 0x000000000001fc44 0x000000000001fc44  R E    1000
+  LOAD           0x0000000000029000 0x0000008004220000 0x0000000000220000
+                 0x0000000000363c70 0x0000000000378010  RW     1000
+  GNU_STACK      0x0000000000000000 0x0000000000000000 0x0000000000000000
+                 0x0000000000000000 0x0000000000000000  RWE    8
+
+ Section to Segment mapping:
+  Segment Sections...
+   00     .bootstrap 
+   01     .text .rodata 
+   02     .data .bss 
+   03     
+
+There is no dynamic section in this file.
+
+There are no relocations in this file.
+
+The decoding of unwind sections for machine type Advanced Micro Devices X86-64 is not currently supported.
+
+Symbol table '.symtab' contains 557 entries:
+   Num:    Value          Size Type    Bind   Vis      Ndx Name
+     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+     1: 0000000000100000     0 SECTION LOCAL  DEFAULT    1 
+     2: 0000008004200000     0 SECTION LOCAL  DEFAULT    2 
+     3: 000000800421c200     0 SECTION LOCAL  DEFAULT    3 
+     4: 0000008004220000     0 SECTION LOCAL  DEFAULT    4 
+     5: 0000008004584000     0 SECTION LOCAL  DEFAULT    5 
+     6: 0000000000000000     0 SECTION LOCAL  DEFAULT    6 
+     7: 0000000000000000     0 SECTION LOCAL  DEFAULT    7 
+     8: 0000000000000000     0 SECTION LOCAL  DEFAULT    8 
+     9: 0000000000000000     0 SECTION LOCAL  DEFAULT    9 
+    10: 0000000000000000     0 SECTION LOCAL  DEFAULT   10 
+    11: 0000000000000000     0 SECTION LOCAL  DEFAULT   11 
+    12: 0000000000000000     0 SECTION LOCAL  DEFAULT   12 
+    13: 0000000000000000     0 SECTION LOCAL  DEFAULT   13 
+    14: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS obj/kern/bootstrap.o
+    15: 0000000000102000     0 NOTYPE  LOCAL  DEFAULT    1 pml4
+    16: 0000000000103000     0 NOTYPE  LOCAL  DEFAULT    1 pdpt1
+    17: 0000000000104000     0 NOTYPE  LOCAL  DEFAULT    1 pdpt2
+    18: 0000000000105000     0 NOTYPE  LOCAL  DEFAULT    1 pde1
+    19: 0000000000106000     0 NOTYPE  LOCAL  DEFAULT    1 pde2
+    20: 00000000001000e6     0 NOTYPE  LOCAL  DEFAULT    1 verify_cpu
+    21: 0000000000101018     0 NOTYPE  LOCAL  DEFAULT    1 gdtdesc_64
+    22: 0000000000100113     0 NOTYPE  LOCAL  DEFAULT    1 verify_cpu_no_longmode
+    23: 0000000000101000     0 NOTYPE  LOCAL  DEFAULT    1 gdt_64
+    24: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS obj/kern/entry.o
+    25: 0000000000000008     0 NOTYPE  LOCAL  DEFAULT  ABS CODE_SEL
+    26: 0000000000000010     0 NOTYPE  LOCAL  DEFAULT  ABS DATA_SEL
+    27: 0000008004200036     0 NOTYPE  LOCAL  DEFAULT    2 relocated
+    28: 0000008004200056     0 NOTYPE  LOCAL  DEFAULT    2 spin
+    29: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS init.c
+    30: 0000008004200058    49 FUNC    LOCAL  DEFAULT    2 xchg
+    31: 00000080042001d9   527 FUNC    LOCAL  DEFAULT    2 boot_aps
+    32: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS console.c
+    33: 00000080042006c0   104 FUNC    LOCAL  DEFAULT    2 delay
+    34: 0000008004584000     1 OBJECT  LOCAL  DEFAULT    5 serial_exists
+    35: 0000008004200728    88 FUNC    LOCAL  DEFAULT    2 serial_proc_data
+    36: 0000008004201078   139 FUNC    LOCAL  DEFAULT    2 cons_intr
+    37: 00000080042007ad   113 FUNC    LOCAL  DEFAULT    2 serial_putc
+    38: 000000800420081e   288 FUNC    LOCAL  DEFAULT    2 serial_init
+    39: 000000800420093e   145 FUNC    LOCAL  DEFAULT    2 lpt_putc
+    40: 0000008004584004     4 OBJECT  LOCAL  DEFAULT    5 addr_6845
+    41: 0000008004584008     8 OBJECT  LOCAL  DEFAULT    5 crt_buf
+    42: 0000008004584010     2 OBJECT  LOCAL  DEFAULT    5 crt_pos
+    43: 00000080042009cf   300 FUNC    LOCAL  DEFAULT    2 cga_init
+    44: 0000008004200afb   748 FUNC    LOCAL  DEFAULT    2 cga_putc
+    45: 00000080042011b7    64 FUNC    LOCAL  DEFAULT    2 cons_putc
+    46: 0000008004230060   256 OBJECT  LOCAL  DEFAULT    4 shiftcode
+    47: 0000008004230160   256 OBJECT  LOCAL  DEFAULT    4 togglecode
+    48: 0000008004230260   256 OBJECT  LOCAL  DEFAULT    4 normalmap
+    49: 0000008004230360   256 OBJECT  LOCAL  DEFAULT    4 shiftmap
+    50: 0000008004230460   256 OBJECT  LOCAL  DEFAULT    4 ctlmap
+    51: 0000008004230560    32 OBJECT  LOCAL  DEFAULT    4 charcode
+    52: 0000008004200de7   576 FUNC    LOCAL  DEFAULT    2 kbd_proc_data
+    53: 0000008004584228     4 OBJECT  LOCAL  DEFAULT    5 shift.1804
+    54: 0000008004201043    53 FUNC    LOCAL  DEFAULT    2 kbd_init
+    55: 0000008004584020   520 OBJECT  LOCAL  DEFAULT    5 cons
+    56: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS monitor.c
+    57: 0000008004230580   216 OBJECT  LOCAL  DEFAULT    4 commands
+    58: 00000080042021a1   525 FUNC    LOCAL  DEFAULT    2 runcmd
+    59: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS pmap.c
+    60: 0000008004202450    44 FUNC    LOCAL  DEFAULT    2 page2ppn
+    61: 000000800420247c    37 FUNC    LOCAL  DEFAULT    2 page2pa
+    62: 00000080042024a1   113 FUNC    LOCAL  DEFAULT    2 pa2page
+    63: 0000008004202512   136 FUNC    LOCAL  DEFAULT    2 page2kva
+    64: 000000800420259a    97 FUNC    LOCAL  DEFAULT    2 restrictive_type
+    65: 0000008004584230     8 OBJECT  LOCAL  DEFAULT    5 npages_basemem
+    66: 0000008004584238     8 OBJECT  LOCAL  DEFAULT    5 page_free_list
+    67: 00000080042025fb    63 FUNC    LOCAL  DEFAULT    2 nvram_read
+    68: 000000800420263a  1410 FUNC    LOCAL  DEFAULT    2 multiboot_read
+    69: 0000008004202bbc   419 FUNC    LOCAL  DEFAULT    2 i386_detect_memory
+    70: 0000008004202d5f   486 FUNC    LOCAL  DEFAULT    2 boot_alloc
+    71: 0000008004584248     8 OBJECT  LOCAL  DEFAULT    5 nextfree.2102
+    72: 0000008004204459  1330 FUNC    LOCAL  DEFAULT    2 check_page_free_list
+    73: 000000800420498b  2540 FUNC    LOCAL  DEFAULT    2 check_page_alloc
+    74: 0000008004205ba6  8377 FUNC    LOCAL  DEFAULT    2 page_check
+    75: 0000008004203db1   201 FUNC    LOCAL  DEFAULT    2 boot_map_segment
+    76: 0000008004205377  1461 FUNC    LOCAL  DEFAULT    2 check_boot_pml4e
+    77: 00000080042034ea     6 FUNC    LOCAL  DEFAULT    2 mem_init_mp
+    78: 0000008004203778    43 FUNC    LOCAL  DEFAULT    2 page_initpp
+    79: 0000008004230658     8 OBJECT  LOCAL  DEFAULT    4 base.2270
+    80: 0000008004584240     8 OBJECT  LOCAL  DEFAULT    5 user_mem_check_addr
+    81: 000000800420592c   634 FUNC    LOCAL  DEFAULT    2 check_va2pa
+    82: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS env.c
+    83: 0000008004207c60    44 FUNC    LOCAL  DEFAULT    2 page2ppn
+    84: 0000008004207c8c    37 FUNC    LOCAL  DEFAULT    2 page2pa
+    85: 0000008004207cb1   113 FUNC    LOCAL  DEFAULT    2 pa2page
+    86: 0000008004207d22   136 FUNC    LOCAL  DEFAULT    2 page2kva
+    87: 0000008004584258     8 OBJECT  LOCAL  DEFAULT    5 env_free_list
+    88: 00000080042080c4  1136 FUNC    LOCAL  DEFAULT    2 env_setup_vm
+    89: 0000008004208f15   304 FUNC    LOCAL  DEFAULT    2 region_alloc
+    90: 0000008004209045   569 FUNC    LOCAL  DEFAULT    2 load_icode
+    91: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS kclock.c
+    92: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS picirq.c
+    93: 0000008004584260     1 OBJECT  LOCAL  DEFAULT    5 didinit
+    94: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS printf.c
+    95: 0000008004209f3c    39 FUNC    LOCAL  DEFAULT    2 putch
+    96: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS trap.c
+    97: 00000080045852a0   104 OBJECT  LOCAL  DEFAULT    5 ts
+    98: 0000008004585308     8 OBJECT  LOCAL  DEFAULT    5 last_tf
+    99: 000000800420a09c    95 FUNC    LOCAL  DEFAULT    2 trapname
+   100: 000000800421df60   160 OBJECT  LOCAL  DEFAULT    3 excnames.2097
+   101: 000000800420c294   539 FUNC    LOCAL  DEFAULT    2 trap_dispatch
+   102: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS obj/kern/trapentry.o
+   103: 000000800420cd88     0 NOTYPE  LOCAL  DEFAULT    2 _alltraps
+   104: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS sched.c
+   105: 000000800420cdf8   161 FUNC    LOCAL  DEFAULT    2 vmxon
+   106: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS syscall.c
+   107: 000000800420d328   132 FUNC    LOCAL  DEFAULT    2 sys_cputs
+   108: 000000800420d3ac    18 FUNC    LOCAL  DEFAULT    2 sys_cgetc
+   109: 000000800420d3be    60 FUNC    LOCAL  DEFAULT    2 sys_getenvid
+   110: 000000800420d3fa   326 FUNC    LOCAL  DEFAULT    2 sys_env_destroy
+   111: 000000800420d540    16 FUNC    LOCAL  DEFAULT    2 sys_yield
+   112: 000000800420d550   266 FUNC    LOCAL  DEFAULT    2 sys_exofork
+   113: 000000800420d65a   146 FUNC    LOCAL  DEFAULT    2 sys_env_set_status
+   114: 000000800420d6ec   173 FUNC    LOCAL  DEFAULT    2 sys_env_set_trapframe
+   115: 000000800420d799   163 FUNC    LOCAL  DEFAULT    2 sys_env_set_pgfault_upcal
+   116: 000000800420d83c   388 FUNC    LOCAL  DEFAULT    2 sys_page_alloc
+   117: 000000800420d9c0   568 FUNC    LOCAL  DEFAULT    2 sys_page_map
+   118: 000000800420dbf8   239 FUNC    LOCAL  DEFAULT    2 sys_page_unmap
+   119: 000000800420dce7   820 FUNC    LOCAL  DEFAULT    2 sys_ipc_try_send
+   120: 000000800420e01b   582 FUNC    LOCAL  DEFAULT    2 sys_ipc_recv
+   121: 000000800420e261    46 FUNC    LOCAL  DEFAULT    2 sys_time_msec
+   122: 000000800420e28f   431 FUNC    LOCAL  DEFAULT    2 sys_ept_map
+   123: 000000800420e43e   188 FUNC    LOCAL  DEFAULT    2 sys_env_mkguest
+   124: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS kdebug.c
+   125: 000000800421e520   536 OBJECT  LOCAL  DEFAULT    3 dwarf_regnames_x86_64
+   126: 0000008004585310     8 OBJECT  LOCAL  DEFAULT    5 lastenv.2040
+   127: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS printfmt.c
+   128: 000000800421e8e0   176 OBJECT  LOCAL  DEFAULT    3 error_string
+   129: 000000800420f0d8   184 FUNC    LOCAL  DEFAULT    2 printnum
+   130: 000000800420f190   272 FUNC    LOCAL  DEFAULT    2 getuint
+   131: 000000800420f2a0   272 FUNC    LOCAL  DEFAULT    2 getint
+   132: 000000800420f99f    77 FUNC    LOCAL  DEFAULT    2 sprintputch
+   133: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS readline.c
+   134: 0000008004585320  1024 OBJECT  LOCAL  DEFAULT    5 buf
+   135: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS string.c
+   136: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS libdwarf_rw.c
+   137: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS libdwarf_frame.c
+   138: 0000008004214652   588 FUNC    LOCAL  DEFAULT    2 _dwarf_get_next_fde
+   139: 000000800421273e  3617 FUNC    LOCAL  DEFAULT    2 _dwarf_frame_run_inst
+   140: 0000008004213a94   538 FUNC    LOCAL  DEFAULT    2 _dwarf_frame_read_lsb_enc
+   141: 0000008004213cae   318 FUNC    LOCAL  DEFAULT    2 _dwarf_frame_parse_lsb_ci
+   142: 0000008004213dec  1113 FUNC    LOCAL  DEFAULT    2 _dwarf_frame_set_cie
+   143: 0000008004214245   934 FUNC    LOCAL  DEFAULT    2 _dwarf_frame_set_fde
+   144: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS libdwarf_lineno.c
+   145: 00000080042149ac  1392 FUNC    LOCAL  DEFAULT    2 _dwarf_lineno_run_program
+   146: 0000008004214f1c   164 FUNC    LOCAL  DEFAULT    2 _dwarf_lineno_add_file
+   147: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS elf_rw.c
+   148: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS obj/kern/mpentry.o
+   149: 0000000000000008     0 NOTYPE  LOCAL  DEFAULT  ABS LONG_MODE_CSEG
+   150: 0000000000000010     0 NOTYPE  LOCAL  DEFAULT  ABS LONG_MODE_DSEG
+   151: 0000000000000008     0 NOTYPE  LOCAL  DEFAULT  ABS PROT_MODE_CSEG
+   152: 0000000000000010     0 NOTYPE  LOCAL  DEFAULT  ABS PROT_MODE_DSEG
+   153: 00000080042164d0     0 NOTYPE  LOCAL  DEFAULT    2 gdt32desc
+   154: 000000800421640d     0 NOTYPE  LOCAL  DEFAULT    2 start32
+   155: 00000080042164b0     0 NOTYPE  LOCAL  DEFAULT    2 gdtdesc
+   156: 000000800421645e     0 NOTYPE  LOCAL  DEFAULT    2 start64
+   157: 0000008004216490     0 NOTYPE  LOCAL  DEFAULT    2 spin
+   158: 0000008004216498     0 NOTYPE  LOCAL  DEFAULT    2 gdt
+   159: 00000080042164b8     0 NOTYPE  LOCAL  DEFAULT    2 gdt32
+   160: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS mpconfig.c
+   161: 00000080042164d8    70 FUNC    LOCAL  DEFAULT    2 sum
+   162: 000000800421651e   342 FUNC    LOCAL  DEFAULT    2 mpsearch1
+   163: 0000008004216674   277 FUNC    LOCAL  DEFAULT    2 mpsearch
+   164: 0000008004216789   549 FUNC    LOCAL  DEFAULT    2 mpconfig
+   165: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS lapic.c
+   166: 0000008004216d14    66 FUNC    LOCAL  DEFAULT    2 lapicw
+   167: 0000008004216fb4    13 FUNC    LOCAL  DEFAULT    2 microdelay
+   168: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS spinlock.c
+   169: 000000800421718c    49 FUNC    LOCAL  DEFAULT    2 xchg
+   170: 00000080042171bd   158 FUNC    LOCAL  DEFAULT    2 get_caller_pcs
+   171: 000000800421725b    96 FUNC    LOCAL  DEFAULT    2 holding
+   172: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS e1000.c
+   173: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS pci.c
+   174: 0000008004230820     4 OBJECT  LOCAL  DEFAULT    4 pci_show_devs
+   175: 00000080045857a0     4 OBJECT  LOCAL  DEFAULT    5 pci_show_addrs
+   176: 0000008004230824     4 OBJECT  LOCAL  DEFAULT    4 pci_conf1_addr_ioport
+   177: 0000008004230828     4 OBJECT  LOCAL  DEFAULT    4 pci_conf1_data_ioport
+   178: 0000008004217ce0   306 FUNC    LOCAL  DEFAULT    2 pci_bridge_attach
+   179: 00000080042175c8   390 FUNC    LOCAL  DEFAULT    2 pci_conf1_set_addr
+   180: 000000800421774e    97 FUNC    LOCAL  DEFAULT    2 pci_conf_read
+   181: 00000080042177af    89 FUNC    LOCAL  DEFAULT    2 pci_conf_write
+   182: 0000008004217808   241 FUNC    LOCAL  DEFAULT    2 pci_attach_match
+   183: 00000080042178f9   139 FUNC    LOCAL  DEFAULT    2 pci_attach
+   184: 0000008004230860    56 OBJECT  LOCAL  DEFAULT    4 pci_class
+   185: 0000008004217984   218 FUNC    LOCAL  DEFAULT    2 pci_print_func
+   186: 0000008004217a5e   642 FUNC    LOCAL  DEFAULT    2 pci_scan_bus
+   187: 00000080045857b0    16 OBJECT  LOCAL  DEFAULT    5 root_bus.1840
+   188: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS time.c
+   189: 00000080045857c0     4 OBJECT  LOCAL  DEFAULT    5 ticks
+   190: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS ept.c
+   191: 0000008004218178    44 FUNC    LOCAL  DEFAULT    2 page2ppn
+   192: 00000080042181a4    37 FUNC    LOCAL  DEFAULT    2 page2pa
+   193: 00000080042181c9   113 FUNC    LOCAL  DEFAULT    2 pa2page
+   194: 000000800421823a   136 FUNC    LOCAL  DEFAULT    2 page2kva
+   195: 00000080042182c2    24 FUNC    LOCAL  DEFAULT    2 epte_addr
+   196: 00000080042182da    30 FUNC    LOCAL  DEFAULT    2 epte_present
+   197: 00000080042182f8   159 FUNC    LOCAL  DEFAULT    2 ept_lookup_gpa
+   198: 0000008004218b12   437 FUNC    LOCAL  DEFAULT    2 free_ept_level
+   199: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS vmx.c
+   200: 00000080042190cc    44 FUNC    LOCAL  DEFAULT    2 vmcs_writel
+   201: 00000080042190f8    42 FUNC    LOCAL  DEFAULT    2 vmcs_readl
+   202: 0000008004219122   146 FUNC    LOCAL  DEFAULT    2 cpuid
+   203: 00000080042191b4    44 FUNC    LOCAL  DEFAULT    2 page2ppn
+   204: 00000080042191e0    37 FUNC    LOCAL  DEFAULT    2 page2pa
+   205: 0000008004219205   136 FUNC    LOCAL  DEFAULT    2 page2kva
+   206: 000000800421928d   103 FUNC    LOCAL  DEFAULT    2 vmx_check_support
+   207: 00000080042192f4   185 FUNC    LOCAL  DEFAULT    2 vmx_check_ept
+   208: 000000800421a6eb  1610 FUNC    LOCAL  DEFAULT    2 vmcs_ctls_init
+   209: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS vmexits.c
+   210: 000000800421b9a8    44 FUNC    LOCAL  DEFAULT    2 vmcs_writel
+   211: 000000800421b9d4    42 FUNC    LOCAL  DEFAULT    2 vmcs_readl
+   212: 000000800421b9fe    44 FUNC    LOCAL  DEFAULT    2 page2ppn
+   213: 000000800421ba2a    37 FUNC    LOCAL  DEFAULT    2 page2pa
+   214: 000000800421ba4f   136 FUNC    LOCAL  DEFAULT    2 page2kva
+   215: 00000080045857c4     4 OBJECT  LOCAL  DEFAULT    5 port_iortc.2213
+   216: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS 
+   217: 00000080042148ce    62 FUNC    GLOBAL DEFAULT    2 _dwarf_frame_section_load
+   218: 000000800420000c     0 NOTYPE  GLOBAL DEFAULT    2 entry
+   219: 000000800450ce01     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_testpipe
+   220: 000000800421048c   300 FUNC    GLOBAL DEFAULT    2 _dwarf_read_lsb
+   221: 0000008004246376     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_hello_en
+   222: 000000800420fd34    70 FUNC    GLOBAL DEFAULT    2 strcpy
+   223: 0000008004201027    28 FUNC    GLOBAL DEFAULT    2 kbd_intr
+   224: 00000080042f27c6     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_forktree
+   225: 0000008004201e50   265 FUNC    GLOBAL DEFAULT    2 mon_dumpmemcontents
+   226: 0000008004201776   391 FUNC    GLOBAL DEFAULT    2 mon_backtrace
+   227: 0000008004200498   313 FUNC    GLOBAL DEFAULT    2 _panic
+   228: 000000800421ae76  1131 FUNC    GLOBAL DEFAULT    2 vmexit
+   229: 000000800420cd4c     0 FUNC    GLOBAL DEFAULT    2 floating_point_error_hand
+   230: 0000000000017d26     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_primespi
+   231: 000000800420cd76     0 FUNC    GLOBAL DEFAULT    2 irq_serial_handler
+   232: 00000000000161db     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_testkbd_
+   233: 0000008004230898     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_hello_st
+   234: 000000800437a8a8     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_writemot
+   235: 00000080044f4b9b     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_testpipe
+   236: 000000800420cd58     0 FUNC    GLOBAL DEFAULT    2 machine_check_handler
+   237: 0000008004203e7a   298 FUNC    GLOBAL DEFAULT    2 page_insert
+   238: 0000000000016d0d     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_forktree
+   239: 0000000000015605     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_divzero_
+   240: 0000008004214fc0  1406 FUNC    GLOBAL DEFAULT    2 _dwarf_lineno_init
+   241: 00000080042724dc     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_my_prog_
+   242: 000000800456c9fc     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_vmm_star
+   243: 0000008004211f16   147 FUNC    GLOBAL DEFAULT    2 _dwarf_attr_find
+   244: 0000008004230840    32 OBJECT  GLOBAL DEFAULT    4 pci_attach_class
+   245: 0000008004200089   336 FUNC    GLOBAL DEFAULT    2 i386_init
+   246: 000000800450ce01     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_testpipe
+   247: 00000080042162b0    56 FUNC    GLOBAL DEFAULT    2 waitdisk
+   248: 0000008004585860  1584 OBJECT  GLOBAL DEFAULT    5 global_rules_shadow
+   249: 000000800421005a   279 FUNC    GLOBAL DEFAULT    2 memmove
+   250: 0000008004201501   629 FUNC    GLOBAL DEFAULT    2 set_console_color
+   251: 000000800420fa89   225 FUNC    GLOBAL DEFAULT    2 snprintf
+   252: 000000800420e4fa   625 FUNC    GLOBAL DEFAULT    2 syscall
+   253: 000000800420bd36   791 FUNC    GLOBAL DEFAULT    2 print_trapframe
+   254: 000000800420f3b0  1340 FUNC    GLOBAL DEFAULT    2 vprintfmt
+   255: 000000800420898e   839 FUNC    GLOBAL DEFAULT    2 env_guest_free
+   256: 0000008004201103   180 FUNC    GLOBAL DEFAULT    2 cons_getc
+   257: 0000008004207daa   369 FUNC    GLOBAL DEFAULT    2 envid2env
+   258: 00000080043cf31a     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_httpd_st
+   259: 000000800425cee4     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_spin_end
+   260: 00000080042163f0     0 NOTYPE  GLOBAL DEFAULT    2 mpentry_start
+   261: 0000008004587000     4 OBJECT  GLOBAL DEFAULT    5 ismp
+   262: 00000080044dc249     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_testfdsh
+   263: 0000008004210c02   114 FUNC    GLOBAL DEFAULT    2 _dwarf_decode_uleb128
+   264: 0000008004203fa4   147 FUNC    GLOBAL DEFAULT    2 page_lookup
+   265: 0000008004216f86    46 FUNC    GLOBAL DEFAULT    2 lapic_eoi
+   266: 0000008004218d2e   634 FUNC    GLOBAL DEFAULT    2 ept_map_hva2gpa
+   267: 0000008004446304     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_net_testinput
+   268: 0000008004583c70     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_vmm_end
+   269: 00000080042172bb    52 FUNC    GLOBAL DEFAULT    2 __spin_initlock
+   270: 000000800421b6ce   729 FUNC    GLOBAL DEFAULT    2 vmx_vmrun
+   271: 0000008004585280    10 OBJECT  GLOBAL DEFAULT    5 idt_pd
+   272: 0000008004209fc2   216 FUNC    GLOBAL DEFAULT    2 cprintf
+   273: 000000800420ecdb  1020 FUNC    GLOBAL DEFAULT    2 debuginfo_rip
+   274: 00000080042036f3   133 FUNC    GLOBAL DEFAULT    2 page_alloc
+   275: 00000080042306c0    32 OBJECT  GLOBAL DEFAULT    4 debug_frame_sec
+   276: 0000008004598000     8 OBJECT  GLOBAL DEFAULT    5 lapicaddr
+   277: 000000800421b2e1   376 FUNC    GLOBAL DEFAULT    2 asm_vmrun
+   278: 00000080042014cc    53 FUNC    GLOBAL DEFAULT    2 show_color
+   279: 0000008004208cd5   576 FUNC    GLOBAL DEFAULT    2 env_alloc
+   280: 000000800421088b   431 FUNC    GLOBAL DEFAULT    2 _dwarf_decode_msb
+   281: 0000008004218397   513 FUNC    GLOBAL DEFAULT    2 e_pml4e_walk
+   282: 00000080042b2686     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_badsegme
+   283: 0000008004337181     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_primes_s
+   284: 000000800421109b    55 FUNC    GLOBAL DEFAULT    2 print_cu
+   285: 00000080042306a4     2 OBJECT  GLOBAL DEFAULT    4 irq_mask_8259A
+   286: 00000000000184d4     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_testfdsh
+   287: 0000008004209a50   484 FUNC    GLOBAL DEFAULT    2 env_run
+   288: 0000008004210171    52 FUNC    GLOBAL DEFAULT    2 memcpy
+   289: 0000008004209f09    48 FUNC    GLOBAL DEFAULT    2 irq_eoi
+   290: 000000800421a670   123 FUNC    GLOBAL DEFAULT    2 vmx_read_capability_msr
+   291: 00000080042f27c6     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_evilhell
+   292: 0000008004287ac9     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_divzero_
+   293: 000000800420fb6c   346 FUNC    GLOBAL DEFAULT    2 readline
+   294: 00000080042c7c49     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_badsegme
+   295: 000000000001567a     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_writemot
+   296: 00000080042306a8     8 OBJECT  GLOBAL DEFAULT    4 dbg
+   297: 0000000000016b6e     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_spin_siz
+   298: 0000000000107000     0 NOTYPE  GLOBAL DEFAULT    1 multiboot_info
+   299: 00000080042123f0    64 FUNC    GLOBAL DEFAULT    2 _dwarf_frame_params_init
+   300: 0000008004230000     0 NOTYPE  GLOBAL DEFAULT    4 kernel_64
+   301: 0000008004216f51    53 FUNC    GLOBAL DEFAULT    2 cpunum
+   302: 0000008004230660    56 OBJECT  GLOBAL DEFAULT    4 gdt
+   303: 00000080045857c8     8 OBJECT  GLOBAL DEFAULT    5 end_debug
+   304: 0000008004216d56   507 FUNC    GLOBAL DEFAULT    2 lapic_init
+   305: 000000800420f9ec   157 FUNC    GLOBAL DEFAULT    2 vsnprintf
+   306: 00000080042121ed   420 FUNC    GLOBAL DEFAULT    2 dwarf_child
+   307: 0000008004583c70     0 NOTYPE  GLOBAL DEFAULT    4 edata
+   308: 00000080042011f7    89 FUNC    GLOBAL DEFAULT    2 cons_init
+   309: 000000800420cd04     0 FUNC    GLOBAL DEFAULT    2 divide_error_handler
+   310: 0000008004210e24   220 FUNC    GLOBAL DEFAULT    2 _dwarf_init
+   311: 0000008004584250     8 OBJECT  GLOBAL DEFAULT    5 envs
+   312: 00000080042c7c49     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_buggyhel
+   313: 000000000001723f     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_testpipe
+   314: 000000800420805a   106 FUNC    GLOBAL DEFAULT    2 env_init_percpu
+   315: 0000008004201a7d   500 FUNC    GLOBAL DEFAULT    2 mon_showmappings
+   316: 0000008004212570   462 FUNC    GLOBAL DEFAULT    2 _dwarf_frame_regtable_cop
+   317: 000000800420cd52     0 FUNC    GLOBAL DEFAULT    2 allign_check_handler
+   318: 000000800425cee4     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_my_prog_
+   319: 0000008004219a43  1007 FUNC    GLOBAL DEFAULT    2 vmcs_host_init
+   320: 000000800434e30b     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_primes_e
+   321: 0000000000015ade     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_hello_si
+   322: 0000008004200780    45 FUNC    GLOBAL DEFAULT    2 serial_intr
+   323: 000000800420cd16     0 FUNC    GLOBAL DEFAULT    2 breakpoint_handler
+   324: 000000800420cd1c     0 FUNC    GLOBAL DEFAULT    2 overflow_handler
+   325: 000000800420cd3c     0 FUNC    GLOBAL DEFAULT    2 segment_not_present_handl
+   326: 0000008004211b1c   759 FUNC    GLOBAL DEFAULT    2 dwarf_search_die_within_c
+   327: 00000080043cf31a     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_testtime
+   328: 0000000000017274     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_vmm_size
+   329: 0000008004230700   160 OBJECT  GLOBAL DEFAULT    4 section_info
+   330: 0000008004201290    18 FUNC    GLOBAL DEFAULT    2 iscons
+   331: 0000000000019663     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_net_testinput
+   332: 0000008004218a0f   259 FUNC    GLOBAL DEFAULT    2 ept_gpa2hva
+   333: 0000008004210265   401 FUNC    GLOBAL DEFAULT    2 strtol
+   334: 000000800453bd66     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_primespi
+   335: 0000008004585800    88 OBJECT  GLOBAL DEFAULT    5 mydebug
+   336: 0000008004212430   320 FUNC    GLOBAL DEFAULT    2 dwarf_get_fde_at_pc
+   337: 000000800420fcf6    62 FUNC    GLOBAL DEFAULT    2 strnlen
+   338: 0000000000016f23     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_testfile
+   339: 00000000000155c3     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_buggyhel
+   340: 0000008004585720    40 OBJECT  GLOBAL DEFAULT    5 global_rt_table
+   341: 0000008004210b69   153 FUNC    GLOBAL DEFAULT    2 _dwarf_decode_sleb128
+   342: 0000008004215a05  1862 FUNC    GLOBAL DEFAULT    2 read_section_headers
+   343: 00000000000155b8     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_softint_
+   344: 00000080042180ea   114 FUNC    GLOBAL DEFAULT    2 time_tick
+   345: 000000800420cd48     0 FUNC    GLOBAL DEFAULT    2 page_fault_handler_1
+   346: 00000080043094d3     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_forktree
+   347: 0000008004446304     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_net_ns_start
+   348: 0000008004212391    93 FUNC    GLOBAL DEFAULT    2 _dwarf_find_section_enhan
+   349: 0000000000100000     0 NOTYPE  GLOBAL DEFAULT    1 _head64
+   350: 000000800420cd38     0 FUNC    GLOBAL DEFAULT    2 invalid_tss_handler
+   351: 00000080042110d2   643 FUNC    GLOBAL DEFAULT    2 _dwarf_abbrev_parse
+   352: 0000008004210c74   143 FUNC    GLOBAL DEFAULT    2 _dwarf_read_string
+   353: 000000800420fd7a    79 FUNC    GLOBAL DEFAULT    2 strcat
+   354: 000000800421bf5e   451 FUNC    GLOBAL DEFAULT    2 handle_ioinstr
+   355: 000000800437a8a8     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_icode_st
+   356: 00000080045857d0     8 OBJECT  GLOBAL DEFAULT    5 panicstr
+   357: 00000080045857e0     8 OBJECT  GLOBAL DEFAULT    5 boot_cr3
+   358: 0000008004598010     0 NOTYPE  GLOBAL DEFAULT    5 end
+   359: 00000080042005d1   237 FUNC    GLOBAL DEFAULT    2 _warn
+   360: 00000080044aa30f     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_testptes
+   361: 00000080045857d8     8 OBJECT  GLOBAL DEFAULT    5 mpentry_kstack
+   362: 0000008004201f59   584 FUNC    GLOBAL DEFAULT    2 mon_statpages
+   363: 0000008004209974   220 FUNC    GLOBAL DEFAULT    2 env_pop_tf
+   364: 00000000000155ed     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_idle_siz
+   365: 00000080042307a0   104 OBJECT  GLOBAL DEFAULT    4 kernel_lock
+   366: 000000800420ff97    56 FUNC    GLOBAL DEFAULT    2 strfind
+   367: 000000000006400b     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_net_ns_size
+   368: 000000800421c1f5     0 NOTYPE  GLOBAL DEFAULT    2 etext
+   369: 00000080042dd20c     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_evilhell
+   370: 000000800421815c    27 FUNC    GLOBAL DEFAULT    2 time_msec
+   371: 00000080042724dc     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_idle_sta
+   372: 0000008004210d03    73 FUNC    GLOBAL DEFAULT    2 _dwarf_read_block
+   373: 0000008004524040     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_primespi
+   374: 000000800420cd22     0 FUNC    GLOBAL DEFAULT    2 bounds_check_handler
+   375: 00000080042dd20c     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_buggyhel
+   376: 000000000020000c     0 NOTYPE  GLOBAL DEFAULT    2 _start
+   377: 000000000002764f     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_fs_fs_size
+   378: 0000000000017104     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_sendpage
+   379: 000000800434e30b     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_testfile
+   380: 0000008004217e12   644 FUNC    GLOBAL DEFAULT    2 pci_func_enable
+   381: 00000080042103f6   149 FUNC    GLOBAL DEFAULT    2 strstr
+   382: 0000008004218096    60 FUNC    GLOBAL DEFAULT    2 pci_init
+   383: 000000800420bafb   571 FUNC    GLOBAL DEFAULT    2 trap_init_percpu
+   384: 0000000000018266     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_testpipe
+   385: 0000008004219e32  2110 FUNC    GLOBAL DEFAULT    2 vmcs_guest_init
+   386: 000000800421bb2e   264 FUNC    GLOBAL DEFAULT    2 handle_rdmsr
+   387: 000000800421b459   295 FUNC    GLOBAL DEFAULT    2 msr_setup
+   388: 00000080043b9b03     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_fs_fs_end
+   389: 000000800420fe26   109 FUNC    GLOBAL DEFAULT    2 strlcpy
+   390: 0000008004204182   265 FUNC    GLOBAL DEFAULT    2 mmio_map_region
+   391: 0000008004414688     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_echotest
+   392: 000000800420fee8   115 FUNC    GLOBAL DEFAULT    2 strncmp
+   393: 00000000000155c3     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_badsegme
+   394: 000000800420cd40     0 FUNC    GLOBAL DEFAULT    2 stack_exception_handler
+   395: 000000800420cd44     0 FUNC    GLOBAL DEFAULT    2 general_protection_fault_
+   396: 0000008004211fa9   580 FUNC    GLOBAL DEFAULT    2 dwarf_siblingof
+   397: 000000800420fdc9    93 FUNC    GLOBAL DEFAULT    2 strncpy
+   398: 0000008004209c7c    64 FUNC    GLOBAL DEFAULT    2 mc146818_write
+   399: 00000080044c3d75     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_testptes
+   400: 000000800420cd10     0 FUNC    GLOBAL DEFAULT    2 non_maskable_interrupt_ha
+   401: 000000800436522e     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_writemot
+   402: 000000800421614b   357 FUNC    GLOBAL DEFAULT    2 readseg
+   403: 00000000000189bf     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_httpd_si
+   404: 000000800421c121    50 FUNC    GLOBAL DEFAULT    2 handle_cpuid
+   405: 000000800420c04d   583 FUNC    GLOBAL DEFAULT    2 print_regs
+   406: 000000800421ad35   321 FUNC    GLOBAL DEFAULT    2 vmcs_dump_cpu
+   407: 0000008004209c34    72 FUNC    GLOBAL DEFAULT    2 mc146818_read
+   408: 0000008004203a0f   428 FUNC    GLOBAL DEFAULT    2 pdpe_walk
+   409: 0000008004211487  1685 FUNC    GLOBAL DEFAULT    2 _dwarf_attr_init
+   410: 000000800420cd0a     0 FUNC    GLOBAL DEFAULT    2 debug_exception_handler
+   411: 0000008004209e0e   251 FUNC    GLOBAL DEFAULT    2 irq_setmask_8259A
+   412: 000000800436522e     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_testfile
+   413: 000000800442cca1     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_net_testinput
+   414: 0000008004209324  1341 FUNC    GLOBAL DEFAULT    2 env_free
+   415: 000000800421bda9   437 FUNC    GLOBAL DEFAULT    2 handle_eptviolation
+   416: 00000080042b2686     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_softint_
+   417: 00000080042101a5   118 FUNC    GLOBAL DEFAULT    2 memcmp
+   418: 00000080043094d3     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_sendpage
+   419: 0000008004219485   282 FUNC    GLOBAL DEFAULT    2 vmx_init_vmcs
+   420: 00000080043e7cd9     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_echosrv_
+   421: 00000080042106d9   434 FUNC    GLOBAL DEFAULT    2 _dwarf_read_msb
+   422: 0000008004587020   136 OBJECT  GLOBAL DEFAULT    5 cpus
+   423: 00000080045864e0   512 OBJECT  GLOBAL DEFAULT    5 global_std_op
+   424: 0000008004598008     8 OBJECT  GLOBAL DEFAULT    5 lapic
+   425: 00000080043205d7     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_sendpage
+   426: 00000080045870a8     8 OBJECT  GLOBAL DEFAULT    5 bootcpu
+   427: 000000800420c7ae  1363 FUNC    GLOBAL DEFAULT    2 page_fault_handler
+   428: 00000080042156bc   128 FUNC    GLOBAL DEFAULT    2 _dwarf_find_section
+   429: 0000008004337181     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_pingpong
+   430: 000000800421c153   162 FUNC    GLOBAL DEFAULT    2 handle_vmcall
+   431: 0000008004201250    30 FUNC    GLOBAL DEFAULT    2 cputchar
+   432: 000000800420ffcf   139 FUNC    GLOBAL DEFAULT    2 memset
+   433: 00000080043fe211     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_echotest
+   434: 000000800456c9fc     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_testshel
+   435: 00000080042306e0     4 OBJECT  GLOBAL DEFAULT    4 is_eh_frame
+   436: 000000800421b580   334 FUNC    GLOBAL DEFAULT    2 bitmap_setup
+   437: 0000008004210a3a   171 FUNC    GLOBAL DEFAULT    2 _dwarf_read_sleb128
+   438: 000000800420cd34     0 FUNC    GLOBAL DEFAULT    2 double_fault_handler
+   439: 000000800420126e    34 FUNC    GLOBAL DEFAULT    2 getchar
+   440: 0000000000016477     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_echotest
+   441: 000000800420cd7c     0 FUNC    GLOBAL DEFAULT    2 irq_spurious_handler
+   442: 0000008004204037   124 FUNC    GLOBAL DEFAULT    2 page_remove
+   443: 00000080043205d7     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_pingpong
+   444: 000000800421573c   713 FUNC    GLOBAL DEFAULT    2 find_debug_sections
+   445: 000000800453bd66     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_testkbd_
+   446: 00000080042162e8   264 FUNC    GLOBAL DEFAULT    2 readsect
+   447: 000000800442cca1     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_net_testoutpu
+   448: 000000800420f8ec   179 FUNC    GLOBAL DEFAULT    2 printfmt
+   449: 0000008004230698    10 OBJECT  GLOBAL DEFAULT    4 gdt_pd
+   450: 00000080042037a3   127 FUNC    GLOBAL DEFAULT    2 page_free
+   451: 0000008004207f1b   319 FUNC    GLOBAL DEFAULT    2 env_init
+   452: 0000008004210dba   106 FUNC    GLOBAL DEFAULT    2 _dwarf_elf_get_pointer_si
+   453: 00000080044c3d75     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_testfdsh
+   454: 000000800420c4af   767 FUNC    GLOBAL DEFAULT    2 trap
+   455: 0000008004585ea0  1584 OBJECT  GLOBAL DEFAULT    5 global_rules
+   456: 0000008004202f45  1445 FUNC    GLOBAL DEFAULT    2 x64_vm_init
+   457: 000000800421553e   379 FUNC    GLOBAL DEFAULT    2 dwarf_srclines
+   458: 0000008004524040     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_testpipe
+   459: 00000080045857e8     8 OBJECT  GLOBAL DEFAULT    5 boot_pml4e
+   460: 000000800420fe93    85 FUNC    GLOBAL DEFAULT    2 strcmp
+   461: 00000080044f4b9b     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_testpipe
+   462: 000000000001718a     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_primes_s
+   463: 0000008004218cc7    38 FUNC    GLOBAL DEFAULT    2 free_guest_mem
+   464: 0000008004584280  4096 OBJECT  GLOBAL DEFAULT    5 idt
+   465: 000000800421bc36   371 FUNC    GLOBAL DEFAULT    2 handle_wrmsr
+   466: 0000000000018952     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_testpipe
+   467: 0000008004218fa8   292 FUNC    GLOBAL DEFAULT    2 ept_alloc_static
+   468: 00000080043fe211     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_echosrv_
+   469: 0000000000018619     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_net_testoutpu
+   470: 000000800420cd64     0 FUNC    GLOBAL DEFAULT    2 system_call_handler
+   471: 0000000000102000     0 NOTYPE  GLOBAL DEFAULT    1 pml4virt
+   472: 000000800421355f   696 FUNC    GLOBAL DEFAULT    2 _dwarf_frame_get_internal
+   473: 0000000000019a66     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_testptes
+   474: 0000008004585790    16 OBJECT  GLOBAL DEFAULT    5 pci_attach_vendor
+   475: 0000008004230038     0 NOTYPE  GLOBAL DEFAULT    4 gdtdesc_64
+   476: 0000008004209cbc   338 FUNC    GLOBAL DEFAULT    2 pic_init
+   477: 000000800420cd5e     0 FUNC    GLOBAL DEFAULT    2 SIMD_floating_point_error
+   478: 0000008004246376     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_spin_sta
+   479: 00000080045870b0     4 OBJECT  GLOBAL DEFAULT    5 ncpu
+   480: 000000800420cd82     0 FUNC    GLOBAL DEFAULT    2 irq_ide_handler
+   481: 0000008004218ced    65 FUNC    GLOBAL DEFAULT    2 ept_page_insert
+   482: 00000080042169ae   868 FUNC    GLOBAL DEFAULT    2 mp_init
+   483: 0000008004209861   275 FUNC    GLOBAL DEFAULT    2 env_destroy
+   484: 000000000001aabb     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_testshel
+   485: 0000008004585760    40 OBJECT  GLOBAL DEFAULT    5 global_rt_table_shadow
+   486: 000000800421959f  1188 FUNC    GLOBAL DEFAULT    2 vmx_init_vmxon
+   487: 0000008004211e13   259 FUNC    GLOBAL DEFAULT    2 dwarf_offdie
+   488: 00000080043b9b03     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_testtime
+   489: 0000008004218799   630 FUNC    GLOBAL DEFAULT    2 e_pgdir_walk
+   490: 00000080042173c7   513 FUNC    GLOBAL DEFAULT    2 spin_unlock
+   491: 0000008004210ae5   132 FUNC    GLOBAL DEFAULT    2 _dwarf_read_uleb128
+   492: 000000800420cd6a     0 FUNC    GLOBAL DEFAULT    2 irq_timer_handler
+   493: 0000000000017c0c     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_icode_si
+   494: 0000008004203822    65 FUNC    GLOBAL DEFAULT    2 page_decref
+   495: 000000800420cd28     0 FUNC    GLOBAL DEFAULT    2 illegal_opcode_handler
+   496: 000000800421490c   158 FUNC    GLOBAL DEFAULT    2 dwarf_init_eh_section
+   497: 00000080042145eb   103 FUNC    GLOBAL DEFAULT    2 _dwarf_frame_interal_tabl
+   498: 0000000000016baa     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_pingpong
+   499: 00000080042003e8   176 FUNC    GLOBAL DEFAULT    2 mp_main
+   500: 0000008004209f63    95 FUNC    GLOBAL DEFAULT    2 vcprintf
+   501: 00000000001000e5     0 FUNC    GLOBAL DEFAULT    1 jumpto_longmode
+   502: 000000800429d0ce     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_divzero_
+   503: 00000080044dc249     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_testpipe
+   504: 00000080042172ef   216 FUNC    GLOBAL DEFAULT    2 spin_lock
+   505: 0000000000015817     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_testtime
+   506: 0000008004217144    71 FUNC    GLOBAL DEFAULT    2 lapic_ipi
+   507: 0000008004230000     0 NOTYPE  GLOBAL DEFAULT    4 bootstacktop
+   508: 0000008004210d4c   110 FUNC    GLOBAL DEFAULT    2 _dwarf_elf_get_byte_order
+   509: 000000800421bad7    87 FUNC    GLOBAL DEFAULT    2 find_msr_in_region
+   510: 0000008004216fc1   387 FUNC    GLOBAL DEFAULT    2 lapic_startap
+   511: 00000080043e7cd9     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_httpd_en
+   512: 00000080042105b8   289 FUNC    GLOBAL DEFAULT    2 _dwarf_decode_lsb
+   513: 0000008004551f41     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_testshel
+   514: 000000800420cd70     0 FUNC    GLOBAL DEFAULT    2 irq_kbd_handler
+   515: 0000008004213817   637 FUNC    GLOBAL DEFAULT    2 dwarf_get_fde_info_for_al
+   516: 00000080043924b4     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_icode_en
+   517: 00000080043924b4     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_fs_fs_start
+   518: 00000080042043d2   135 FUNC    GLOBAL DEFAULT    2 user_mem_assert
+   519: 0000008004218598   513 FUNC    GLOBAL DEFAULT    2 e_pdpe_walk
+   520: 0000008004220000     0 NOTYPE  GLOBAL DEFAULT    4 bootstack
+   521: 0000008004287ac9     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_idle_end
+   522: 00000000000155f8     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_my_prog_
+   523: 00000080042193ad   216 FUNC    GLOBAL DEFAULT    2 check_fixed_bits
+   524: 00000080044aa30f     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_net_ns_end
+   525: 000000800420428b   327 FUNC    GLOBAL DEFAULT    2 user_mem_check
+   526: 0000008004203863   428 FUNC    GLOBAL DEFAULT    2 pml4e_walk
+   527: 000000800420cd2e     0 FUNC    GLOBAL DEFAULT    2 device_no_available_handl
+   528: 000000800420e76c  1391 FUNC    GLOBAL DEFAULT    2 list_func_die
+   529: 00000080042034f0   515 FUNC    GLOBAL DEFAULT    2 page_init
+   530: 0000008004551f41     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_testkbd_
+   531: 0000008004414688     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_net_testoutpu
+   532: 000000800420fcc8    46 FUNC    GLOBAL DEFAULT    2 strlen
+   533: 00000080045857f0     8 OBJECT  GLOBAL DEFAULT    5 npages
+   534: 0000008004210f00   411 FUNC    GLOBAL DEFAULT    2 _get_next_cu
+   535: 0000008004203bbb   502 FUNC    GLOBAL DEFAULT    2 pgdir_walk
+   536: 0000008004211355   306 FUNC    GLOBAL DEFAULT    2 _dwarf_abbrev_find
+   537: 000000800420a0fb  6656 FUNC    GLOBAL DEFAULT    2 trap_init
+   538: 000000800420927e   166 FUNC    GLOBAL DEFAULT    2 env_create
+   539: 00000080042164d6     0 NOTYPE  GLOBAL DEFAULT    2 mpentry_end
+   540: 000000800420ff5b    60 FUNC    GLOBAL DEFAULT    2 strchr
+   541: 00000000000155ba     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_evilhell
+   542: 000000800421489e    48 FUNC    GLOBAL DEFAULT    2 dwarf_set_frame_cfa_value
+   543: 00000080042018fd   384 FUNC    GLOBAL DEFAULT    2 show_permissions
+   544: 000000800420133b   401 FUNC    GLOBAL DEFAULT    2 mon_kerninfo
+   545: 000000800420ce99  1166 FUNC    GLOBAL DEFAULT    2 sched_yield
+   546: 0000008004201c71   479 FUNC    GLOBAL DEFAULT    2 mon_changepermissions
+   547: 00000080045857f8     8 OBJECT  GLOBAL DEFAULT    5 pages
+   548: 0000000000016538     0 NOTYPE  GLOBAL DEFAULT  ABS _binary_obj_user_echosrv_
+   549: 0000008004208534  1114 FUNC    GLOBAL DEFAULT    2 env_guest_alloc
+   550: 0000008004588000 65536 OBJECT  GLOBAL DEFAULT    5 percpu_kstacks
+   551: 00000080042023ae   161 FUNC    GLOBAL DEFAULT    2 monitor
+   552: 000000800421021b    74 FUNC    GLOBAL DEFAULT    2 memfind
+   553: 00000080042012a4   151 FUNC    GLOBAL DEFAULT    2 mon_help
+   554: 000000800429d0ce     0 NOTYPE  GLOBAL DEFAULT    4 _binary_obj_user_softint_
+   555: 00000080042180d4    22 FUNC    GLOBAL DEFAULT    2 time_init
+   556: 00000080042040b3   207 FUNC    GLOBAL DEFAULT    2 tlb_invalidate
+
+No version information found in this file.

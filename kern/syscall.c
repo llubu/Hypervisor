@@ -142,6 +142,7 @@ sys_env_set_status(envid_t envid, int status)
     else if (err == 0)
     {
 	env->env_status = status;
+	cprintf(":%d\n",__LINE__);
 	return 0;
    }
     panic("sys_env_set_status not implemented");
@@ -534,8 +535,10 @@ sys_ept_map(envid_t srcenvid, void *srcva,
     /* Your code here */
     int val = 0;
     if ((uint64_t)srcva >= UTOP || (srcva != ROUNDUP(srcva, PGSIZE) && srcva != ROUNDDOWN(srcva, PGSIZE)) ||
-	     (guest_pa != ROUNDUP(guest_pa, PGSIZE) && guest_pa != ROUNDDOWN(guest_pa, PGSIZE)))
+	     (guest_pa != ROUNDUP(guest_pa, PGSIZE) && guest_pa != ROUNDDOWN(guest_pa, PGSIZE))) {
+	cprintf("%d\n", __LINE__);
 	return -E_INVAL;
+    }
 
 //	if (!(perm & PTE_U) || !(perm & PTE_P)) check if necessary
 //                return -E_INVAL;
@@ -549,7 +552,10 @@ sys_ept_map(envid_t srcenvid, void *srcva,
 	if (srcerr == 0 && dsterr == 0)
 	{
 	    if ((uint64_t)guest_pa + PGSIZE > dstenv->env_vmxinfo.phys_sz)
-		            return -E_INVAL;
+	    {
+		cprintf("GUEST:%x:%d\n", dstenv->env_vmxinfo.phys_sz, __LINE__);
+		return -E_INVAL;
+	    }
 	    val = ept_map_hva2gpa(dstenv->env_pml4e, (void *)srcva, (void *)guest_pa, perm, 1);
 	}
 	if (val < 0)
