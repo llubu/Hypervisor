@@ -19,6 +19,16 @@ enabled interrupts: 1 2 4
 [00000000] new env 00001002
 
  IN SYS YIELD 
+CURENV:0
+
+ BEFORE IDLE 
+
+ AF CPU NUM:800463c000 
+STST:2:
+RUNS:0:
+CR3:7fb5000:
+RIP FRAME:800020:
+RSP FRAME:ef7fe000:
 In IDLE
 FS is running
 FS can do I/O
@@ -43,6 +53,16 @@ icode: exiting
 [00001002] free env 00001002
 
  IN SYS YIELD 
+CURENV:0
+
+ BEFORE IDLE 
+
+ AF CPU NUM:800463c000 
+STST:2:
+RUNS:3:
+CR3:7fb5000:
+RIP FRAME:8015e9:
+RSP FRAME:ef7fdf10:
 init: running
 init: data seems okay
 init: bss seems okay
@@ -53,11 +73,30 @@ init: starting sh
 :145
 init waiting
 11
-$ vmm
+$ vnn
 [00002002] new env 00001004
 :145
 11
-[00001004] new env 00001005
+spawn /vnn: file or block not found
+[00001004] exiting gracefully
+[00001004] free env 00001004
+
+ IN SYS YIELD 
+CURENV:0
+
+ BEFORE IDLE 
+
+ AF CPU NUM:800463c000 
+STST:2:
+RUNS:4:
+CR3:7fb5000:
+RIP FRAME:8015e9:
+RSP FRAME:ef7fdf10:
+$ vmm
+[00002002] new env 00002004
+:145
+11
+[00002004] new env 00001005
 :145
 11
 
@@ -6535,7 +6574,7 @@ LINE 314
 LINE 216
 LINE 318
 LINE 327
-BOOT143
+BOOT146
 gpa :7000memsz 512filesz 512::4101,400000,4102,7000::
 LINE 297
 LINE 303
@@ -6554,8 +6593,24 @@ LINE 327
 
  VM SUPPORT CHECK PASS 
 VMXON
-kernel panic on CPU 0 at vmm/vmx.c:600: asm vmrun incomplete
+VMRUN
+END OF VMRUN
+Unhandled VMEXIT, aborting guest.
+vmx: --- Begin VCPU Dump ---
+vmx: RIP 0x0000000000100005 RSP 0x0000000000000000 RFLAGS 0x0000000000000002
+vmx: CR0 0x0000000060000031 CR3 0x0000000000000000
+vmx: CR4 0x0000000000002000 
+vmx: --- End VCPU Dump ---
+[00001006] free vmx guest env 00001006
 
-Welcome to the JOS kernel monitor!
-Type 'help' for a list of commands.
-K> 
+ IN SYS YIELD 
+CURENV:0
+
+ BEFORE IDLE 
+
+ AF CPU NUM:800463c000 
+STST:2:
+RUNS:5:
+CR3:7fb5000:
+RIP FRAME:8015e9:
+RSP FRAME:ef7fdf10:

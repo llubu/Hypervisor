@@ -534,6 +534,8 @@ sys_ept_map(envid_t srcenvid, void *srcva,
 {
     /* Your code here */
     int val = 0;
+    struct Page *tmp_map = NULL; 
+
     if ((uint64_t)srcva >= UTOP || (srcva != ROUNDUP(srcva, PGSIZE) && srcva != ROUNDDOWN(srcva, PGSIZE)) ||
 	     (guest_pa != ROUNDUP(guest_pa, PGSIZE) && guest_pa != ROUNDDOWN(guest_pa, PGSIZE))) {
 	cprintf("%d\n", __LINE__);
@@ -564,6 +566,11 @@ sys_ept_map(envid_t srcenvid, void *srcva,
 	}
 	else
 	{
+	    tmp_map = page_lookup(curenv->env_pml4e, (void *) srcva, (pte_t**)NULL);
+	    if (tmp_map)
+		tmp_map->pp_ref++;
+	    else
+		cprintf("\n CANT GET PAGE HANDLE IN EPT_MAP \n");
 	    return 0;
 	}
 

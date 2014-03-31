@@ -420,13 +420,13 @@ void vmexit() {
         vmcs_dump_cpu();
         env_destroy(curenv);
     }
-    
+//	while(1);    
     sched_yield();
 }
 
 void asm_vmrun(struct Trapframe *tf) {
 
-    /* cprintf("VMRUN\n"); */
+     cprintf("VMRUN\n"); 
     // NOTE: Since we re-use Trapframe structure, tf.tf_err contains the value
     // of cr2 of the guest.
     tf->tf_ds = curenv->env_runs;
@@ -437,6 +437,10 @@ void asm_vmrun(struct Trapframe *tf) {
             "push %%rcx \n\t"
 	    /* Set the VMCS rsp to the current top of the frame. */
             /* Your code here */
+//	    "mov %%rsp, %c[tp_rsp](%0)\n\t"		// Updating the rsp in trapframe with current rsp
+	    "mov %%rsp, %%rax \n\t"
+	    "vmwrite %%rax, %%rdx \n\t"
+
             "1: \n\t"
             /* Reload cr2 if changed */
             "mov %c[cr2](%0), %%rax \n\t"
@@ -455,10 +459,32 @@ void asm_vmrun(struct Trapframe *tf) {
 	     *       to simplify the pointer arithmetic.
 	     */
 	    /* Your code here */
+	     "cmpl $1, %c[launched](%0) \n\t"
+
             /* Load guest general purpose registers from the trap frame.  Don't clobber flags. 
 	     *
 	     */
 	    /* Your code here */
+	     "mov %c[rax](%0), %%rax \n\t"
+	     "mov %c[rbx](%0), %%rbx \n\t"
+	     "mov %c[rdx](%0), %%rdx \n\t"
+//	  ".myloop:"
+//	     "jmp .myloop \n\t"
+   	     "mov %c[rbp](%0), %%rbp \n\t"
+	     "mov %c[rdi](%0), %%rdi \n\t"
+	     "mov %c[rsi](%0), %%rsi \n\t"
+	     "mov %c[r8](%0),  %%r8 \n\t"
+	     "mov %c[r9](%0),  %%r9 \n\t"
+	     "mov %c[r10](%0), %%r10 \n\t"
+	     "mov %c[r11](%0), %%r11 \n\t"
+	     "mov %c[r12](%0), %%r12 \n\t"
+	     "mov %c[r13](%0), %%r13 \n\t"
+	     "mov %c[r14](%0), %%r14 \n\t"
+	     "mov %c[r15](%0), %%r15 \n\t"
+
+	     "mov %c[rcx](%0), %%rcx \n\t"
+
+	     //llubu:-
             /* Enter guest mode */
 	    /* Your code here:
 	     * 
@@ -470,6 +496,12 @@ void asm_vmrun(struct Trapframe *tf) {
 	     * that you don't do any compareison that would clobber the condition code, set
 	     * above.
 	     */
+	     "jne 1f \n\t"		// Check if above comparison holds if yes vmlaunch else vmresume
+	     "vmlaunch \n\t"
+	     "jmp 2f \n\t"
+	     "1: " "vmresume \n\t"
+	     "2: "
+
             ".Lvmx_return: "
 
 	    /* POST VM EXIT... */
@@ -480,12 +512,37 @@ void asm_vmrun(struct Trapframe *tf) {
 	     * Be careful that the number of pushes (above) and pops are symmetrical.
 	     */
 	    /* Your code here */
-            "pop  %%rbp; pop  %%rdx \n\t"
+
+	    "mov %%rax, %c[rax](%0) \n\t"
+	    "mov %%rbx, %c[rbx](%0) \n\t"
+//	    "pop %%rcx \n\t"
+	    "pop %c[rcx](%0) \n\t"
+//	    "mov %%rcx, %c[rcx](%0) \n\t"
+	    "mov %%rdx, %c[rdx](%0) \n\t"
+	    "mov %%rbp, %c[rbp](%0) \n\t"
+	    "mov %%rdi, %c[rdi](%0) \n\t"
+	    "mov %%rsi, %c[rsi](%0) \n\t"
+	    "mov %%r8,  %c[r8](%0) \n\t"
+	    "mov %%r9,  %c[r9](%0) \n\t"
+	    "mov %%r10, %c[r10](%0) \n\t"
+	    "mov %%r11, %c[r11](%0) \n\t"
+	    "mov %%r12, %c[r12](%0) \n\t"
+	    "mov %%r13, %c[r13](%0) \n\t"
+	    "mov %%r14, %c[r14](%0) \n\t"
+	    "mov %%r15, %c[r15](%0) \n\t"
+
+	    "mov %%cr2, %%rax \n\t"
+	    "mov %%rax, %c[cr2](%0) \n\t"
+	    	    
+// llubu -:  
+	    
+	    "pop  %%rbp; pop  %%rdx \n\t"
 
             "setbe %c[fail](%0) \n\t"
             : : "c"(tf), "d"((unsigned long)VMCS_HOST_RSP), 
             [launched]"i"(offsetof(struct Trapframe, tf_ds)),
             [fail]"i"(offsetof(struct Trapframe, tf_es)),
+	    [tp_rsp]"i"(offsetof(struct Trapframe, tf_rsp)),		// llubu: Added to update rsp memeber in struct trapframe
             [rax]"i"(offsetof(struct Trapframe, tf_regs.reg_rax)),
             [rbx]"i"(offsetof(struct Trapframe, tf_regs.reg_rbx)),
             [rcx]"i"(offsetof(struct Trapframe, tf_regs.reg_rcx)),
@@ -513,6 +570,7 @@ void asm_vmrun(struct Trapframe *tf) {
     } else {
         curenv->env_tf.tf_rsp = vmcs_read64(VMCS_GUEST_RSP);
         curenv->env_tf.tf_rip = vmcs_read64(VMCS_GUEST_RIP);
+	cprintf("END OF VMRUN\n");
         vmexit();
     }
 }
@@ -597,7 +655,7 @@ int vmx_vmrun( struct Env *e ) {
 
     vmcs_write64( VMCS_GUEST_RSP, curenv->env_tf.tf_rsp  );
     vmcs_write64( VMCS_GUEST_RIP, curenv->env_tf.tf_rip );
-    panic ("asm vmrun incomplete\n");
+//    panic ("asm vmrun incomplete\n");
     asm_vmrun( &e->env_tf );
     return 0;
 }

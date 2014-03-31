@@ -43,7 +43,6 @@ movw    %ax, %es                # -> ES: Extra Segment
 movw    %ax, %fs                # -> FS
 movw    %ax, %gs                # -> GS
 movw    %ax, %ss                # -> SS: Stack Segment
-
 mov $0x100000,%eax
 jmp *%eax
 

@@ -2,7 +2,6 @@
 #include <inc/vmx.h>
 #include <inc/elf.h>
 #include <inc/ept.h>
-
 #define GUEST_KERN "/vmm/kernel"
 #define GUEST_BOOT "/vmm/boot"
 
@@ -17,6 +16,7 @@
 static int
 map_in_guest( envid_t guest, uintptr_t gpa, size_t memsz, 
         int fd, size_t filesz, off_t fileoffset ) {
+
     /* Your code here */
     printf("gpa :%x", gpa);
     printf("memsz %d", memsz);
@@ -45,7 +45,10 @@ map_in_guest( envid_t guest, uintptr_t gpa, size_t memsz,
 	    if ((r = sys_page_alloc(0, (void*) UTEMP, perm)) < 0)
 		return r;
 	    if ((r = sys_ept_map(thisenv->env_id, UTEMP, guest, (void *)(gpa + i), __EPTE_FULL)) < 0)
+	    {
 		panic(": sys_ept_map data: %e", r);
+	    }
+
 	    sys_page_unmap(0, UTEMP);
 
 	} 

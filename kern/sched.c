@@ -25,6 +25,7 @@ vmxon() {
 sched_yield(void)
 {
     struct Env *idle;
+    struct Trapframe *abhi = NULL;
     int i;
 
     // Implement simple round-robin scheduling.
@@ -83,6 +84,7 @@ sched_yield(void)
         }
     }
     cprintf("\n IN SYS YIELD \n");
+    cprintf("CURENV:%x\n", curenv);
 /*    for (i = 0; i < NENV; i++) {
 	if (envs[i].env_type == ENV_TYPE_GUEST)// && envs[i].env_status == ENV_RUNNABLE)
 	{
@@ -112,8 +114,16 @@ sched_yield(void)
     }
 
     // Run this CPU's idle environment when nothing else is runnable.
+    cprintf("\n BEFORE IDLE \n");
     idle = &envs[cpunum()];
+    cprintf("\n AF CPU NUM:%x \n", idle);
     if (!(idle->env_status == ENV_RUNNABLE || idle->env_status == ENV_RUNNING))
-        panic("CPU %d: No idle environment!", cpunum());
+   	panic("CPU %d: No idle environment!", cpunum());
+    cprintf("STST:%d:\n",idle->env_status);
+    cprintf("RUNS:%d:\n",idle->env_runs);
+    cprintf("CR3:%x:\n",idle->env_cr3);
+    abhi = &(idle->env_tf);
+    cprintf("RIP FRAME:%x:\n", (abhi->tf_rip));
+    cprintf("RSP FRAME:%x:\n", (abhi->tf_rsp));
     env_run(idle);
 }
