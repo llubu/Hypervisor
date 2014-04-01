@@ -183,7 +183,7 @@ pre-qemu: .gdbinit
 
 guestvm: $(GUESTDIR)/$(OBJDIR)/kern/kernel $(GUESTDIR)/$(OBJDIR)/boot/boot
 
-BOCHS := bochs
+BOCHS := /home/cse591/virtualization/bochs_abhi/bochs_build/bin/bochs
 BOCHSOPTS = -q
 BOCHSOPTS += $(BOCHSEXTRA)
 

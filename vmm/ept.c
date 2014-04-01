@@ -98,7 +98,7 @@ uint64_t e_pml4e_walk(epte_t *eptrt, void *gpa, int create)
 
 	    if (NULL == new_epdpe )
 	    {
-		cprintf("LINE %d\n", __LINE__);
+//		cprintf("LINE %d\n", __LINE__);
 		return E_NO_MEM;
 	    }
 
@@ -108,7 +108,7 @@ uint64_t e_pml4e_walk(epte_t *eptrt, void *gpa, int create)
 
 	    if (NULL == epte || epte == (pte_t *)E_NO_MEM || epte == (pte_t *)E_NO_ENT)
 	    {
-		cprintf("LINE %d %p\n", __LINE__, epte);
+//		cprintf("LINE %d %p\n", __LINE__, epte);
 		page_decref(new_epdpe);
 		return E_NO_MEM;
 	    }
@@ -146,7 +146,7 @@ uint64_t e_pdpe_walk(pdpe_t *pdpe, void *gpa, int create)
 
 	    if (!new_epde)
 	    {
-		cprintf("LINE %d\n", __LINE__);
+//		cprintf("LINE %d\n", __LINE__);
 		return E_NO_MEM;
 	    }
 
@@ -156,7 +156,7 @@ uint64_t e_pdpe_walk(pdpe_t *pdpe, void *gpa, int create)
 
 	    if (NULL == epte || epte == (pte_t *)E_NO_MEM || epte == (pte_t *)E_NO_ENT)
 	    {
-		cprintf("LINE %d %p\n", __LINE__, epte);
+//		cprintf("LINE %d %p\n", __LINE__, epte);
 		page_decref(new_epde);
 		return E_NO_MEM; 
 	    }
@@ -187,7 +187,7 @@ uint64_t e_pgdir_walk(pde_t *pgdir, void *gpa, int create)
     {
 	if (!create)
 	{
-	    cprintf("LINE %d\n", __LINE__);
+//	    cprintf("LINE %d\n", __LINE__);
 	    return E_NO_ENT;
 	}
 	else
@@ -196,7 +196,7 @@ uint64_t e_pgdir_walk(pde_t *pgdir, void *gpa, int create)
 
 	    if (NULL == new_PT)
 	    {
-		cprintf("LINE %d\n", __LINE__);
+//		cprintf("LINE %d\n", __LINE__);
 		return E_NO_MEM;
 	    }
 	    new_PT->pp_ref++;
@@ -205,7 +205,7 @@ uint64_t e_pgdir_walk(pde_t *pgdir, void *gpa, int create)
 
 	    uintptr_t index_in_epage_table = PTX(gpa);
 	    pte_t *offset_ptr_in_epage_table = epage_table_base + index_in_epage_table;
-		cprintf("LINE %d\n", __LINE__);
+//		cprintf("LINE %d\n", __LINE__);
 	    return (uint64_t)KADDR((uint64_t) offset_ptr_in_epage_table);
 	}
     }
@@ -213,7 +213,7 @@ uint64_t e_pgdir_walk(pde_t *pgdir, void *gpa, int create)
     {
 	uintptr_t index_in_epage_table = PTX(gpa);
 	pte_t *offset_ptr_in_epage_table = epage_table_base + index_in_epage_table;
-		cprintf("LINE %d\n", __LINE__);
+//		cprintf("LINE %d\n", __LINE__);
 	return (uint64_t)KADDR((uint64_t)offset_ptr_in_epage_table);
     }
 }
@@ -294,13 +294,13 @@ int ept_map_hva2gpa(epte_t* eptrt, void* hva, void* gpa, int perm,
     int val = 0;
     physaddr_t host_ad = 0x0;
 
-    cprintf("LINE %d\n", __LINE__);
+//    cprintf("LINE %d\n", __LINE__);
     pg_pt = page_lookup(curenv->env_pml4e, hva, (pte_t **) &(pte_host));
     if (NULL == pg_pt)
     {
 	return -E_INVAL;
     }
-    cprintf("LINE %d\n", __LINE__);
+//    cprintf("LINE %d\n", __LINE__);
     if (!(perm & __EPTE_FULL))
     {
 	return -E_INVAL;
@@ -311,23 +311,23 @@ int ept_map_hva2gpa(epte_t* eptrt, void* hva, void* gpa, int perm,
 	return -E_INVAL;
     }
     
-    cprintf("LINE %d\n", __LINE__);
+//    cprintf("LINE %d\n", __LINE__);
     host_ad = PTE_ADDR(*pte_host);
 
     val = ept_lookup_gpa(eptrt, gpa, 1, (epte_t**) &(pte_guest));
-    cprintf("LINE %d\n", __LINE__);
+//    cprintf("LINE %d\n", __LINE__);
 
     if (val < 0)
     {
-	cprintf("LINE %d\n", __LINE__);
+//	cprintf("LINE %d\n", __LINE__);
 	return val;
     }
     else if (0 == val) 
     {
-	cprintf("LINE %d\n", __LINE__);
+//	cprintf("LINE %d\n", __LINE__);
 	if ((*pte_guest) && overwrite == 0 )
 	{
-	    cprintf("LINE %d\n", __LINE__);
+//	    cprintf("LINE %d\n", __LINE__);
 	    return -E_INVAL;
 	}
 	else if (*pte_guest && overwrite == 1 )
