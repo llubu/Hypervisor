@@ -130,7 +130,7 @@ $ vmm
 
  IN EPT_LOOKUP_GPA
 
- ph 1gpa :200000memsz 103214filesz 103214::4101,400000,4102,200000::
+ ph 1gpa :200000memsz 104270filesz 104270::4101,400000,4102,200000::
 
  IN HVA2GPA
 
@@ -3798,6 +3798,7 @@ END OF VMRUN
  Before YIELD
 VMRUN
 6828 decimal is XXX octal!
+n GUEST BEFOR x64_vm_init 
 
 e820 MEMORY MAP
 size: 20, address: 0x0000000000000000, length: 0x00000000000a0000, type: 1
@@ -3805,6 +3806,8 @@ size: 20, address: 0x00000000000a0000, length: 0x0000000000060000, type: 2
 size: 20, address: 0x0000000000100000, length: 0x0000000000f00000, type: 1
 
 Physical memory: 16M available, base = 640K, extended = 15360K, npages = 4096
+ABHIROOP:238:
+ABHIROOP:241:
 END OF VMRUN
 ---VMEXIT Reason: 48 :               30---
 
@@ -3814,6 +3817,10 @@ END OF VMRUN
 
  Before YIELD
 VMRUN
+ABHIROOP:244:
+ABHIROOP:249:
+ABHIROOP:258:
+ABHIROOP:264:
 END OF VMRUN
 ---VMEXIT Reason: 48 :               30---
 
@@ -3958,6 +3965,11 @@ END OF VMRUN
 
  Before YIELD
 VMRUN
+ABHIROOP:272:
+
+ CHECK PAGE FREE LIST PASS 
+ABHIROOP:274:
+ABHIROOP:276:
 END OF VMRUN
 ---VMEXIT Reason: 48 :               30---
 
@@ -4003,6 +4015,8 @@ END OF VMRUN
 
  Before YIELD
 VMRUN
+check_page() succeeded!
+ABHIROOP:279:
 END OF VMRUN
 ---VMEXIT Reason: 48 :               30---
 
@@ -4012,6 +4026,7 @@ END OF VMRUN
 
  Before YIELD
 VMRUN
+ABHIROOP:292:
 END OF VMRUN
 ---VMEXIT Reason: 48 :               30---
 
@@ -4021,6 +4036,7 @@ END OF VMRUN
 
  Before YIELD
 VMRUN
+ABHIROOP:302:
 END OF VMRUN
 ---VMEXIT Reason: 48 :               30---
 
@@ -4030,6 +4046,7 @@ END OF VMRUN
 
  Before YIELD
 VMRUN
+ABHIROOP:317:
 END OF VMRUN
 ---VMEXIT Reason: 48 :               30---
 
@@ -4102,6 +4119,12 @@ END OF VMRUN
 
  Before YIELD
 VMRUN
+ABHIROOP:328:
+check_boot_pml4e() succeeded!
+ABHIROOP:335:
+ABHIROOP:342:
+ABHIROOP:347:
+n GUEST AFTER x64_vm_init 
 END OF VMRUN
 ---VMEXIT Reason: 48 :               30---
 
@@ -4750,6 +4773,8 @@ END OF VMRUN
 
  Before YIELD
 VMRUN
+n GUEST After env and trap init 
+enabled interrupts: 1 2 4
 END OF VMRUN
 ---VMEXIT Reason: 48 :               30---
 

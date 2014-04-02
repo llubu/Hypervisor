@@ -235,14 +235,18 @@ x64_vm_init(void)
     //////////////////////////////////////////////////////////////////////
     // create initial page directory.
     //panic("x64_vm_init: this function is not finished\n");
+    cprintf("ABHIROOP:%d:\n", __LINE__);
     pml4e = boot_alloc(PGSIZE);
 //	cprintf("pml4 :%p\n", pml4e); 
+    cprintf("ABHIROOP:%d:\n", __LINE__);
     memset(pml4e, 0, PGSIZE);
     boot_pml4e = pml4e;
+    cprintf("ABHIROOP:%d:\n", __LINE__);
 //	cprintf( " pml4e %p \n ", (uint64_t) pml4e );
         //nextfree = ROUNDUP((char *) end, PGSIZE);
     boot_cr3 = PADDR(pml4e);
 
+    cprintf("ABHIROOP:%d:\n", __LINE__);
     //////////////////////////////////////////////////////////////////////
     // Allocate an array of npage 'struct Page's and store it in 'pages'.
     // The kernel uses this array to keep track of physical pages: for
@@ -251,11 +255,13 @@ x64_vm_init(void)
     // User-level programs will get read-only access to the array as well.
 	pages = boot_alloc(sizeof(struct Page) * npages);
 
+    cprintf("ABHIROOP:%d:\n", __LINE__);
     //////////////////////////////////////////////////////////////////////
     // Make 'envs' point to an array of size 'NENV' of 'struct Env'.
     // LAB 3: Your code here.
 	envs = boot_alloc(sizeof(struct Env) * NENV);
 
+    cprintf("ABHIROOP:%d:\n", __LINE__);
     //////////////////////////////////////////////////////////////////////
     // Now that we've allocated the initial kernel data structures, we set
     // up the list of free physical pages. Once we've done so, all further
@@ -263,10 +269,14 @@ x64_vm_init(void)
     // particular, we can now map memory using boot_map_segment or page_insert
     page_init();
 	
+    cprintf("ABHIROOP:%d:\n", __LINE__);
 	check_page_free_list(1);
-	check_page_alloc();
+    cprintf("ABHIROOP:%d:\n", __LINE__);
+//	check_page_alloc();
+    cprintf("ABHIROOP:%d:\n", __LINE__);
 	page_check();
 
+    cprintf("ABHIROOP:%d:\n", __LINE__);
     //////////////////////////////////////////////////////////////////////
     // Now we set up virtual memory 
     //////////////////////////////////////////////////////////////////////
@@ -279,6 +289,7 @@ x64_vm_init(void)
 
 	boot_map_segment(boot_pml4e, UPAGES, ROUNDUP(sizeof(struct Page) * npages, PGSIZE), PADDR(pages), PTE_U | PTE_P);
 
+    cprintf("ABHIROOP:%d:\n", __LINE__);
     //////////////////////////////////////////////////////////////////////
     // Map the 'envs' array read-only by the user at linear address UENVS
     // (ie. perm = PTE_U | PTE_P).
@@ -288,6 +299,7 @@ x64_vm_init(void)
     // LAB 3: Your code here.
 	boot_map_segment(boot_pml4e, UENVS, ROUNDUP(sizeof(struct Env) * NENV, PGSIZE), PADDR(envs), PTE_U | PTE_P);
 
+    cprintf("ABHIROOP:%d:\n", __LINE__);
     //////////////////////////////////////////////////////////////////////
     // Use the physical memory that 'bootstack' refers to as the kernel
     // stack.  The kernel stack grows down from virtual address KSTACKTOP.
@@ -302,6 +314,7 @@ x64_vm_init(void)
 	boot_map_segment(boot_pml4e, KSTACKTOP-KSTKSIZE, KSTKSIZE, PADDR(bootstack), PTE_W | PTE_P);
 	boot_map_segment(boot_pml4e, KSTACKTOP-PTSIZE, PTSIZE-KSTKSIZE, PADDR(bootstack+KSTKSIZE), PTE_W); 
 
+    cprintf("ABHIROOP:%d:\n", __LINE__);
     //////////////////////////////////////////////////////////////////////
     // Map all of physical memory at KERNBASE. We have detected the number
     // of physical pages to be npages.
@@ -312,22 +325,26 @@ x64_vm_init(void)
       // cprintf("MAp pages  : npages = %d \n pagesize = %d \n Kernbase = %x \n boot_pml4e = %d \n ", npages, PGSIZE, KERNBASE, npages*PGSIZE - KERNBASE );
 	boot_map_segment(boot_pml4e, (uintptr_t) KERNBASE, (npages * PGSIZE),(physaddr_t) 0x0, PTE_W | PTE_P);
 
+    cprintf("ABHIROOP:%d:\n", __LINE__);
     // Check that the initial page directory has been set up correctly.
     // Initialize the SMP-related parts of the memory map
     //mem_init_mp();
 
     check_boot_pml4e(boot_pml4e);
 
+    cprintf("ABHIROOP:%d:\n", __LINE__);
     //////////////////////////////////////////////////////////////////////
     // Permissions: kernel RW, user NONE
     pdpe_t *pdpe = KADDR(PTE_ADDR(pml4e[1]));
     pde_t *pgdir = KADDR(PTE_ADDR(pdpe[0]));
     lcr3(boot_cr3);
 
+    cprintf("ABHIROOP:%d:\n", __LINE__);
     /* check_page_free_list(1); */
     /* check_page_alloc(); */
     /* page_check(); */
-    check_page_free_list(0);
+//   check_page_free_list(0);
+    cprintf("ABHIROOP:%d:\n", __LINE__);
 }
 
 
@@ -908,7 +925,7 @@ check_page_free_list(bool only_low_memory)
         else
             ++nfree_extmem;
     }
-
+cprintf("\n CHECK PAGE FREE LIST PASS \n");
     assert(nfree_extmem > 0);
 }
 
@@ -926,6 +943,7 @@ check_page_alloc(void)
     char *c;
     int i;
 
+    cprintf("ABHIROOP:%d:\n", __LINE__);
     // if there's a page that shouldn't be on
     // the free list, try to make sure it
     // eventually causes trouble.
@@ -933,6 +951,7 @@ check_page_alloc(void)
         memset(page2kva(pp0), 0x97, PGSIZE);
     }
 
+    cprintf("ABHIROOP:%d:\n", __LINE__);
     for (pp0 = page_free_list, nfree = 0; pp0; pp0 = pp0->pp_link) {
         // check that we didn't corrupt the free list itself
         assert(pp0 >= pages);
@@ -945,24 +964,29 @@ check_page_alloc(void)
         assert(page2pa(pp0) != EXTPHYSMEM);
     }
     // should be able to allocate three pages
+    cprintf("ABHIROOP:%d:\n", __LINE__);
     pp0 = pp1 = pp2 = 0;
     assert((pp0 = page_alloc(0)));
     assert((pp1 = page_alloc(0)));
     assert((pp2 = page_alloc(0)));
     assert(pp0);
+    cprintf("ABHIROOP:%d:\n", __LINE__);
     assert(pp1 && pp1 != pp0);
     assert(pp2 && pp2 != pp1 && pp2 != pp0);
     assert(page2pa(pp0) < npages*PGSIZE);
     assert(page2pa(pp1) < npages*PGSIZE);
     assert(page2pa(pp2) < npages*PGSIZE);
 
+    cprintf("ABHIROOP:%d:\n", __LINE__);
     // temporarily steal the rest of the free pages
     fl = page_free_list;
     page_free_list = 0;
 
+    cprintf("ABHIROOP:%d:\n", __LINE__);
     // should be no free memory
     assert(!page_alloc(0));
 
+    cprintf("ABHIROOP:%d:\n", __LINE__);
     // free and re-allocate?
     page_free(pp0);
     page_free(pp1);
@@ -976,6 +1000,7 @@ check_page_alloc(void)
     assert(pp2 && pp2 != pp1 && pp2 != pp0);
     assert(!page_alloc(0));
 
+    cprintf("ABHIROOP:%d:\n", __LINE__);
     // test flags
     memset(page2kva(pp0), 1, PGSIZE);
     page_free(pp0);
@@ -988,11 +1013,13 @@ check_page_alloc(void)
     // give free list back
     page_free_list = fl;
 
+    cprintf("ABHIROOP:%d:\n", __LINE__);
     // free the pages we took
     page_free(pp0);
     page_free(pp1);
     page_free(pp2);
 
+    cprintf("ABHIROOP:%d:\n", __LINE__);
     cprintf("check_page_alloc() succeeded!\n");
 }
 

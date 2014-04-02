@@ -33,7 +33,7 @@
 00000000000i[     ]   SB16 support: no
 00000000000i[     ]   USB support: no
 00000000000i[     ]   VGA extension support: vbe
-00000000000i[MEM0 ] allocated memory at 0x2ada53402010. after alignment, vector=0x2ada53403000
+00000000000i[MEM0 ] allocated memory at 0x2b394c25f010. after alignment, vector=0x2b394c260000
 00000000000i[MEM0 ] 128.00MB
 00000000000i[MEM0 ] mem block size = 0x00100000, blocks=128
 00000000000i[MEM0 ] rom at 0xfffe0000/131072 ('/usr/share/bochs/BIOS-bochs-latest')
@@ -43,7 +43,7 @@
 00000000000i[DEV  ] PIIX3 PCI-to-ISA bridge present at device 1, function 0
 00000000000i[     ] init_dev of 'cmos' plugin device by virtual method
 00000000000i[CMOS ] Using local time for initial clock
-00000000000i[CMOS ] Setting initial clock to: Wed Apr  2 04:05:28 2014 (time0=1396425928)
+00000000000i[CMOS ] Setting initial clock to: Wed Apr  2 07:28:01 2014 (time0=1396438081)
 00000000000i[     ] init_dev of 'dma' plugin device by virtual method
 00000000000i[DMA  ] channel 4 used by cascade
 00000000000i[     ] init_dev of 'pic' plugin device by virtual method
@@ -320,501 +320,501 @@
 00073582438i[MEM0 ] allocate_block: block=0x9 used 0x7e of 0x80
 00073869670i[MEM0 ] allocate_block: block=0x8 used 0x7f of 0x80
 00074156902i[MEM0 ] allocate_block: block=0x7 used 0x80 of 0x80
-00444411341e[CPU0 ] VMEXIT reason = 18 (VMCALL) qualification=0x0
-00444777822e[CPU0 ] VMEXIT reason = 10 (CPUID) qualification=0x0
-00445034392e[CPU0 ] VMEXIT reason = 10 (CPUID) qualification=0x0
-00445297138e[CPU0 ] VMEXIT reason = 31 (RDMSR) qualification=0x0
-00445549425e[CPU0 ] VMEXIT reason = 32 (WRMSR) qualification=0x0
-00445941501e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000000b8000 laddr 0x00000080040b8000
-00445941501e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x181
-00447463343e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004ed000 laddr 0x00000080044ed000
-00447463343e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00447831006e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004ee008 laddr 0x00000080044ee008
-00447831006e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00448241067e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004ef008 laddr 0x00000080044ef008
-00448241067e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00448672657e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004f0008 laddr 0x00000080044f0008
-00448672657e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00449104247e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004f1008 laddr 0x00000080044f1008
-00449104247e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00449535837e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004f2008 laddr 0x00000080044f2008
-00449535837e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00449967427e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004f3008 laddr 0x00000080044f3008
-00449967427e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00450407979e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004f4008 laddr 0x00000080044f4008
-00450407979e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00450851857e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004f5008 laddr 0x00000080044f5008
-00450851857e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00451295735e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004f6008 laddr 0x00000080044f6008
-00451295735e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00451739613e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004f7008 laddr 0x00000080044f7008
-00451739613e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00452183491e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004f8008 laddr 0x00000080044f8008
-00452183491e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00452627369e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004f9008 laddr 0x00000080044f9008
-00452627369e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00453071247e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004fa008 laddr 0x00000080044fa008
-00453071247e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00453515125e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004fb008 laddr 0x00000080044fb008
-00453515125e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00453959003e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004fc008 laddr 0x00000080044fc008
-00453959003e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00454402881e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004fd008 laddr 0x00000080044fd008
-00454402881e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00455884630e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fff000 laddr 0x0000008004fff000
-00455884630e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00456247987e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ffe000 laddr 0x0000008004ffe000
-00456247987e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00456614503e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ffd000 laddr 0x0000008004ffd000
-00456614503e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00456981019e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ffc000 laddr 0x0000008004ffc000
-00456981019e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00457347535e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ffb000 laddr 0x0000008004ffb000
-00457347535e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00457714051e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ffa000 laddr 0x0000008004ffa000
-00457714051e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00458080567e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ff9000 laddr 0x0000008004ff9000
-00458080567e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00458447083e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ff8000 laddr 0x0000008004ff8000
-00458447083e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00458813652e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ff7000 laddr 0x0000008004ff7000
-00458813652e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00459180168e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ff6000 laddr 0x0000008004ff6000
-00459180168e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00459546684e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ff5000 laddr 0x0000008004ff5000
-00459546684e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00459913200e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ff4000 laddr 0x0000008004ff4000
-00459913200e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00460279716e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ff3000 laddr 0x0000008004ff3000
-00460279716e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00460646232e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ff2000 laddr 0x0000008004ff2000
-00460646232e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00461012748e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ff1000 laddr 0x0000008004ff1000
-00461012748e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00461379264e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ff0000 laddr 0x0000008004ff0000
-00461379264e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00461745780e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fef000 laddr 0x0000008004fef000
-00461745780e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00462112296e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fee000 laddr 0x0000008004fee000
-00462112296e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00462478812e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fed000 laddr 0x0000008004fed000
-00462478812e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00462845328e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fec000 laddr 0x0000008004fec000
-00462845328e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00463211844e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000feb000 laddr 0x0000008004feb000
-00463211844e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00463578413e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fea000 laddr 0x0000008004fea000
-00463578413e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00463944929e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fe9000 laddr 0x0000008004fe9000
-00463944929e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00464311445e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fe8000 laddr 0x0000008004fe8000
-00464311445e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00464677961e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fe7000 laddr 0x0000008004fe7000
-00464677961e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00465044477e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fe6000 laddr 0x0000008004fe6000
-00465044477e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00465410993e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fe5000 laddr 0x0000008004fe5000
-00465410993e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00465777509e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fe4000 laddr 0x0000008004fe4000
-00465777509e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00466144025e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fe3000 laddr 0x0000008004fe3000
-00466144025e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00466510541e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fe2000 laddr 0x0000008004fe2000
-00466510541e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00466877057e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fe1000 laddr 0x0000008004fe1000
-00466877057e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00467243573e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fe0000 laddr 0x0000008004fe0000
-00467243573e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00467610089e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fdf000 laddr 0x0000008004fdf000
-00467610089e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00467976605e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fde000 laddr 0x0000008004fde000
-00467976605e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00468343121e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fdd000 laddr 0x0000008004fdd000
-00468343121e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00468709690e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fdc000 laddr 0x0000008004fdc000
-00468709690e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00469076206e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fdb000 laddr 0x0000008004fdb000
-00469076206e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00469442722e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fda000 laddr 0x0000008004fda000
-00469442722e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00469809238e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fd9000 laddr 0x0000008004fd9000
-00469809238e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00470175754e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fd8000 laddr 0x0000008004fd8000
-00470175754e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00470542270e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fd7000 laddr 0x0000008004fd7000
-00470542270e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00470908786e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fd6000 laddr 0x0000008004fd6000
-00470908786e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00471275302e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fd5000 laddr 0x0000008004fd5000
-00471275302e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00471641818e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fd4000 laddr 0x0000008004fd4000
-00471641818e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00472008334e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fd3000 laddr 0x0000008004fd3000
-00472008334e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00472374850e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fd2000 laddr 0x0000008004fd2000
-00472374850e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00472741366e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fd1000 laddr 0x0000008004fd1000
-00472741366e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00473107882e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fd0000 laddr 0x0000008004fd0000
-00473107882e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00473474451e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fcf000 laddr 0x0000008004fcf000
-00473474451e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00473840967e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fce000 laddr 0x0000008004fce000
-00473840967e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00474207483e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fcd000 laddr 0x0000008004fcd000
-00474207483e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00474573999e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fcc000 laddr 0x0000008004fcc000
-00474573999e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00474940515e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fcb000 laddr 0x0000008004fcb000
-00474940515e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00475307031e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fca000 laddr 0x0000008004fca000
-00475307031e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00475673547e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fc9000 laddr 0x0000008004fc9000
-00475673547e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00476040063e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fc8000 laddr 0x0000008004fc8000
-00476040063e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00476406579e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fc7000 laddr 0x0000008004fc7000
-00476406579e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00476773095e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fc6000 laddr 0x0000008004fc6000
-00476773095e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00477139611e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fc5000 laddr 0x0000008004fc5000
-00477139611e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00477506127e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fc4000 laddr 0x0000008004fc4000
-00477506127e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00477872643e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fc3000 laddr 0x0000008004fc3000
-00477872643e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00478239212e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fc2000 laddr 0x0000008004fc2000
-00478239212e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00478605728e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fc1000 laddr 0x0000008004fc1000
-00478605728e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00478972244e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fc0000 laddr 0x0000008004fc0000
-00478972244e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00479338760e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fbf000 laddr 0x0000008004fbf000
-00479338760e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00479705276e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fbe000 laddr 0x0000008004fbe000
-00479705276e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00480071792e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fbd000 laddr 0x0000008004fbd000
-00480071792e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00480438308e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fbc000 laddr 0x0000008004fbc000
-00480438308e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00480804824e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fbb000 laddr 0x0000008004fbb000
-00480804824e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00481171340e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fba000 laddr 0x0000008004fba000
-00481171340e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00481537856e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fb9000 laddr 0x0000008004fb9000
-00481537856e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00481904372e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fb8000 laddr 0x0000008004fb8000
-00481904372e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00482270888e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fb7000 laddr 0x0000008004fb7000
-00482270888e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00482637404e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fb6000 laddr 0x0000008004fb6000
-00482637404e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00483003973e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fb5000 laddr 0x0000008004fb5000
-00483003973e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00483370489e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fb4000 laddr 0x0000008004fb4000
-00483370489e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00483737005e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fb3000 laddr 0x0000008004fb3000
-00483737005e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00484103521e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fb2000 laddr 0x0000008004fb2000
-00484103521e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00484470037e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fb1000 laddr 0x0000008004fb1000
-00484470037e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00484836553e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fb0000 laddr 0x0000008004fb0000
-00484836553e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00485203069e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000faf000 laddr 0x0000008004faf000
-00485203069e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00485569585e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fae000 laddr 0x0000008004fae000
-00485569585e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00485936101e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fad000 laddr 0x0000008004fad000
-00485936101e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00486302617e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fac000 laddr 0x0000008004fac000
-00486302617e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00486669133e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fab000 laddr 0x0000008004fab000
-00486669133e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00487035649e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000faa000 laddr 0x0000008004faa000
-00487035649e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00487402165e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fa9000 laddr 0x0000008004fa9000
-00487402165e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00487768681e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fa8000 laddr 0x0000008004fa8000
-00487768681e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00488135250e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fa7000 laddr 0x0000008004fa7000
-00488135250e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00488501766e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fa6000 laddr 0x0000008004fa6000
-00488501766e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00488868282e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fa5000 laddr 0x0000008004fa5000
-00488868282e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00489234798e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fa4000 laddr 0x0000008004fa4000
-00489234798e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00489601314e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fa3000 laddr 0x0000008004fa3000
-00489601314e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00489967830e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fa2000 laddr 0x0000008004fa2000
-00489967830e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00490334346e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fa1000 laddr 0x0000008004fa1000
-00490334346e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00490700862e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fa0000 laddr 0x0000008004fa0000
-00490700862e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00491067378e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f9f000 laddr 0x0000008004f9f000
-00491067378e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00491433894e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f9e000 laddr 0x0000008004f9e000
-00491433894e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00491800410e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f9d000 laddr 0x0000008004f9d000
-00491800410e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00492166926e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f9c000 laddr 0x0000008004f9c000
-00492166926e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00492533442e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f9b000 laddr 0x0000008004f9b000
-00492533442e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00492900011e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f9a000 laddr 0x0000008004f9a000
-00492900011e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00493266527e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f99000 laddr 0x0000008004f99000
-00493266527e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00493633043e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f98000 laddr 0x0000008004f98000
-00493633043e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00493999559e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f97000 laddr 0x0000008004f97000
-00493999559e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00494366075e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f96000 laddr 0x0000008004f96000
-00494366075e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00494732591e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f95000 laddr 0x0000008004f95000
-00494732591e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00495099107e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f94000 laddr 0x0000008004f94000
-00495099107e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00495465623e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f93000 laddr 0x0000008004f93000
-00495465623e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00495832139e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f92000 laddr 0x0000008004f92000
-00495832139e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00496198655e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f91000 laddr 0x0000008004f91000
-00496198655e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00496565171e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f90000 laddr 0x0000008004f90000
-00496565171e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00496931687e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f8f000 laddr 0x0000008004f8f000
-00496931687e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00497298203e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f8e000 laddr 0x0000008004f8e000
-00497298203e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00497664772e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f8d000 laddr 0x0000008004f8d000
-00497664772e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00498031288e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f8c000 laddr 0x0000008004f8c000
-00498031288e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00498397804e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f8b000 laddr 0x0000008004f8b000
-00498397804e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00498764320e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f8a000 laddr 0x0000008004f8a000
-00498764320e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00499130836e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f89000 laddr 0x0000008004f89000
-00499130836e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00499497352e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f88000 laddr 0x0000008004f88000
-00499497352e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00499863868e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f87000 laddr 0x0000008004f87000
-00499863868e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00500230384e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f86000 laddr 0x0000008004f86000
-00500230384e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00500596900e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f85000 laddr 0x0000008004f85000
-00500596900e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00500963416e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f84000 laddr 0x0000008004f84000
-00500963416e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00501329932e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f83000 laddr 0x0000008004f83000
-00501329932e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00501696448e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f82000 laddr 0x0000008004f82000
-00501696448e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00502062964e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f81000 laddr 0x0000008004f81000
-00502062964e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00502429533e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f80000 laddr 0x0000008004f80000
-00502429533e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00502796049e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f7f000 laddr 0x0000008004f7f000
-00502796049e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00503162565e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f7e000 laddr 0x0000008004f7e000
-00503162565e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00503529081e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f7d000 laddr 0x0000008004f7d000
-00503529081e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00503895597e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f7c000 laddr 0x0000008004f7c000
-00503895597e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00504262113e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f7b000 laddr 0x0000008004f7b000
-00504262113e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00504628629e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f7a000 laddr 0x0000008004f7a000
-00504628629e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00504995145e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f79000 laddr 0x0000008004f79000
-00504995145e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00505361661e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f78000 laddr 0x0000008004f78000
-00505361661e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00505728177e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f77000 laddr 0x0000008004f77000
-00505728177e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00506094693e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f76000 laddr 0x0000008004f76000
-00506094693e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00506461209e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f75000 laddr 0x0000008004f75000
-00506461209e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00506827725e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f74000 laddr 0x0000008004f74000
-00506827725e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00507194241e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f73000 laddr 0x0000008004f73000
-00507194241e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00507560810e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f72000 laddr 0x0000008004f72000
-00507560810e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00507927326e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f71000 laddr 0x0000008004f71000
-00507927326e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00508293842e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f70000 laddr 0x0000008004f70000
-00508293842e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00508660358e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f6f000 laddr 0x0000008004f6f000
-00508660358e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00509026874e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f6e000 laddr 0x0000008004f6e000
-00509026874e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00509393390e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f6d000 laddr 0x0000008004f6d000
-00509393390e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00509759906e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f6c000 laddr 0x0000008004f6c000
-00509759906e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00510126422e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f6b000 laddr 0x0000008004f6b000
-00510126422e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00510492938e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f6a000 laddr 0x0000008004f6a000
-00510492938e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00510859454e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f69000 laddr 0x0000008004f69000
-00510859454e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00511225970e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f68000 laddr 0x0000008004f68000
-00511225970e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00511592486e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f67000 laddr 0x0000008004f67000
-00511592486e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00511959002e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f66000 laddr 0x0000008004f66000
-00511959002e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00512325571e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f65000 laddr 0x0000008004f65000
-00512325571e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00512692087e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f64000 laddr 0x0000008004f64000
-00512692087e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00513058603e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f63000 laddr 0x0000008004f63000
-00513058603e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00513425119e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f62000 laddr 0x0000008004f62000
-00513425119e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00513791635e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f61000 laddr 0x0000008004f61000
-00513791635e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00514158151e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f60000 laddr 0x0000008004f60000
-00514158151e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00514524667e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f5f000 laddr 0x0000008004f5f000
-00514524667e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00514891183e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f5e000 laddr 0x0000008004f5e000
-00514891183e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00515257699e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f5d000 laddr 0x0000008004f5d000
-00515257699e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00515624215e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f5c000 laddr 0x0000008004f5c000
-00515624215e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00515990731e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f5b000 laddr 0x0000008004f5b000
-00515990731e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00516357247e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f5a000 laddr 0x0000008004f5a000
-00516357247e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00516723763e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f59000 laddr 0x0000008004f59000
-00516723763e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00517090332e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f58000 laddr 0x0000008004f58000
-00517090332e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00517456848e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f57000 laddr 0x0000008004f57000
-00517456848e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00517823364e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f56000 laddr 0x0000008004f56000
-00517823364e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00518189880e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f55000 laddr 0x0000008004f55000
-00518189880e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00518556396e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f54000 laddr 0x0000008004f54000
-00518556396e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00518922912e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f53000 laddr 0x0000008004f53000
-00518922912e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00519289428e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f52000 laddr 0x0000008004f52000
-00519289428e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00519655944e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f51000 laddr 0x0000008004f51000
-00519655944e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00520022460e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f50000 laddr 0x0000008004f50000
-00520022460e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00520388976e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f4f000 laddr 0x0000008004f4f000
-00520388976e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00520755492e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f4e000 laddr 0x0000008004f4e000
-00520755492e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00521122008e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f4d000 laddr 0x0000008004f4d000
-00521122008e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00521488524e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f4c000 laddr 0x0000008004f4c000
-00521488524e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00521855093e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f4b000 laddr 0x0000008004f4b000
-00521855093e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00522221609e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f4a000 laddr 0x0000008004f4a000
-00522221609e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00522588125e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f49000 laddr 0x0000008004f49000
-00522588125e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00522954641e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f48000 laddr 0x0000008004f48000
-00522954641e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00523321157e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f47000 laddr 0x0000008004f47000
-00523321157e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00523687673e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f46000 laddr 0x0000008004f46000
-00523687673e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00524054189e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f45000 laddr 0x0000008004f45000
-00524054189e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00524420705e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f44000 laddr 0x0000008004f44000
-00524420705e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00524787221e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f43000 laddr 0x0000008004f43000
-00524787221e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00525153737e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f42000 laddr 0x0000008004f42000
-00525153737e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00525520253e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f41000 laddr 0x0000008004f41000
-00525520253e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00525886769e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f40000 laddr 0x0000008004f40000
-00525886769e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00526253285e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f3f000 laddr 0x0000008004f3f000
-00526253285e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00526619801e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f3e000 laddr 0x0000008004f3e000
-00526619801e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00526986370e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f3d000 laddr 0x0000008004f3d000
-00526986370e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00527352886e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f3c000 laddr 0x0000008004f3c000
-00527352886e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00527719402e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f3b000 laddr 0x0000008004f3b000
-00527719402e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00528085918e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f3a000 laddr 0x0000008004f3a000
-00528085918e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00528452434e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f39000 laddr 0x0000008004f39000
-00528452434e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00528818950e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f38000 laddr 0x0000008004f38000
-00528818950e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
-00529005701i[CPU0 ] CPU is in long mode (active)
-00529005701i[CPU0 ] CS.mode = 64 bit
-00529005701i[CPU0 ] SS.mode = 64 bit
-00529005701i[CPU0 ] EFER   = 0x00000500
-00529005701i[CPU0 ] | RAX=00000080042006c0  RBX=0000000004200918
-00529005701i[CPU0 ] | RCX=0000008003ff02b0  RDX=0000000000000084
-00529005701i[CPU0 ] | RSP=0000008003fefff0  RBP=0000008003ff0020
-00529005701i[CPU0 ] | RSI=0000008003ff018c  RDI=000000000000000a
-00529005701i[CPU0 ] |  R8=0000000000000000   R9=0000000000000020
-00529005701i[CPU0 ] | R10=0000000000000000  R11=0000000000000000
-00529005701i[CPU0 ] | R12=0000000000000000  R13=0000000000000000
-00529005701i[CPU0 ] | R14=0000000000000000  R15=0000000000000000
-00529005701i[CPU0 ] | IOPL=0 id vip vif ac vm RF nt of df if tf sf zf af PF cf
-00529005701i[CPU0 ] | SEG sltr(index|ti|rpl)     base    limit G D
-00529005701i[CPU0 ] |  CS:0008( 0001| 0|  0) 00000000 ffffffff 1 0
-00529005701i[CPU0 ] |  DS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-00529005701i[CPU0 ] |  SS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-00529005701i[CPU0 ] |  ES:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-00529005701i[CPU0 ] |  FS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-00529005701i[CPU0 ] |  GS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-00529005701i[CPU0 ] |  MSR_FS_BASE:0000000000000000
-00529005701i[CPU0 ] |  MSR_GS_BASE:0000000000000000
-00529005701i[CPU0 ] | RIP=00000080042006d3 (00000080042006d3)
-00529005701i[CPU0 ] | CR0=0xe0050033 CR2=0x0000008003feffe8
-00529005701i[CPU0 ] | CR3=0x07f14000 CR4=0x00002020
-00529005701i[CPU0 ] 0x00000080042006d3>> mov dword ptr ss:[rbp-44], edx : 8955D4
-00529005701p[CPU0 ] >>PANIC<< exception(): 3rd (14) exception with no resolution
-00529005701i[CPU0 ] CPU is in long mode (active)
-00529005701i[CPU0 ] CS.mode = 64 bit
-00529005701i[CPU0 ] SS.mode = 64 bit
-00529005701i[CPU0 ] EFER   = 0x00000500
-00529005701i[CPU0 ] | RAX=00000080042006c0  RBX=0000000004200918
-00529005701i[CPU0 ] | RCX=0000008003ff02b0  RDX=0000000000000084
-00529005701i[CPU0 ] | RSP=0000008003fefff0  RBP=0000008003ff0020
-00529005701i[CPU0 ] | RSI=0000008003ff018c  RDI=000000000000000a
-00529005701i[CPU0 ] |  R8=0000000000000000   R9=0000000000000020
-00529005701i[CPU0 ] | R10=0000000000000000  R11=0000000000000000
-00529005701i[CPU0 ] | R12=0000000000000000  R13=0000000000000000
-00529005701i[CPU0 ] | R14=0000000000000000  R15=0000000000000000
-00529005701i[CPU0 ] | IOPL=0 id vip vif ac vm RF nt of df if tf sf zf af PF cf
-00529005701i[CPU0 ] | SEG sltr(index|ti|rpl)     base    limit G D
-00529005701i[CPU0 ] |  CS:0008( 0001| 0|  0) 00000000 ffffffff 1 0
-00529005701i[CPU0 ] |  DS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-00529005701i[CPU0 ] |  SS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-00529005701i[CPU0 ] |  ES:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-00529005701i[CPU0 ] |  FS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-00529005701i[CPU0 ] |  GS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-00529005701i[CPU0 ] |  MSR_FS_BASE:0000000000000000
-00529005701i[CPU0 ] |  MSR_GS_BASE:0000000000000000
-00529005701i[CPU0 ] | RIP=00000080042006d3 (00000080042006d3)
-00529005701i[CPU0 ] | CR0=0xe0050033 CR2=0x0000008003feffe8
-00529005701i[CPU0 ] | CR3=0x07f14000 CR4=0x00002020
-00529005701i[CPU0 ] 0x00000080042006d3>> mov dword ptr ss:[rbp-44], edx : 8955D4
-00529005701i[CMOS ] Last time is 1396426060 (Wed Apr  2 04:07:40 2014)
-00529005701i[XGUI ] Exit
-00529005701i[     ] restoring default signal behavior
-00529005701i[CTRL ] quit_sim called with exit code 1
+00509163334e[CPU0 ] VMEXIT reason = 18 (VMCALL) qualification=0x0
+00509529815e[CPU0 ] VMEXIT reason = 10 (CPUID) qualification=0x0
+00509786385e[CPU0 ] VMEXIT reason = 10 (CPUID) qualification=0x0
+00510049131e[CPU0 ] VMEXIT reason = 31 (RDMSR) qualification=0x0
+00510301418e[CPU0 ] VMEXIT reason = 32 (WRMSR) qualification=0x0
+00510693494e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000000b8000 laddr 0x00000080040b8000
+00510693494e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x181
+00512398510e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004ed000 laddr 0x00000080044ed000
+00512398510e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00512951619e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004ee008 laddr 0x00000080044ee008
+00512951619e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00513362952e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004ef008 laddr 0x00000080044ef008
+00513362952e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00513794542e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004f0008 laddr 0x00000080044f0008
+00513794542e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00514226132e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004f1008 laddr 0x00000080044f1008
+00514226132e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00514657722e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004f2008 laddr 0x00000080044f2008
+00514657722e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00515089312e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004f3008 laddr 0x00000080044f3008
+00515089312e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00515529864e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004f4008 laddr 0x00000080044f4008
+00515529864e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00515973742e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004f5008 laddr 0x00000080044f5008
+00515973742e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00516417620e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004f6008 laddr 0x00000080044f6008
+00516417620e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00516861498e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004f7008 laddr 0x00000080044f7008
+00516861498e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00517305376e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004f8008 laddr 0x00000080044f8008
+00517305376e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00517749254e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004f9008 laddr 0x00000080044f9008
+00517749254e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00518193132e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004fa008 laddr 0x00000080044fa008
+00518193132e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00518637010e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004fb008 laddr 0x00000080044fb008
+00518637010e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00519080888e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004fc008 laddr 0x00000080044fc008
+00519080888e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00519524766e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004fd008 laddr 0x00000080044fd008
+00519524766e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00521234635e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fff000 laddr 0x0000008004fff000
+00521234635e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00521602063e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ffc000 laddr 0x0000008004ffc000
+00521602063e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00521968450e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ffd000 laddr 0x0000008004ffd000
+00521968450e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00522345096e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ffb000 laddr 0x0000008004ffb000
+00522345096e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00522717506e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ff9000 laddr 0x0000008004ff9000
+00522717506e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00523206582e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ff8000 laddr 0x0000008004ff8000
+00523206582e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00523619750e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ff7000 laddr 0x0000008004ff7000
+00523619750e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00524041295e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ff6000 laddr 0x0000008004ff6000
+00524041295e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00524535049e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ff5000 laddr 0x0000008004ff5000
+00524535049e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00524986499e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ff4000 laddr 0x0000008004ff4000
+00524986499e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00525433868e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ff3000 laddr 0x0000008004ff3000
+00525433868e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00525881237e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ff2000 laddr 0x0000008004ff2000
+00525881237e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00526328606e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ff1000 laddr 0x0000008004ff1000
+00526328606e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00526775975e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000ff0000 laddr 0x0000008004ff0000
+00526775975e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00527223344e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fef000 laddr 0x0000008004fef000
+00527223344e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00527670713e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fee000 laddr 0x0000008004fee000
+00527670713e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00529016829e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004fe0c8 laddr 0x00000080044fe0c8
+00529016829e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00529383875e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000004ff088 laddr 0x00000080044ff088
+00529383875e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00529750381e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000500048 laddr 0x0000008004500048
+00529750381e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00530116887e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000501008 laddr 0x0000008004501008
+00530116887e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00530483480e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000005020e8 laddr 0x00000080045020e8
+00530483480e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00530849933e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000005030a8 laddr 0x00000080045030a8
+00530849933e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00531216439e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000504068 laddr 0x0000008004504068
+00531216439e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00531582998e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000505028 laddr 0x0000008004505028
+00531582998e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00531949538e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000506108 laddr 0x0000008004506108
+00531949538e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00532316044e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000005070c8 laddr 0x00000080045070c8
+00532316044e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00532682550e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000508088 laddr 0x0000008004508088
+00532682550e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00533049056e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000509048 laddr 0x0000008004509048
+00533049056e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00533415562e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x00000050a008 laddr 0x000000800450a008
+00533415562e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00533782155e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x00000050b0e8 laddr 0x000000800450b0e8
+00533782155e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00534148608e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x00000050c0a8 laddr 0x000000800450c0a8
+00534148608e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00534515114e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x00000050d068 laddr 0x000000800450d068
+00534515114e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00534881673e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x00000050e028 laddr 0x000000800450e028
+00534881673e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00535248213e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x00000050f108 laddr 0x000000800450f108
+00535248213e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00535614719e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000005100c8 laddr 0x00000080045100c8
+00535614719e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00535981225e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000511088 laddr 0x0000008004511088
+00535981225e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00536347731e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000512048 laddr 0x0000008004512048
+00536347731e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00536714237e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000513008 laddr 0x0000008004513008
+00536714237e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00537080830e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000005140e8 laddr 0x00000080045140e8
+00537080830e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00537447283e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000005150a8 laddr 0x00000080045150a8
+00537447283e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00537813842e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000516068 laddr 0x0000008004516068
+00537813842e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00538180348e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000517028 laddr 0x0000008004517028
+00538180348e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00538546888e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000518108 laddr 0x0000008004518108
+00538546888e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00538913394e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000005190c8 laddr 0x00000080045190c8
+00538913394e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00539279900e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x00000051a088 laddr 0x000000800451a088
+00539279900e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00539646406e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x00000051b048 laddr 0x000000800451b048
+00539646406e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00540012965e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x00000051c008 laddr 0x000000800451c008
+00540012965e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00540379505e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x00000051d0e8 laddr 0x000000800451d0e8
+00540379505e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00540745958e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x00000051e0a8 laddr 0x000000800451e0a8
+00540745958e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00541112517e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x00000051f068 laddr 0x000000800451f068
+00541112517e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00541479023e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000520028 laddr 0x0000008004520028
+00541479023e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00541845563e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000521108 laddr 0x0000008004521108
+00541845563e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00542212069e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000005220c8 laddr 0x00000080045220c8
+00542212069e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00542578575e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000523088 laddr 0x0000008004523088
+00542578575e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00542945081e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000524048 laddr 0x0000008004524048
+00542945081e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00543311640e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000525008 laddr 0x0000008004525008
+00543311640e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00543678180e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000005260e8 laddr 0x00000080045260e8
+00543678180e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00544044686e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000005270a8 laddr 0x00000080045270a8
+00544044686e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00544411192e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000528068 laddr 0x0000008004528068
+00544411192e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00544777698e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000529028 laddr 0x0000008004529028
+00544777698e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00545144238e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x00000052a108 laddr 0x000000800452a108
+00545144238e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00545510744e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x00000052b0c8 laddr 0x000000800452b0c8
+00545510744e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00545877250e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x00000052c088 laddr 0x000000800452c088
+00545877250e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00546243756e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x00000052d048 laddr 0x000000800452d048
+00546243756e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00546610315e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x00000052e008 laddr 0x000000800452e008
+00546610315e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00546976855e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x00000052f0e8 laddr 0x000000800452f0e8
+00546976855e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00547343361e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000005300a8 laddr 0x00000080045300a8
+00547343361e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00547709867e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000531068 laddr 0x0000008004531068
+00547709867e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00548076373e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000532028 laddr 0x0000008004532028
+00548076373e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00548442913e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000533108 laddr 0x0000008004533108
+00548442913e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00548809419e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000005340c8 laddr 0x00000080045340c8
+00548809419e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00549175925e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000535088 laddr 0x0000008004535088
+00549175925e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00549542484e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000536048 laddr 0x0000008004536048
+00549542484e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00549908990e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000537008 laddr 0x0000008004537008
+00549908990e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00550275530e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000005380e8 laddr 0x00000080045380e8
+00550275530e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00550642036e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000005390a8 laddr 0x00000080045390a8
+00550642036e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00551008542e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x00000053a068 laddr 0x000000800453a068
+00551008542e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00551375048e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x00000053b028 laddr 0x000000800453b028
+00551375048e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00551741588e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x00000053c108 laddr 0x000000800453c108
+00551741588e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00552108094e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x00000053d0c8 laddr 0x000000800453d0c8
+00552108094e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00552474600e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x00000053e088 laddr 0x000000800453e088
+00552474600e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00552841159e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x00000053f048 laddr 0x000000800453f048
+00552841159e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00553207665e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000540008 laddr 0x0000008004540008
+00553207665e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00553574205e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000005410e8 laddr 0x00000080045410e8
+00553574205e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00553940711e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x0000005420a8 laddr 0x00000080045420a8
+00553940711e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00554307217e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000543068 laddr 0x0000008004543068
+00554307217e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00554673723e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000544028 laddr 0x0000008004544028
+00554673723e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00555040316e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000545108 laddr 0x0000008004545108
+00555040316e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00555602993e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fed000 laddr 0x0000008004fed000
+00555602993e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00555970734e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fec000 laddr 0x0000008004fec000
+00555970734e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00556337171e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000feb000 laddr 0x0000008004feb000
+00556337171e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00556710614e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fea000 laddr 0x0000008004fea000
+00556710614e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00557074018e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fe9000 laddr 0x0000008004fe9000
+00557074018e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00557440617e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fe8000 laddr 0x0000008004fe8000
+00557440617e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00557807163e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fe7000 laddr 0x0000008004fe7000
+00557807163e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00558173688e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fe6000 laddr 0x0000008004fe6000
+00558173688e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00558540276e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fe5000 laddr 0x0000008004fe5000
+00558540276e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00558906811e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fe4000 laddr 0x0000008004fe4000
+00558906811e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00559273346e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fe3000 laddr 0x0000008004fe3000
+00559273346e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00559639828e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fe2000 laddr 0x0000008004fe2000
+00559639828e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00560027071e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fe1000 laddr 0x0000008004fe1000
+00560027071e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00560390638e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fe0000 laddr 0x0000008004fe0000
+00560390638e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00560757173e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fdf000 laddr 0x0000008004fdf000
+00560757173e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00561123708e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fde000 laddr 0x0000008004fde000
+00561123708e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00561490243e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fdd000 laddr 0x0000008004fdd000
+00561490243e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00561862279e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fdc000 laddr 0x0000008004fdc000
+00561862279e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00562225723e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fdb000 laddr 0x0000008004fdb000
+00562225723e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00562592269e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fda000 laddr 0x0000008004fda000
+00562592269e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00562958895e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fd9000 laddr 0x0000008004fd9000
+00562958895e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00563325417e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fd8000 laddr 0x0000008004fd8000
+00563325417e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00563691854e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fd7000 laddr 0x0000008004fd7000
+00563691854e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00564065244e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fd6000 laddr 0x0000008004fd6000
+00564065244e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00564428648e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fd5000 laddr 0x0000008004fd5000
+00564428648e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00564795247e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fd4000 laddr 0x0000008004fd4000
+00564795247e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00565161793e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fd3000 laddr 0x0000008004fd3000
+00565161793e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00565528318e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fd2000 laddr 0x0000008004fd2000
+00565528318e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00565894906e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fd1000 laddr 0x0000008004fd1000
+00565894906e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00566261441e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fd0000 laddr 0x0000008004fd0000
+00566261441e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00566627976e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fcf000 laddr 0x0000008004fcf000
+00566627976e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00566994458e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fce000 laddr 0x0000008004fce000
+00566994458e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00567381701e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fcd000 laddr 0x0000008004fcd000
+00567381701e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00567745268e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fcc000 laddr 0x0000008004fcc000
+00567745268e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00568111803e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fcb000 laddr 0x0000008004fcb000
+00568111803e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00568478338e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fca000 laddr 0x0000008004fca000
+00568478338e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00568844873e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fc9000 laddr 0x0000008004fc9000
+00568844873e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00569216909e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fc8000 laddr 0x0000008004fc8000
+00569216909e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00569580353e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fc7000 laddr 0x0000008004fc7000
+00569580353e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00569946899e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fc6000 laddr 0x0000008004fc6000
+00569946899e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00570313525e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fc5000 laddr 0x0000008004fc5000
+00570313525e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00570680047e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fc4000 laddr 0x0000008004fc4000
+00570680047e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00571046484e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fc3000 laddr 0x0000008004fc3000
+00571046484e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00571419874e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fc2000 laddr 0x0000008004fc2000
+00571419874e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00571783278e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fc1000 laddr 0x0000008004fc1000
+00571783278e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00572149877e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fc0000 laddr 0x0000008004fc0000
+00572149877e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00572516423e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fbf000 laddr 0x0000008004fbf000
+00572516423e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00572882948e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fbe000 laddr 0x0000008004fbe000
+00572882948e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00573249536e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fbd000 laddr 0x0000008004fbd000
+00573249536e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00573616071e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fbc000 laddr 0x0000008004fbc000
+00573616071e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00573982606e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fbb000 laddr 0x0000008004fbb000
+00573982606e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00574349088e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fba000 laddr 0x0000008004fba000
+00574349088e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00574736331e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fb9000 laddr 0x0000008004fb9000
+00574736331e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00575099898e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fb8000 laddr 0x0000008004fb8000
+00575099898e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00575466433e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fb7000 laddr 0x0000008004fb7000
+00575466433e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00575832968e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fb6000 laddr 0x0000008004fb6000
+00575832968e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00576199503e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fb5000 laddr 0x0000008004fb5000
+00576199503e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00576571539e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fb4000 laddr 0x0000008004fb4000
+00576571539e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00576934983e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fb3000 laddr 0x0000008004fb3000
+00576934983e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00577301529e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fb2000 laddr 0x0000008004fb2000
+00577301529e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00577668155e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fb1000 laddr 0x0000008004fb1000
+00577668155e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00578034677e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fb0000 laddr 0x0000008004fb0000
+00578034677e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00578401114e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000faf000 laddr 0x0000008004faf000
+00578401114e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00578774504e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fae000 laddr 0x0000008004fae000
+00578774504e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00579137908e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fad000 laddr 0x0000008004fad000
+00579137908e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00579504507e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fac000 laddr 0x0000008004fac000
+00579504507e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00579871053e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fab000 laddr 0x0000008004fab000
+00579871053e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00580237578e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000faa000 laddr 0x0000008004faa000
+00580237578e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00580604166e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fa9000 laddr 0x0000008004fa9000
+00580604166e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00580970701e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fa8000 laddr 0x0000008004fa8000
+00580970701e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00581337236e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fa7000 laddr 0x0000008004fa7000
+00581337236e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00581703718e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fa6000 laddr 0x0000008004fa6000
+00581703718e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00582090961e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fa5000 laddr 0x0000008004fa5000
+00582090961e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00582454528e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fa4000 laddr 0x0000008004fa4000
+00582454528e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00582821063e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fa3000 laddr 0x0000008004fa3000
+00582821063e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00583187598e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fa2000 laddr 0x0000008004fa2000
+00583187598e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00583554133e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fa1000 laddr 0x0000008004fa1000
+00583554133e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00583926169e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000fa0000 laddr 0x0000008004fa0000
+00583926169e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00584289613e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f9f000 laddr 0x0000008004f9f000
+00584289613e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00584656159e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f9e000 laddr 0x0000008004f9e000
+00584656159e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00585022785e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f9d000 laddr 0x0000008004f9d000
+00585022785e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00585389307e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f9c000 laddr 0x0000008004f9c000
+00585389307e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00585755744e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f9b000 laddr 0x0000008004f9b000
+00585755744e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00586129134e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f9a000 laddr 0x0000008004f9a000
+00586129134e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00586492538e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f99000 laddr 0x0000008004f99000
+00586492538e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00586859137e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f98000 laddr 0x0000008004f98000
+00586859137e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00587225683e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f97000 laddr 0x0000008004f97000
+00587225683e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00587592208e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f96000 laddr 0x0000008004f96000
+00587592208e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00587958796e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f95000 laddr 0x0000008004f95000
+00587958796e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00588325331e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f94000 laddr 0x0000008004f94000
+00588325331e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00588691866e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f93000 laddr 0x0000008004f93000
+00588691866e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00589058348e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f92000 laddr 0x0000008004f92000
+00589058348e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00589445591e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f91000 laddr 0x0000008004f91000
+00589445591e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00589809158e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f90000 laddr 0x0000008004f90000
+00589809158e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00590175693e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f8f000 laddr 0x0000008004f8f000
+00590175693e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00590542228e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f8e000 laddr 0x0000008004f8e000
+00590542228e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00590908763e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f8d000 laddr 0x0000008004f8d000
+00590908763e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00591280799e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f8c000 laddr 0x0000008004f8c000
+00591280799e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00591644243e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f8b000 laddr 0x0000008004f8b000
+00591644243e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00592010789e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f8a000 laddr 0x0000008004f8a000
+00592010789e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00592377415e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f89000 laddr 0x0000008004f89000
+00592377415e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00592743937e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f88000 laddr 0x0000008004f88000
+00592743937e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00593110374e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f87000 laddr 0x0000008004f87000
+00593110374e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00593483764e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f86000 laddr 0x0000008004f86000
+00593483764e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00593847168e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f85000 laddr 0x0000008004f85000
+00593847168e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00594213767e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f84000 laddr 0x0000008004f84000
+00594213767e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00594580313e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f83000 laddr 0x0000008004f83000
+00594580313e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00594946838e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f82000 laddr 0x0000008004f82000
+00594946838e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00595313426e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f81000 laddr 0x0000008004f81000
+00595313426e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00595679961e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f80000 laddr 0x0000008004f80000
+00595679961e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00596046496e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f7f000 laddr 0x0000008004f7f000
+00596046496e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00596412978e[CPU0 ] VMEXIT: EPT violation for guest paddr 0x000000f7e000 laddr 0x0000008004f7e000
+00596412978e[CPU0 ] VMEXIT reason = 48 (EPT Violation) qualification=0x182
+00596599517i[CPU0 ] CPU is in long mode (active)
+00596599517i[CPU0 ] CS.mode = 64 bit
+00596599517i[CPU0 ] SS.mode = 64 bit
+00596599517i[CPU0 ] EFER   = 0x00000500
+00596599517i[CPU0 ] | RAX=00000080042006c0  RBX=0000000004200918
+00596599517i[CPU0 ] | RCX=0000008003ff02b0  RDX=0000000000000084
+00596599517i[CPU0 ] | RSP=0000008003fefff0  RBP=0000008003ff0020
+00596599517i[CPU0 ] | RSI=0000008003ff018c  RDI=000000000000000a
+00596599517i[CPU0 ] |  R8=0000000000000000   R9=0000000000000020
+00596599517i[CPU0 ] | R10=0000000000000000  R11=0000000000000000
+00596599517i[CPU0 ] | R12=0000000000000000  R13=0000000000000000
+00596599517i[CPU0 ] | R14=0000000000000000  R15=0000000000000000
+00596599517i[CPU0 ] | IOPL=0 id vip vif ac vm RF nt of df if tf sf zf af PF cf
+00596599517i[CPU0 ] | SEG sltr(index|ti|rpl)     base    limit G D
+00596599517i[CPU0 ] |  CS:0008( 0001| 0|  0) 00000000 ffffffff 1 0
+00596599517i[CPU0 ] |  DS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00596599517i[CPU0 ] |  SS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00596599517i[CPU0 ] |  ES:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00596599517i[CPU0 ] |  FS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00596599517i[CPU0 ] |  GS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00596599517i[CPU0 ] |  MSR_FS_BASE:0000000000000000
+00596599517i[CPU0 ] |  MSR_GS_BASE:0000000000000000
+00596599517i[CPU0 ] | RIP=00000080042006d3 (00000080042006d3)
+00596599517i[CPU0 ] | CR0=0xe0050033 CR2=0x0000008003feffe8
+00596599517i[CPU0 ] | CR3=0x07f14000 CR4=0x00002020
+00596599517i[CPU0 ] 0x00000080042006d3>> mov dword ptr ss:[rbp-44], edx : 8955D4
+00596599517p[CPU0 ] >>PANIC<< exception(): 3rd (14) exception with no resolution
+00596599517i[CPU0 ] CPU is in long mode (active)
+00596599517i[CPU0 ] CS.mode = 64 bit
+00596599517i[CPU0 ] SS.mode = 64 bit
+00596599517i[CPU0 ] EFER   = 0x00000500
+00596599517i[CPU0 ] | RAX=00000080042006c0  RBX=0000000004200918
+00596599517i[CPU0 ] | RCX=0000008003ff02b0  RDX=0000000000000084
+00596599517i[CPU0 ] | RSP=0000008003fefff0  RBP=0000008003ff0020
+00596599517i[CPU0 ] | RSI=0000008003ff018c  RDI=000000000000000a
+00596599517i[CPU0 ] |  R8=0000000000000000   R9=0000000000000020
+00596599517i[CPU0 ] | R10=0000000000000000  R11=0000000000000000
+00596599517i[CPU0 ] | R12=0000000000000000  R13=0000000000000000
+00596599517i[CPU0 ] | R14=0000000000000000  R15=0000000000000000
+00596599517i[CPU0 ] | IOPL=0 id vip vif ac vm RF nt of df if tf sf zf af PF cf
+00596599517i[CPU0 ] | SEG sltr(index|ti|rpl)     base    limit G D
+00596599517i[CPU0 ] |  CS:0008( 0001| 0|  0) 00000000 ffffffff 1 0
+00596599517i[CPU0 ] |  DS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00596599517i[CPU0 ] |  SS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00596599517i[CPU0 ] |  ES:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00596599517i[CPU0 ] |  FS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00596599517i[CPU0 ] |  GS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00596599517i[CPU0 ] |  MSR_FS_BASE:0000000000000000
+00596599517i[CPU0 ] |  MSR_GS_BASE:0000000000000000
+00596599517i[CPU0 ] | RIP=00000080042006d3 (00000080042006d3)
+00596599517i[CPU0 ] | CR0=0xe0050033 CR2=0x0000008003feffe8
+00596599517i[CPU0 ] | CR3=0x07f14000 CR4=0x00002020
+00596599517i[CPU0 ] 0x00000080042006d3>> mov dword ptr ss:[rbp-44], edx : 8955D4
+00596599517i[CMOS ] Last time is 1396438230 (Wed Apr  2 07:30:30 2014)
+00596599517i[XGUI ] Exit
+00596599517i[     ] restoring default signal behavior
+00596599517i[CTRL ] quit_sim called with exit code 1

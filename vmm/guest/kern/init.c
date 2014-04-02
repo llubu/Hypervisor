@@ -47,14 +47,16 @@ i386_init(void)
     extern char end[];
     end_debug = read_section_headers((0x10000+KERNBASE), (uintptr_t)end); 
 #endif
-
+	cprintf("n GUEST BEFOR x64_vm_init \n");
 	// Lab 2 memory management initialization functions
 	x64_vm_init();
 
+	cprintf("n GUEST AFTER x64_vm_init \n");
 	// Lab 3 user environment initialization functions
 	env_init();
 	trap_init();
 
+	cprintf("n GUEST After env and trap init \n");
 #ifndef VMM_GUEST
 	// Lab 4 multiprocessor initialization functions
 	//mp_init();
