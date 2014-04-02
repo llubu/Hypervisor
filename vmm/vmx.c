@@ -417,14 +417,16 @@ void vmexit() {
             exit_handled = true;
             break;
     }
-
     if(!exit_handled) {
         cprintf( "Unhandled VMEXIT, aborting guest.\n" );
         vmcs_dump_cpu();
         env_destroy(curenv);
     }
+    cprintf("\n Before YIELD\n");
+curenv->env_runs++;
+vmx_vmrun(curenv);
 //	while(1);    
-    sched_yield();
+//    sched_yield();
 }
 
 void asm_vmrun(struct Trapframe *tf) {

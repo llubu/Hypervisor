@@ -69,7 +69,7 @@ static int ept_lookup_gpa(epte_t* eptrt, void *gpa,
 	    *epte_out = (epte_t *) val;
 	    return 0;
 	}
-	else
+	else  //should not return a errorn in this case
 	    return -E_INVAL;	// return this when epte_out is NULL
     }
 
@@ -289,30 +289,37 @@ int ept_map_hva2gpa(epte_t* eptrt, void* hva, void* gpa, int perm,
         int overwrite) {
 
     /* Your code here */
+    cprintf("\n IN HVA2GPA\n");
     pte_t *pte_host = NULL, *pte_guest = NULL;
     struct Page *pg_pt = NULL;
     int val = 0;
     physaddr_t host_ad = 0x0;
 
 //    cprintf("LINE %d\n", __LINE__);
-    pg_pt = page_lookup(curenv->env_pml4e, hva, (pte_t **) &(pte_host));
-    if (NULL == pg_pt)
-    {
-	return -E_INVAL;
-    }
+    // can we use PADDR here to get the corresponding physical address for the hva and then use pa2page to get the page pointer and pass that to PT_ADDR to get the pte phycical address entry.
+//    pg_pt = page_lookup(curenv->env_pml4e, hva, (pte_t **) &(pte_host));
+
+//    if (NULL == pg_pt)
+//    {
+//    cprintf("LINE %d\n", __LINE__);
+//	return -E_INVAL;
+//    }
 //    cprintf("LINE %d\n", __LINE__);
     if (!(perm & __EPTE_FULL))
     {
+    cprintf("LINE %d\n", __LINE__);
 	return -E_INVAL;
     }
 
-    if((perm & __EPTE_WRITE) && (!(*pte_host & PTE_W)))	// Permission mismatch write in guest but not write in host
-    {
-	return -E_INVAL;
-    }
+    host_ad = PADDR(hva);
+//    if((perm & __EPTE_WRITE)  && (!(host_ad & PTE_W)))	// Permission mismatch write in guest but not write in host
+//    {
+//    cprintf("LINE %d\n", __LINE__);
+//	return -E_INVAL;
+//    }
     
 //    cprintf("LINE %d\n", __LINE__);
-    host_ad = PTE_ADDR(*pte_host);
+//    host_ad = PTE_ADDR(*pte_host);
 
     val = ept_lookup_gpa(eptrt, gpa, 1, (epte_t**) &(pte_guest));
 //    cprintf("LINE %d\n", __LINE__);
@@ -327,7 +334,7 @@ int ept_map_hva2gpa(epte_t* eptrt, void* hva, void* gpa, int perm,
 //	cprintf("LINE %d\n", __LINE__);
 	if ((*pte_guest) && overwrite == 0 )
 	{
-//	    cprintf("LINE %d\n", __LINE__);
+	    cprintf("LINE %d\n", __LINE__);
 	    return -E_INVAL;
 	}
 	else if (*pte_guest && overwrite == 1 )

@@ -163,10 +163,10 @@ try_open:
     if (debug)
         cprintf("sending success, page %08x\n", (uintptr_t) o->o_fd);
 
-    // Share the FD page with the caller
-    *pg_store = o->o_fd;
-    *perm_store = PTE_P|PTE_U|PTE_W;
-    return 0;
+	// Share the FD page with the caller
+	*pg_store = o->o_fd;
+	*perm_store = PTE_P|PTE_U|PTE_W|PTE_SHARE;
+	return 0;
 }
 
 // Set the size of req->req_fileid to req->req_size bytes, truncating
@@ -200,36 +200,64 @@ serve_set_size(envid_t envid, struct Fsreq_set_size *req)
     int
 serve_read(envid_t envid, union Fsipc *ipc)
 {
-    struct Fsreq_read *req = &ipc->read;
-    struct Fsret_read *ret = &ipc->readRet;
+	struct Fsreq_read *req = &ipc->read;
+	struct Fsret_read *ret = &ipc->readRet;
+        struct OpenFile *o;
+        int r;
 
-    if (debug)
-        cprintf("serve_read %08x %08x %08x\n", envid, req->req_fileid, req->req_n);
+	if (debug)
+		cprintf("serve_read %08x %08x %08x\n", envid, req->req_fileid, req->req_n);
 
-    // Look up the file id, read the bytes into 'ret', and update
-    // the seek position.  Be careful if req->req_n > PGSIZE
-    // (remember that read is always allowed to return fewer bytes
-    // than requested).  Also, be careful because ipc is a union,
-    // so filling in ret will overwrite req.
-    //
-    // Hint: Use file_read.
-    // Hint: The seek position is stored in the struct Fd.
-    // LAB 5: Your code here
-    panic("serve_read not implemented");
+	// Look up the file id, read the bytes into 'ret', and update
+	// the seek position.  Be careful if req->req_n > PGSIZE
+	// (remember that read is always allowed to return fewer bytes
+	// than requested).  Also, be careful because ipc is a union,
+	// so filling in ret will overwrite req.
+	//
+	// Hint: Use file_read.
+	// Hint: The seek position is stored in the struct Fd.
+	// LAB 5: Your code here
+       size_t toReadBytes, numBytesRead;
+       if (ipc->read.req_n > PGSIZE)
+               toReadBytes = PGSIZE;
+       else
+               toReadBytes = req->req_n;
+
+
+       if ((r = openfile_lookup(envid, req->req_fileid, &o)) < 0)
+                return r;
+
+//	cprintf("toReadBytes=%d r=%x ret=%x o->o_fd->fd_offset=%d\n",toReadBytes,r,ret,o->o_fd->fd_offset);
+       numBytesRead = file_read(o->o_file, (void*)ret, toReadBytes, o->o_fd->fd_offset);
+       o->o_fd->fd_offset+=numBytesRead;
+       return numBytesRead;
+
+	panic("serve_read not implemented");
 }
 
 // Write req->req_n bytes from req->req_buf to req_fileid, starting at
 // the current seek position, and update the seek position
 // accordingly.  Extend the file if necessary.  Returns the number of
 // bytes written, or < 0 on error.
-    int
+int
 serve_write(envid_t envid, struct Fsreq_write *req)
 {
-    if (debug)
-        cprintf("serve_write %08x %08x %08x\n", envid, req->req_fileid, req->req_n);
+	struct OpenFile *o;
+        int r;
+	size_t numBytesWritten;
 
-    // LAB 5: Your code here.
-    panic("serve_write not implemented");
+	if (debug)
+		cprintf("serve_write %08x %08x %08x\n", envid, req->req_fileid, req->req_n);
+
+	if ((r = openfile_lookup(envid, req->req_fileid, &o)) < 0)
+        	return r;
+
+	numBytesWritten = file_write(o->o_file, (void*)req->req_buf, req->req_n, o->o_fd->fd_offset);
+	o->o_fd->fd_offset+=numBytesWritten;
+	return numBytesWritten;
+
+	// LAB 5: Your code here.
+	panic("serve_write not implemented");
 }
 
 // Stat ipc->stat.req_fileid.  Return the file's struct Stat to the

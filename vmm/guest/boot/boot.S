@@ -9,7 +9,7 @@
 .set PROT_MODE_DSEG, 0x10        # kernel data segment selector
 .set CR0_PE_ON,      0x1         # protected mode enable flag
 
-.globl gboot_start
+.globl gboot_start 
 gboot_start:
 .code16                     # Assemble for 16-bit mode
 cli                         # Disable interrupts
@@ -43,6 +43,7 @@ movw    %ax, %es                # -> ES: Extra Segment
 movw    %ax, %fs                # -> FS
 movw    %ax, %gs                # -> GS
 movw    %ax, %ss                # -> SS: Stack Segment
+
 mov $0x100000,%eax
 jmp *%eax
 

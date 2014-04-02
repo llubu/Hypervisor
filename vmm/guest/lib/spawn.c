@@ -300,7 +300,17 @@ map_segment(envid_t child, uintptr_t va, size_t memsz,
     static int
 copy_shared_pages(envid_t child)
 {
-    // LAB 7: Your code here.
-    return 0;
+	// LAB 7: Your code here.
+        uint64_t addr;
+	for (addr = UTEXT; addr < USTACKTOP-PGSIZE; addr += PGSIZE) {
+               if((vpml4e[VPML4E(addr)] & PTE_P) && (vpde[VPDPE(addr)] & PTE_P)  
+                 && (vpd[VPD(addr)] & PTE_P) && (vpt[VPN(addr)] & PTE_P)) {
+                        int perm_share = vpt[VPN(addr)] & PTE_USER;
+                        if (perm_share & PTE_SHARE)
+                                sys_page_map(0, (void *)addr, child, (void *)addr, perm_share);
+                }
+        }
+
+	return 0;
 }
 

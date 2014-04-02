@@ -535,6 +535,8 @@ sys_ept_map(envid_t srcenvid, void *srcva,
     /* Your code here */
     int val = 0;
     struct Page *tmp_map = NULL; 
+    pte_t *host_pte = NULL;
+    pte_t * host_ident = NULL;
 
     if ((uint64_t)srcva >= UTOP || (srcva != ROUNDUP(srcva, PGSIZE) && srcva != ROUNDDOWN(srcva, PGSIZE)) ||
 	     (guest_pa != ROUNDUP(guest_pa, PGSIZE) && guest_pa != ROUNDDOWN(guest_pa, PGSIZE))) {
@@ -558,7 +560,17 @@ sys_ept_map(envid_t srcenvid, void *srcva,
 		cprintf("GUEST:%x:%d\n", dstenv->env_vmxinfo.phys_sz, __LINE__);
 		return -E_INVAL;
 	    }
-	    val = ept_map_hva2gpa(dstenv->env_pml4e, (void *)srcva, (void *)guest_pa, perm, 1);
+	    tmp_map = page_lookup(srcenv->env_pml4e, (void *)srcva, (pte_t **)&host_pte);		//this gives me page for the srcva
+
+	    if ((perm & __EPTE_WRITE) && (!(*host_pte & PTE_W))) 
+	    {
+		cprintf("\n Failing in write check permissions \n");
+		return -E_INVAL;
+	    }
+	    host_ident = page2kva(tmp_map);
+	
+
+	    val = ept_map_hva2gpa(dstenv->env_pml4e, (void *)host_ident, (void *)guest_pa, perm, 1);  // change the srcva to host_ident
 	}
 	if (val < 0)
 	{
@@ -566,7 +578,7 @@ sys_ept_map(envid_t srcenvid, void *srcva,
 	}
 	else
 	{
-	    tmp_map = page_lookup(curenv->env_pml4e, (void *) srcva, (pte_t**)NULL);
+	    tmp_map = page_lookup(srcenv->env_pml4e, (void *) srcva, (pte_t**)NULL);
 	    if (tmp_map)
 		tmp_map->pp_ref++;
 	    else

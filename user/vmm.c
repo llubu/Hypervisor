@@ -42,18 +42,18 @@ map_in_guest( envid_t guest, uintptr_t gpa, size_t memsz,
 	{
 	    // allocate a blank page
 //	    if ((r = sys_page_alloc(guest, (void*) (gpa + i), perm)) < 0)
-	    if ((r = sys_page_alloc(0, (void*) UTEMP, perm)) < 0)
+	    if ((r = sys_page_alloc(0, (void*) UTEMP, __EPTE_FULL)) < 0)
 		return r;
 	    if ((r = sys_ept_map(thisenv->env_id, UTEMP, guest, (void *)(gpa + i), __EPTE_FULL)) < 0)
 	    {
-		panic(": sys_ept_map data: %e", r);
+		panic(": FIRST sys_ept_map data: %e", r);
 	    }
 
 	    sys_page_unmap(0, UTEMP);
 
-	} 
-	else
-	{
+      } 
+      else
+     {
 	    // from file
 	    if ((r = sys_page_alloc(0, UTEMP, PTE_P | PTE_U | PTE_W)) < 0)
 		return r;
@@ -62,9 +62,9 @@ map_in_guest( envid_t guest, uintptr_t gpa, size_t memsz,
 	    if ((r = readn(fd, UTEMP, MIN(PGSIZE, filesz-i))) < 0)
 		return r;
 	    cprintf("::%d,%x,%d,%x::\n", thisenv->env_id, UTEMP, guest, (gpa + i));
-	    if ((r = sys_ept_map(thisenv->env_id, UTEMP, guest, (void*) (gpa + i), perm)) < 0)
+	    if ((r = sys_ept_map(thisenv->env_id, UTEMP, guest, (void*) (gpa + i), __EPTE_FULL)) < 0)
 	    {
-		panic(": sys_ept_map data: %e", r);
+		panic(": SECOND sys_ept_map data: %e", r);
 	    }
 	     
 	    sys_page_unmap(0, UTEMP);
