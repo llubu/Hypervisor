@@ -166,7 +166,7 @@ handle_cpuid(struct Trapframe *tf, struct VmxGuestInfo *ginfo)
     uint32_t in_rax = (uint32_t) tf->tf_regs.reg_rax;
     uint32_t eax, ebx, ecx, edx;
     cpuid(in_rax, &eax, &ebx, &ecx, &edx );
-    if (1 == BIT(ecx, 5))
+    if (in_rax == 1)
     {
 	ecx = ecx & ~mask;
     }
