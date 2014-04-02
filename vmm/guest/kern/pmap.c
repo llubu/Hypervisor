@@ -272,7 +272,7 @@ x64_vm_init(void)
     cprintf("ABHIROOP:%d:\n", __LINE__);
 	check_page_free_list(1);
     cprintf("ABHIROOP:%d:\n", __LINE__);
-//	check_page_alloc();
+	check_page_alloc();
     cprintf("ABHIROOP:%d:\n", __LINE__);
 	page_check();
 
@@ -343,7 +343,7 @@ x64_vm_init(void)
     /* check_page_free_list(1); */
     /* check_page_alloc(); */
     /* page_check(); */
-//   check_page_free_list(0);
+   check_page_free_list(0);
     cprintf("ABHIROOP:%d:\n", __LINE__);
 }
 
