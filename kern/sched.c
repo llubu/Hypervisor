@@ -74,10 +74,13 @@ sched_yield(void)
                 }
 		curenv = &envs[i];
 		curenv->env_status = ENV_RUNNING;
+		while (1)
+		{
 		curenv->env_runs++;
 
 		if (!vmxon())
 		    vmx_vmrun(&envs[i]);
+		}
 	    }
 	    else
 		env_run(&envs[i]);

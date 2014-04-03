@@ -423,8 +423,8 @@ void vmexit() {
         env_destroy(curenv);
     }
     cprintf("\n Before YIELD\n");
-curenv->env_runs++;
-vmx_vmrun(curenv);
+//curenv->env_runs++;
+//vmx_vmrun(curenv);
 //	while(1);    
 //    sched_yield();
 }

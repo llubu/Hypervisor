@@ -53,10 +53,14 @@ bc_pgfault(struct UTrapframe *utf)
 	void *block_addr = ROUNDDOWN(addr, BLKSIZE);
     if((r = sys_page_alloc(thisenv->env_id, block_addr, PTE_SYSCALL)) < 0)
             panic("bc_pgfault:failed(err = %d) to map page at block %d\n",r,blockno);
-
+#ifndef VMM_GUEST
     if((r = ide_read(BLKSECTS * blockno, block_addr, BLKSECTS) < 0))
             panic("bc_pgfault:failed to read the sector\n");
-
+#endif
+#ifdef VMM_GUEST
+    if ((r = host_read(BLKSECTS * blockno, block_addr, BLKSECTS) < 0))
+	panic("bc_pgfault:failed to read the sctor:GUEST CALL\n");
+#endif
     if((r = sys_page_map(thisenv->env_id, block_addr, thisenv->env_id, block_addr, PTE_SYSCALL)) < 0)
             panic("bc_pgfault:failed to map the page back as not-dirty\n");
 
@@ -87,8 +91,14 @@ flush_block(void *addr)
        void *block_addr = ROUNDDOWN(addr, BLKSIZE);
        if (va_is_mapped(block_addr) && va_is_dirty(block_addr))
        {
+#ifndef VMM_GUEST
                if((r = ide_write(BLKSECTS * blockno, block_addr, BLKSECTS) < 0))
-                       panic("flush_block:failed to write the sector\n");
+		   panic("flush_block:failed to write the sector\n");
+#endif
+#ifdef VMM_GUEST
+	      if((r = host_write(BLKSECTS * blockno, block_addr, BLKSECTS) < 0))
+		  panic("flush_block:failed to write the sector: GUEST CALL\n");
+#endif
 
                if((r = sys_page_map(thisenv->env_id, block_addr, thisenv->env_id, block_addr, PTE_SYSCALL) < 0))
                        panic("flush_block:failed to map the page as not-dirty\n");

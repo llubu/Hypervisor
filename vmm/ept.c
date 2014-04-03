@@ -114,7 +114,7 @@ uint64_t e_pml4e_walk(epte_t *eptrt, void *gpa, int create)
 	    }
 	    else
 	    {
-		*offset_ptr_in_epml4e = ((uint64_t)epdpe_base) | __EPTE_FULL;
+		*offset_ptr_in_epml4e = ((uint64_t)epdpe_base) | __EPTE_FULL ;
 		return (uint64_t)epte;
 	    }
 	}
@@ -201,7 +201,7 @@ uint64_t e_pgdir_walk(pde_t *pgdir, void *gpa, int create)
 	    }
 	    new_PT->pp_ref++;
 	    epage_table_base = (pte_t *)page2pa(new_PT);
-	    *offset_ptr_in_epgdir = ((uint64_t)epage_table_base) | __EPTE_FULL;
+	    *offset_ptr_in_epgdir = ((uint64_t)epage_table_base) | __EPTE_FULL ;
 
 	    uintptr_t index_in_epage_table = PTX(gpa);
 	    pte_t *offset_ptr_in_epage_table = epage_table_base + index_in_epage_table;
@@ -295,16 +295,6 @@ int ept_map_hva2gpa(epte_t* eptrt, void* hva, void* gpa, int perm,
     int val = 0;
     physaddr_t host_ad = 0x0;
 
-//    cprintf("LINE %d\n", __LINE__);
-    // can we use PADDR here to get the corresponding physical address for the hva and then use pa2page to get the page pointer and pass that to PT_ADDR to get the pte phycical address entry.
-//    pg_pt = page_lookup(curenv->env_pml4e, hva, (pte_t **) &(pte_host));
-
-//    if (NULL == pg_pt)
-//    {
-//    cprintf("LINE %d\n", __LINE__);
-//	return -E_INVAL;
-//    }
-//    cprintf("LINE %d\n", __LINE__);
     if (!(perm & __EPTE_FULL))
     {
     cprintf("LINE %d\n", __LINE__);
@@ -312,14 +302,6 @@ int ept_map_hva2gpa(epte_t* eptrt, void* hva, void* gpa, int perm,
     }
 
     host_ad = PADDR(hva);
-//    if((perm & __EPTE_WRITE)  && (!(host_ad & PTE_W)))	// Permission mismatch write in guest but not write in host
-//    {
-//    cprintf("LINE %d\n", __LINE__);
-//	return -E_INVAL;
-//    }
-    
-//    cprintf("LINE %d\n", __LINE__);
-//    host_ad = PTE_ADDR(*pte_host);
 
     val = ept_lookup_gpa(eptrt, gpa, 1, (epte_t**) &(pte_guest));
 //    cprintf("LINE %d\n", __LINE__);
@@ -339,12 +321,13 @@ int ept_map_hva2gpa(epte_t* eptrt, void* hva, void* gpa, int perm,
 	}
 	else if (*pte_guest && overwrite == 1 )
 	{
-	    *pte_guest = (uint64_t )host_ad | perm;
+	    *pte_guest = (uint64_t )host_ad | perm | __EPTE_IPAT;// | __EPTE_TYPE(EPTE_TYPE_WB);
 	    return 0;
 	}
 	if (!(*pte_guest))
 	{
-	    *pte_guest = (uint64_t)host_ad | perm;
+	    *pte_guest = (uint64_t )host_ad | perm | __EPTE_IPAT;// | __EPTE_TYPE(EPTE_TYPE_WB);
+//	    *pte_guest = (uint64_t)host_ad | perm;
 	    return 0;
 	}
 

@@ -18,9 +18,9 @@ map_in_guest( envid_t guest, uintptr_t gpa, size_t memsz,
         int fd, size_t filesz, off_t fileoffset ) {
 
     /* Your code here */
-    printf("gpa :%x", gpa);
-    printf("memsz %d", memsz);
-    printf("filesz %d", filesz);
+    cprintf("gpa :%x", gpa);
+    cprintf("memsz %x", memsz);
+    cprintf("filesz %x\n", filesz);
 
     int i, r;
     void *blk;
@@ -44,6 +44,7 @@ map_in_guest( envid_t guest, uintptr_t gpa, size_t memsz,
 //	    if ((r = sys_page_alloc(guest, (void*) (gpa + i), perm)) < 0)
 	    if ((r = sys_page_alloc(0, (void*) UTEMP, __EPTE_FULL)) < 0)
 		return r;
+	    cprintf("FIRST::%d,%x,%d,%x::\n", thisenv->env_id, UTEMP, guest, (gpa + i));
 	    if ((r = sys_ept_map(thisenv->env_id, UTEMP, guest, (void *)(gpa + i), __EPTE_FULL)) < 0)
 	    {
 		panic(": FIRST sys_ept_map data: %e", r);
@@ -106,7 +107,7 @@ for (i = 0; i < elf->e_phnum; i++, ph++) {
     if (ph->p_type != ELF_PROG_LOAD)
 	continue;
     
-    printf("\n ph %d",ph->p_type);
+//    printf("\n ph %d",ph->p_type);
     perm = PTE_P | PTE_U;
     if (ph->p_flags & ELF_PROG_FLAG_WRITE)
 	perm |= PTE_W;

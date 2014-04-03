@@ -83,6 +83,7 @@ bool
 handle_eptviolation(uint64_t *eptrt, struct VmxGuestInfo *ginfo) {
     uint64_t gpa = vmcs_read64(VMCS_64BIT_GUEST_PHYSICAL_ADDR);
     int r;
+    cprintf("EPT_VIO:%x::", gpa);
     if(gpa < 0xA0000 || (gpa >= 0x100000 && gpa < ginfo->phys_sz)) {
         // Allocate a new page to the guest.
         struct Page *p = page_alloc(0);
@@ -242,8 +243,8 @@ handle_vmcall(struct Trapframe *tf, struct VmxGuestInfo *gInfo, uint64_t *eptrt)
 	    tmp_arr[2].size = 20;
 	    tmp_arr[2].base_addr_low = EXTPHYSMEM;
 	    tmp_arr[2].base_addr_high = 0x0;
-	    tmp_arr[2].length_low = gInfo->phys_sz - EXTPHYSMEM;
-	    tmp_arr[2].length_high = 0x0;
+	    tmp_arr[2].length_low = (uint32_t)(gInfo->phys_sz - EXTPHYSMEM) & (0xffffffff);
+	    tmp_arr[2].length_high =(uint32_t)((gInfo->phys_sz - EXTPHYSMEM) >> 32) & (0xffffffff);
 	    tmp_arr[2].type = MB_TYPE_USABLE;
 
 	    mbinfo.flags = MB_FLAG_MMAP;
@@ -264,7 +265,7 @@ handle_vmcall(struct Trapframe *tf, struct VmxGuestInfo *gInfo, uint64_t *eptrt)
 		    memcpy(((void *)host_va + sizeof(multiboot_info_t)), (void *)tmp_arr,sizeof(tmp_arr));
 //	        }
 	ept_map_hva2gpa((epte_t*) eptrt, (void *) host_va, (void *)multiboot_map_addr, __EPTE_FULL, 1);	
-	    tf->tf_regs.reg_rbx = multiboot_map_addr;
+	    tf->tf_regs.reg_rbx = (uint64_t) multiboot_map_addr;
 
 //    cprintf("e820 map hypercall not implemented\n");	    
 	    handled = true;

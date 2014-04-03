@@ -270,11 +270,11 @@ x64_vm_init(void)
     page_init();
 	
     cprintf("ABHIROOP:%d:\n", __LINE__);
-	check_page_free_list(1);
+//	check_page_free_list(1);
     cprintf("ABHIROOP:%d:\n", __LINE__);
-	check_page_alloc();
+//	check_page_alloc();
     cprintf("ABHIROOP:%d:\n", __LINE__);
-	page_check();
+//	page_check();
 
     cprintf("ABHIROOP:%d:\n", __LINE__);
     //////////////////////////////////////////////////////////////////////
@@ -330,7 +330,7 @@ x64_vm_init(void)
     // Initialize the SMP-related parts of the memory map
     //mem_init_mp();
 
-    check_boot_pml4e(boot_pml4e);
+//    check_boot_pml4e(boot_pml4e);
 
     cprintf("ABHIROOP:%d:\n", __LINE__);
     //////////////////////////////////////////////////////////////////////
@@ -343,7 +343,7 @@ x64_vm_init(void)
     /* check_page_free_list(1); */
     /* check_page_alloc(); */
     /* page_check(); */
-   check_page_free_list(0);
+//   check_page_free_list(0);
     cprintf("ABHIROOP:%d:\n", __LINE__);
 }
 
