@@ -426,7 +426,7 @@ void vmexit() {
 //curenv->env_runs++;
 //vmx_vmrun(curenv);
 //	while(1);    
-//    sched_yield();
+    sched_yield();
 }
 
 void asm_vmrun(struct Trapframe *tf) {
