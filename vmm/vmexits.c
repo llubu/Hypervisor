@@ -12,6 +12,7 @@
 #include <inc/string.h>
 #include <kern/syscall.h>
 #include <kern/env.h>
+#include <kern/sched.h>
 
 extern char *multiboot_info;
 
@@ -83,7 +84,7 @@ bool
 handle_eptviolation(uint64_t *eptrt, struct VmxGuestInfo *ginfo) {
     uint64_t gpa = vmcs_read64(VMCS_64BIT_GUEST_PHYSICAL_ADDR);
     int r;
-    cprintf("EPT_VIO:%x::", gpa);
+//    cprintf("EPT_VIO:%x::", gpa);
     if(gpa < 0xA0000 || (gpa >= 0x100000 && gpa < ginfo->phys_sz)) {
         // Allocate a new page to the guest.
         struct Page *p = page_alloc(0);
@@ -198,7 +199,7 @@ handle_vmcall(struct Trapframe *tf, struct VmxGuestInfo *gInfo, uint64_t *eptrt)
     bool handled = false;
     multiboot_info_t mbinfo;
     memory_map_t tmp_arr[3];		// Tmp arr to create multiboot map
-    int perm, r;
+    int perm, r, i;
     void *gpa_pg, *hva_pg;
     envid_t to_env;
     uint32_t val;
@@ -276,8 +277,33 @@ handle_vmcall(struct Trapframe *tf, struct VmxGuestInfo *gInfo, uint64_t *eptrt)
 	    // If the requested environment is the HOST FS, this call should
 	    //  do this translation.
 	    /* Your code here */
-	    cprintf("IPC send hypercall not implemented\n");	    
-	    handled = false;
+//	    cprintf("ABHIROOP:%d:\n",__LINE__);
+	    to_env = tf->tf_regs.reg_rdx;
+	    if ( to_env == 1 && curenv->env_type == ENV_TYPE_GUEST)
+	    {
+//	    cprintf("ABHIROOP:%d:\n",__LINE__);
+	    to_env = tf->tf_regs.reg_rdx;
+		for (i = 0; i < NENV; i++)
+		{
+		    if (envs[i].env_type == ENV_TYPE_FS)
+		    {
+			to_env = (uint64_t) envs[i].env_id;
+			break;
+		    }
+		}
+	    }
+			
+//	    cprintf("ABHIROOP:%d:%d\n",__LINE__, to_env);
+		ret = syscall(SYS_ipc_try_send, to_env, (uint64_t)tf->tf_regs.reg_rcx, (uint64_t)tf->tf_regs.reg_rbx, (uint64_t)tf->tf_regs.reg_rdi, (uint64_t)tf->tf_regs.reg_rsi);
+		if (0 == ret)
+		{
+		    break;
+		}
+
+//	    cprintf("ABHIROOP:%d:\n",__LINE__);
+	    tf->tf_regs.reg_rax = ret;
+//	    cprintf("IPC send hypercall not implemented\n");	    
+	    handled = true;
             break;
 
         case VMX_VMCALL_IPCRECV:
@@ -285,8 +311,13 @@ handle_vmcall(struct Trapframe *tf, struct VmxGuestInfo *gInfo, uint64_t *eptrt)
 	    // NB: because recv can call schedule, clobbering the VMCS, 
 	    // you should go ahead and increment rip before this call.
 	    /* Your code here */
-	    cprintf("IPC recv hypercall not implemented\n");	    
-            handled = false;
+
+    	    tf->tf_rip += vmcs_read32(VMCS_32BIT_VMEXIT_INSTRUCTION_LENGTH);  //cause it never returns
+//	    cprintf("ABHIROOP:%d:\n",__LINE__);
+	    ret = syscall(SYS_ipc_recv, (uint64_t)tf->tf_regs.reg_rdx, (uint64_t)0, (uint64_t)0, (uint64_t)0,(uint64_t)0);
+// cprintf("IPC recv hypercall not implemented\n");	    
+	    tf->tf_regs.reg_rax = (uint64_t)ret;
+            handled = true;
             break;
     }
     if(handled) {

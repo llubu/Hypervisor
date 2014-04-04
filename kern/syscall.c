@@ -4,6 +4,7 @@
 #include <inc/error.h>
 #include <inc/string.h>
 #include <inc/assert.h>
+#include <inc/fs.h>
 
 #include <kern/env.h>
 #include <kern/pmap.h>
@@ -396,12 +397,15 @@ sys_ipc_try_send(envid_t envid, uint32_t value, void *srcva, unsigned perm)
     // LAB 4: Your code here.
 	struct Env *env;
 	pte_t *pte;
+	struct Page *gu_pa = NULL;
+	uint64_t ept_ret = 0;
+	int i = 0;
 
 	if (envid2env(envid, &env, 0) < 0) {
 		cprintf("sys_ipc_try_send failed: Bad env\n");
 		return -E_BAD_ENV;
 	}
-
+//cprintf("ABHIROOP:%d:\n", __LINE__);
 	if ((env->env_status != ENV_NOT_RUNNABLE) || (env->env_ipc_recving != 1))
 	    return -E_IPC_NOT_RECV;
 	
@@ -411,10 +415,30 @@ sys_ipc_try_send(envid_t envid, uint32_t value, void *srcva, unsigned perm)
 			cprintf("sys_ipc_try_send failed: Page is not alligned\n");
 	      		return -E_INVAL;
 		}
+		if (curenv->env_type != ENV_TYPE_GUEST)
+		{
+		    gu_pa = page_lookup(curenv->env_pml4e,srcva, &pte);
+		}
+		else
+		{
+		    ept_ret = e_pml4e_walk(curenv->env_pml4e, srcva, 0);
+//cprintf("ABHIROOP:%d:0x%x:srcva:0x%x\n", __LINE__, ept_ret), srcva;
+//llubu: ?		    if (ept_ret == E_NO_ENT || ept_ret == E_NO_MEM)
+//		    {
+//			return -ept_ret;
+//		    }
+		    pte = (pte_t *) ept_ret;
+		    gu_pa = pa2page((physaddr_t)PTE_ADDR(*pte));
+		}
+//cprintf("ABHIROOP:%d:\n", __LINE__);
+		if (gu_pa == NULL)
+		{
+		    cprintf("\n SYS_TRY_IPC_SEND: PAGE NOT FOUND\n");
+		}
 
 	  	//Check if srcva is mapped to in caller's address space.
-	   	pte = pml4e_walk(curenv->env_pml4e, srcva, 0);
 
+//cprintf("ABHIROOP:%d:\n", __LINE__);
 	   	if (!pte || !((*pte) & PTE_P)) {
 	      		cprintf("\nsys_ipc_try_send failed: Page is not mapped to srcva\n");
 	      		return -E_INVAL;
@@ -436,27 +460,40 @@ sys_ipc_try_send(envid_t envid, uint32_t value, void *srcva, unsigned perm)
 
 	}
 
+//cprintf("ABHIROOP:%d:\n", __LINE__);
 	env->env_ipc_recving = 0;
 	env->env_ipc_value = value;
 	env->env_ipc_from = curenv->env_id;
 	env->env_ipc_perm = 0;
 	
 	if ((uint64_t)srcva < UTOP) {
-		pte_t *pite;
+	/*	pte_t *pite;
 		struct Page *pp;
 	   	pp = page_lookup(curenv->env_pml4e, srcva, &pte);
 	   
 	   	if (!pp) {
 	      		cprintf("\nsys_try_ipc_send: Page not found\n");
 	      		return -1;
-	   	}
+	   	} */
 
-	   	if (page_insert(env->env_pml4e, pp, env->env_ipc_dstva, perm) < 0)
-	       		return -E_NO_MEM;
-
-	   env->env_ipc_perm = perm;
+		if (env->env_type != ENV_TYPE_GUEST)
+		{
+		    if (page_insert(env->env_pml4e, gu_pa,env->env_ipc_dstva, perm) < 0)
+		    {
+			return -E_NO_MEM;
+		    }
+		}
+		else
+		{
+		    if (ept_page_insert(env->env_pml4e, gu_pa, env->env_ipc_dstva, perm) < 0)
+		    {
+			return -E_NO_MEM;
+		    }
+		}
+		env->env_ipc_perm = perm;
 	}
 	
+//cprintf("ABHIROOP:%d:\n", __LINE__);
 	env->env_status = ENV_RUNNABLE;
 	return 0;
 
@@ -478,6 +515,7 @@ sys_ipc_try_send(envid_t envid, uint32_t value, void *srcva, unsigned perm)
 sys_ipc_recv(void *dstva)
 {
     // LAB 4: Your code here.
+    void *hva;
     if (!curenv)
 	return -E_INVAL;
     if ((uint64_t)dstva > UTOP || (ROUNDDOWN(dstva,PGSIZE)!=dstva && ROUNDUP(dstva,PGSIZE)!=dstva)) {
@@ -489,11 +527,23 @@ sys_ipc_recv(void *dstva)
 	curenv->env_tf.tf_regs.reg_rax = 0; //We need this to inform lib/syscall.c that everything went fine.
 					    //Note that this function does not return. Thus, set rax so that
 					    //if anyone schedules this env, it returns will rax=0 in lib/syscall.
+
+	if(curenv->env_type == ENV_TYPE_GUEST)
+	{
+
+	    ept_gpa2hva(curenv->env_pml4e,dstva,&hva);
+	    curenv->env_ipc_dstva = hva;
+	}
+	else
+	{
+	    curenv->env_ipc_dstva = dstva;
+	}
         curenv->env_ipc_dstva = dstva;
         curenv->env_ipc_perm = 0;
         curenv->env_ipc_from = 0;
         curenv->env_ipc_recving = 1; //Receiver is ready to listen
         curenv->env_status = ENV_NOT_RUNNABLE; //Block the execution of current env.
+	
 
 	sched_yield(); //Give up the cpu. Don't return, instead env_run some other env.
 

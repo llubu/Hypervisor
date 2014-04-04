@@ -18,9 +18,9 @@ map_in_guest( envid_t guest, uintptr_t gpa, size_t memsz,
         int fd, size_t filesz, off_t fileoffset ) {
 
     /* Your code here */
-    cprintf("gpa :%x", gpa);
-    cprintf("memsz %x", memsz);
-    cprintf("filesz %x\n", filesz);
+//    cprintf("gpa :%x", gpa);
+//    cprintf("memsz %x", memsz);
+//    cprintf("filesz %x\n", filesz);
 
     int i, r;
     void *blk;
@@ -44,7 +44,7 @@ map_in_guest( envid_t guest, uintptr_t gpa, size_t memsz,
 //	    if ((r = sys_page_alloc(guest, (void*) (gpa + i), perm)) < 0)
 	    if ((r = sys_page_alloc(0, (void*) UTEMP, __EPTE_FULL)) < 0)
 		return r;
-	    cprintf("FIRST::%d,%x,%d,%x::\n", thisenv->env_id, UTEMP, guest, (gpa + i));
+//	    cprintf("FIRST::%d,%x,%d,%x::\n", thisenv->env_id, UTEMP, guest, (gpa + i));
 	    if ((r = sys_ept_map(thisenv->env_id, UTEMP, guest, (void *)(gpa + i), __EPTE_FULL)) < 0)
 	    {
 		panic(": FIRST sys_ept_map data: %e", r);
@@ -62,7 +62,7 @@ map_in_guest( envid_t guest, uintptr_t gpa, size_t memsz,
 		return r;
 	    if ((r = readn(fd, UTEMP, MIN(PGSIZE, filesz-i))) < 0)
 		return r;
-	    cprintf("::%d,%x,%d,%x::\n", thisenv->env_id, UTEMP, guest, (gpa + i));
+//	    cprintf("::%d,%x,%d,%x::\n", thisenv->env_id, UTEMP, guest, (gpa + i));
 	    if ((r = sys_ept_map(thisenv->env_id, UTEMP, guest, (void*) (gpa + i), __EPTE_FULL)) < 0)
 	    {
 		panic(": SECOND sys_ept_map data: %e", r);
@@ -98,7 +98,7 @@ elf = (struct Elf*) elf_buf;
 if (readn(fd, elf_buf, sizeof(elf_buf)) != sizeof(elf_buf)
 	            || elf->e_magic != ELF_MAGIC) {
     close(fd);
-    cprintf("elf magic %08x want %08x\n", elf->e_magic, ELF_MAGIC);
+//    cprintf("elf magic %08x want %08x\n", elf->e_magic, ELF_MAGIC);
     return -E_NOT_EXEC;
 }
 
@@ -131,7 +131,7 @@ umain(int argc, char **argv) {
     int ret;
     envid_t guest;
 
-    cprintf("\n IN USER VMM \n");
+//    cprintf("\n IN USER VMM \n");
 
     if ((ret = sys_env_mkguest( GUEST_MEM_SZ, JOS_ENTRY )) < 0) {
         cprintf("Error creating a guest OS env: %e\n", ret );
@@ -157,7 +157,7 @@ cprintf("BOOT%d\n",__LINE__);
 	cprintf("Error mapping bootloader into the guest - %d\n.", ret);
 	exit();
     }
-    cprintf("\n BOOTLOADER DONE \n");
+//    cprintf("\n BOOTLOADER DONE \n");
     // Mark the guest as runnable.
     sys_env_set_status(guest, ENV_RUNNABLE);
     wait(guest);

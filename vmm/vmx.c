@@ -28,7 +28,7 @@ static inline bool vmx_check_support() {
     uint32_t eax, ebx, ecx, edx;
     cpuid( 1, &eax, &ebx, &ecx, &edx );
     /* Your code here */ 
-    cprintf("\n  IN ECX :%x\n",ecx);
+//    cprintf("\n  IN ECX :%x\n",ecx);
     if (1 == BIT(ecx, 5))
     {
 	return true;
@@ -128,7 +128,7 @@ int vmx_init_vmxon() {
     } else if ( !vmx_check_ept() ) {
        return -E_NO_EPT;
     } 
-    cprintf("\n VM SUPPORT CHECK PASS \n");
+//    cprintf("\n VM SUPPORT CHECK PASS \n");
     
     //Alocate mem and init the VMXON region.
     struct Page *p_vmxon_region = vmx_init_vmcs();

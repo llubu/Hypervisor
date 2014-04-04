@@ -427,7 +427,7 @@ page_fault_handler(struct Trapframe *tf)
 	//cprintf("PGFault at %x\n",fault_va);
 	if (tf->tf_cs == 0x8) {
 		print_trapframe(tf);
-		panic("Kernel Pagefaulted! WTF!");
+		panic("Kernel Pagefaulted!");
 	}
 
 	// We've already handled kernel-mode exceptions, so if we get here,

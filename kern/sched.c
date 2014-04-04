@@ -86,20 +86,8 @@ sched_yield(void)
 		env_run(&envs[i]);
         }
     }
-    cprintf("\n IN SYS YIELD \n");
+//    cprintf("\n IN SYS YIELD \n");
     cprintf("CURENV:%x\n", curenv);
-/*    for (i = 0; i < NENV; i++) {
-	if (envs[i].env_type == ENV_TYPE_GUEST)// && envs[i].env_status == ENV_RUNNABLE)
-	{
-	    cprintf("GUEST starting in sched_yield");
-//	    vmxon();
-	    if ( !vmxon())
-		vmx_vmrun(&envs[i]);
-	    else
-		env_run(&envs[i]);
-	}
-    }
-*/
     // For debugging and testing purposes, if there are no
     // runnable environments other than the idle environments,
     // drop into the kernel monitor.
@@ -117,16 +105,9 @@ sched_yield(void)
     }
 
     // Run this CPU's idle environment when nothing else is runnable.
-    cprintf("\n BEFORE IDLE \n");
     idle = &envs[cpunum()];
-    cprintf("\n AF CPU NUM:%x \n", idle);
     if (!(idle->env_status == ENV_RUNNABLE || idle->env_status == ENV_RUNNING))
    	panic("CPU %d: No idle environment!", cpunum());
-    cprintf("STST:%d:\n",idle->env_status);
-    cprintf("RUNS:%d:\n",idle->env_runs);
-    cprintf("CR3:%x:\n",idle->env_cr3);
     abhi = &(idle->env_tf);
-    cprintf("RIP FRAME:%x:\n", (abhi->tf_rip));
-    cprintf("RSP FRAME:%x:\n", (abhi->tf_rsp));
     env_run(idle);
 }

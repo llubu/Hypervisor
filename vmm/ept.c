@@ -52,7 +52,7 @@ static int ept_lookup_gpa(epte_t* eptrt, void *gpa,
     uint64_t val = 0;
 
     /* Your code here */
-    cprintf("\n IN EPT_LOOKUP_GPA\n");
+//    cprintf("\n IN EPT_LOOKUP_GPA\n");
     if ( NULL == eptrt)
     {
 	return -E_INVAL;
@@ -302,7 +302,7 @@ int ept_map_hva2gpa(epte_t* eptrt, void* hva, void* gpa, int perm,
         int overwrite) {
 
     /* Your code here */
-    cprintf("\n IN HVA2GPA\n");
+//    cprintf("\n IN HVA2GPA\n");
     pte_t *pte_host = NULL, *pte_guest = NULL;
     struct Page *pg_pt = NULL;
     int val = 0;
@@ -310,7 +310,7 @@ int ept_map_hva2gpa(epte_t* eptrt, void* hva, void* gpa, int perm,
 
     if (!(perm & __EPTE_FULL))
     {
-    cprintf("LINE %d\n", __LINE__);
+//    cprintf("LINE %d\n", __LINE__);
 	return -E_INVAL;
     }
 
@@ -329,7 +329,7 @@ int ept_map_hva2gpa(epte_t* eptrt, void* hva, void* gpa, int perm,
 //	cprintf("LINE %d\n", __LINE__);
 	if ((*pte_guest) && overwrite == 0 )
 	{
-	    cprintf("LINE %d\n", __LINE__);
+//	    cprintf("LINE %d\n", __LINE__);
 	    return -E_INVAL;
 	}
 	else if (*pte_guest && overwrite == 1 )

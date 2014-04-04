@@ -1363,7 +1363,7 @@ page_check(void)
     assert(check_va2pa(boot_pml4e, mm1) == 0);
     assert(check_va2pa(boot_pml4e, mm1+PGSIZE) == PGSIZE);
     assert(check_va2pa(boot_pml4e, mm2) == 0);
-    cprintf("failing %x %x\n", mm2+PGSIZE, check_va2pa(boot_pml4e, mm2+PGSIZE));
+//    cprintf("failing %x %x\n", mm2+PGSIZE, check_va2pa(boot_pml4e, mm2+PGSIZE));
     assert(check_va2pa(boot_pml4e, mm2+PGSIZE) == ~0);
     // check permissions
     assert(*pml4e_walk(boot_pml4e, (void*) mm1, 0) & (PTE_W|PTE_PWT|PTE_PCD));

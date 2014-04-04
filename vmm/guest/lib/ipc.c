@@ -90,11 +90,11 @@ ipc_host_recv(void *pg) {
     uintptr_t tmp_adr;
     tmp_adr = (uintptr_t) pg;
     int ret = 0;
-    uint64_t a1 = (uint64_t) pg;
-    uint64_t a2 = (uint64_t) 0;
-    uint64_t a3 = (uint64_t) 0;
-    uint64_t a4 = (uint64_t) 0;
-    uint64_t a5 = 0;
+    uint64_t a1; 
+    uint64_t a2;
+    uint64_t a3; 
+    uint64_t a4; 
+    uint64_t a5; 
     int num = VMX_VMCALL_IPCRECV;
 
     if (pg == NULL)
@@ -104,6 +104,12 @@ ipc_host_recv(void *pg) {
     {
            pg = (void *) PTE_ADDR( vpt[VPN(tmp_adr)] );
     }
+    a1 = (uint64_t) pg;
+    a2 = (uint64_t) 0;
+    a3 = (uint64_t) 0;
+    a4 = (uint64_t) 0;
+    a5 = 0;
+    
     //Try receiving value
 //    int r = sys_ipc_recv(pg);
     asm volatile("vmcall\n"
@@ -117,23 +123,6 @@ ipc_host_recv(void *pg) {
 	    : "cc", "memory");
 	if (ret > 0)
 	    panic("vmcall %d returned %d (> 0) in ipc_host_send", num, ret);
-
-/*    if (ret < 0)
-    {
-	if (from_env_store)
-	    *from_env_store = 0;
-	if (perm_store)
-	    *perm_store = 0;
-	return ret;
-    }
-    else
-    {
-	if (from_env_store != NULL)
-	    *from_env_store = thisenv->env_ipc_from;
-	if (thisenv->env_ipc_dstva && perm_store != NULL)
-	    *perm_store = thisenv->env_ipc_perm;
-	return thisenv->env_ipc_value; //return the received value
-    } //  panic("ipc_recv not implemented in VM guest"); */
 	return ret;
 }
 
@@ -145,17 +134,24 @@ ipc_host_send(envid_t to_env, uint32_t val, void *pg, int perm)
     // LAB 8: Your code here.
     uintptr_t tmp_adr;
     int ret = 0;
-    uint64_t a1 = (uint64_t) to_env;
-    uint64_t a2 = (uint64_t) val;
-    uint64_t a3 = (uint64_t) pg;
-    uint64_t a4 = (uint64_t) perm;
-    uint64_t a5 = 0;
+    uint64_t a1;
+    uint64_t a2;
+    uint64_t a3;
+    uint64_t a4;
+    uint64_t a5;
     int num = VMX_VMCALL_IPCSEND;
+
     tmp_adr = (uintptr_t)pg;
     if (tmp_adr)
     {
 	pg = (void *) UTOP;
     }
+    a1 = (uint64_t) to_env;
+    a2 = (uint64_t) val;
+    a3 = (uint64_t) pg;
+    a4 = (uint64_t) perm;
+    a5 = 0;
+
     if ((vpml4e[VPML4E(tmp_adr)] & PTE_P) && (vpde[VPDPE(tmp_adr)] & PTE_P) && (vpd[VPD(tmp_adr)] & PTE_P) && (vpt[VPN(tmp_adr)] &PTE_P))
 	pg = (void *) PTE_ADDR(vpt[VPN(tmp_adr)]);
     
@@ -174,8 +170,8 @@ ipc_host_send(envid_t to_env, uint32_t val, void *pg, int perm)
 	    panic("vmcall %d returned %d (> 0) in ipc_host_send", num, ret);
 	if (0 == ret)
 	    break;
-
-        if (ret < 0 && ret != -E_IPC_NOT_RECV)
+        
+	if (ret < 0 && ret != -E_IPC_NOT_RECV)
 	    panic("Error in ipc_host_send %e\n", ret);
 	else if (ret == -E_IPC_NOT_RECV)
 	    sys_yield();
