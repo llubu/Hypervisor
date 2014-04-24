@@ -47,21 +47,43 @@ mon_kerninfo(int argc, char **argv, struct Trapframe *tf)
 {
 	extern char _start[], entry[], etext[], edata[], end[];
 
-	/* cprintf("Special kernel symbols:\n"); */
-	/* cprintf("  _start                  %08x (phys)\n", _start); */
-	/* cprintf("  entry  %08x (virt)  %08x (phys)\n", entry, entry - KERNBASE); */
-	/* cprintf("  etext  %08x (virt)  %08x (phys)\n", etext, etext - KERNBASE); */
-	/* cprintf("  edata  %08x (virt)  %08x (phys)\n", edata, edata - KERNBASE); */
-	/* cprintf("  end    %08x (virt)  %08x (phys)\n", end, end - KERNBASE); */
-	/* cprintf("Kernel executable memory footprint: %dKB\n", */
-	/* 	ROUNDUP(end - entry, 1024) / 1024); */
+	cprintf("Special kernel symbols:\n"); 
+	cprintf("  _start                  %08x (phys)\n", _start); 
+	cprintf("  entry  %08x (virt)  %08x (phys)\n", entry, entry - KERNBASE); 
+	cprintf("  etext  %08x (virt)  %08x (phys)\n", etext, etext - KERNBASE); 
+	cprintf("  edata  %08x (virt)  %08x (phys)\n", edata, edata - KERNBASE); 
+	cprintf("  end    %08x (virt)  %08x (phys)\n", end, end - KERNBASE);
+	cprintf("Kernel executable memory footprint: %dKB\n",
+		ROUNDUP(end - entry, 1024) / 1024); 
 	return 0;
 }
 
 int
 mon_backtrace(int argc, char **argv, struct Trapframe *tf)
 {
-	// Your code here.
+	uint64_t rip, argument1, argument2, argument3, argument4;
+	uint64_t *current_rbp;
+
+	cprintf("\e[1;4;36mStack backtrace:\e[m\n");
+
+	current_rbp = (uint64_t*)read_rbp();
+	while(current_rbp != 0) {
+		rip = *(current_rbp + 1);
+		argument1 = *(current_rbp - 1);
+		argument2 = *(current_rbp - 2);
+		argument3 = *(current_rbp - 3);
+		argument4 = *(current_rbp - 4);
+		uint32_t *ptr32 = (uint32_t*)(current_rbp);
+		
+		struct Ripdebuginfo info;
+		int success = debuginfo_rip(rip, &info);
+
+		cprintf("  rbp %016x  rip %016x  args %016x %016x %016x %016x\n",current_rbp, rip, *(ptr32 - 1), *(ptr32 -2), *(ptr32 -3), *(ptr32 -4));
+		if(success == 0)
+			cprintf("         \e[1;32m../file=\e[m%s:%d: %.*s+%016x\n", info.rip_file, info.rip_line, info.rip_fn_namelen, info.rip_fn_name, rip - info.rip_fn_addr); 
+		
+		current_rbp = (uint64_t*)(*current_rbp);
+	}
 	return 0;
 }
 

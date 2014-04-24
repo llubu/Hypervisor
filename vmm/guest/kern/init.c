@@ -20,6 +20,7 @@
 #include <kern/time.h>
 #include <kern/pci.h>
 
+
 uint64_t end_debug;
 
 static void boot_aps(void);
@@ -28,6 +29,7 @@ static void boot_aps(void);
 void
 i386_init(void)
 {
+
     /* __asm __volatile("int $12"); */
 
 	extern char edata[], end[];
@@ -47,44 +49,46 @@ i386_init(void)
     extern char end[];
     end_debug = read_section_headers((0x10000+KERNBASE), (uintptr_t)end); 
 #endif
-	cprintf("n GUEST BEFOR x64_vm_init \n");
+
 	// Lab 2 memory management initialization functions
 	x64_vm_init();
 
-	cprintf("n GUEST AFTER x64_vm_init \n");
 	// Lab 3 user environment initialization functions
 	env_init();
 	trap_init();
 
-	cprintf("n GUEST After env and trap init \n");
 #ifndef VMM_GUEST
 	// Lab 4 multiprocessor initialization functions
-	//mp_init();
-	//lapic_init();
+//	mp_init();
+	lapic_init();
 #endif
 
 	// Lab 4 multitasking initialization functions
 	pic_init();
 
 	// Lab 6 hardware initialization functions
-	//time_init();
-	//pci_init();
+	time_init();
+//	pci_init();
 
-	// Acquire the big kernel lock before waking up APs
-	// Your code here:
 
 #ifndef VMM_GUEST
 	// Starting non-boot CPUs
-	//boot_aps();
+	boot_aps();
 #endif
 
 	// Should always have idle processes at first.
 	int i;
-	for (i = 0; i < NCPU; i++)
-		ENV_CREATE(user_idle, ENV_TYPE_IDLE);
+
+     ENV_CREATE(user_idle, ENV_TYPE_IDLE);
+   
+     ENV_CREATE(user_hello, ENV_TYPE_USER);
+
 
 	// Start fs.
 	ENV_CREATE(fs_fs, ENV_TYPE_FS);
+
+
+     
 
 #if !defined(TEST_NO_NS) && !defined(VMM_GUEST)
 	// Start ns.
@@ -96,11 +100,12 @@ i386_init(void)
 	ENV_CREATE(TEST, ENV_TYPE_USER);
 #else
 	// Touch all you want.
-	//ENV_CREATE(user_icode, ENV_TYPE_USER);
+
+	ENV_CREATE(user_icode, ENV_TYPE_USER);
 #endif // TEST*
 
 	// Should not be necessary - drains keyboard because interrupt has given up.
-	kbd_intr();
+//	kbd_intr();
 
 	// Schedule and run the first user environment!
 	sched_yield();

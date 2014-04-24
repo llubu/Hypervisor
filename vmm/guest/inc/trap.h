@@ -29,6 +29,23 @@
 #define T_SYSCALL   48		// system call
 #define T_DEFAULT   500		// catchall
 
+// IRQ0 ~ IRQ15
+#define T_IRQ0 32
+#define T_IRQ1 33
+#define T_IRQ2 34
+#define T_IRQ3 35
+#define T_IRQ4 36
+#define T_IRQ5 37
+#define T_IRQ6 38
+#define T_IRQ7 39
+#define T_IRQ8 40
+#define T_IRQ9 41
+#define T_IRQ10 42
+#define T_IRQ11 43
+#define T_IRQ12 44
+#define T_IRQ13 45
+#define T_IRQ14 46
+#define T_IRQ15 47
 #define IRQ_OFFSET	32	// IRQ 0 corresponds to int IRQ_OFFSET
 
 // Hardware IRQ numbers. We receive these as (IRQ_OFFSET+IRQ_WHATEVER)

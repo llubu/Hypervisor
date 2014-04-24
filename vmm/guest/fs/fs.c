@@ -39,11 +39,11 @@ block_is_free(uint32_t blockno)
     void
 free_block(uint32_t blockno)
 {
-	// Blockno zero is the null pointer of block numbers.
-	if (blockno == 0)
-		panic("attempt to free zero block");
-	bitmap[blockno/32] |= 1<<(blockno%32);
-	flush_block(bitmap); //TODO: handle multiple bitmap blocks
+    // Blockno zero is the null pointer of block numbers.
+    if (blockno == 0)
+        panic("attempt to free zero block");
+    bitmap[blockno/32] |= 1<<(blockno%32);
+	//flush_block(bitmap); //TODO: handle multiple bitmap blocks
 }
 
 // Search the bitmap for a free block and allocate it.  When you
@@ -62,17 +62,17 @@ alloc_block(void)
     // super->s_nblocks blocks in the disk altogether.
 
 	// LAB 5: Your code here.
-	size_t i,j;
-        for (i = 0; i < super->s_nblocks/32; i++) {
-                for (j = 0; j < 32; j++) {
-                        if ((bitmap[i] >> j) & 0x01) {
-                                bitmap[i] &= ~(1 << j);
-                                flush_block(bitmap + i);
-                                return ((i * 32) + j);
-                        }
-                }
-        }
- 	return -E_NO_DISK;
+	static int i = 3;
+	
+	//cprintf("%d\n",super->s_nblocks);
+	for(;i<super->s_nblocks;i++)
+		if(block_is_free(i)) {
+			bitmap[i/32] &= ~(1<<(i%32));
+			flush_block(bitmap);
+			return i;
+		}			
+	//panic("alloc_block not implemented");
+	return -E_NO_DISK;
 }
 
 // Validate the file system bitmap.
@@ -82,17 +82,25 @@ alloc_block(void)
     void
 check_bitmap(void)
 {
-    uint32_t i;
+	uint32_t i;
 
-    // Make sure all bitmap blocks are marked in-use
-    for (i = 0; i * BLKBITSIZE < super->s_nblocks; i++)
-        assert(!block_is_free(2+i));
+	// Make sure all bitmap blocks are marked in-use
+	//cprintf("%d %d\n",super->s_nblocks,BLKBITSIZE);
+	for (i = 0; (i * BLKBITSIZE) < super->s_nblocks; i++){
+	//	cprintf("Block %d: %d\n",i,super->s_nblocks);	
+		assert(!block_is_free(2+i));
+	//	cprintf("came out%d\n",super->s_nblocks);		
+		}
+		
+	
 
-    // Make sure the reserved and root blocks are marked in-use.
-    assert(!block_is_free(0));
-    assert(!block_is_free(1));
+	// Make sure the reserved and root blocks are marked in-use.
+	//cprintf("entering 0\n");
+	assert(!block_is_free(0));
+	//cprintf("entering 1	\n");
+	assert(!block_is_free(1));
 
-	cprintf("bitmap is good. total bitmap blocks = %d   super->s_nblocks=%d\n", i, super->s_nblocks);
+	cprintf("bitmap is good\n");
 }
 
 // --------------------------------------------------------------
@@ -144,35 +152,32 @@ fs_init(void)
     static int
 file_block_walk(struct File *f, uint32_t filebno, uint32_t **ppdiskbno, bool alloc)
 {
+	
 	// LAB 5: Your code here.
-	int i;
-
+	int r;
+	
 	if (filebno >= NDIRECT + NINDIRECT)
 		return -E_INVAL;
-
-	if (filebno < NDIRECT) {
-		*ppdiskbno = &(f->f_direct[filebno]);
-		return 0;
+		
+	if(filebno < NDIRECT) {
+		*ppdiskbno = &f->f_direct[filebno];
 	}
 	else {
-		if (!f->f_indirect) {
-			if (alloc) {
-				int r  = alloc_block();
-
-				if (r < 0)
-					return r;
-
-				f->f_indirect = r;
-			}
-			else
+		if(!f->f_indirect) {
+			if(!alloc)
 				return -E_NOT_FOUND;
+			
+			uint32_t newBlock;
+			if ((newBlock = alloc_block())<0) 
+				return -E_NO_DISK;
+			
+			f->f_indirect = newBlock;
+			memset(diskaddr(f->f_indirect), 0, BLKSIZE);
 		}
-
-		uint32_t *addr = (uint32_t*)diskaddr(f->f_indirect);//(uint32_t*)(uint64_t)((f->f_indirect*BLKSIZE)+DISKMAP);
-		*ppdiskbno = &(addr[filebno-NDIRECT]);
-		return 0;
+		*ppdiskbno = diskaddr(f->f_indirect) + (filebno-NDIRECT)*4;	// !!!!
 	}
-	panic("file_block_walk not implemented");
+	return 0;
+	//panic("file_block_walk not implemented");
 }
 
 // Set *blk to the address in memory where the filebno'th
@@ -188,24 +193,22 @@ file_block_walk(struct File *f, uint32_t filebno, uint32_t **ppdiskbno, bool all
 file_get_block(struct File *f, uint32_t filebno, char **blk)
 {
 	// LAB 5: Your code here.
-
 	int r;
 	uint32_t *ppdiskbno;
-	if ((r = file_block_walk(f, filebno, &ppdiskbno, true)) < 0)
+	
+	if((r = file_block_walk(f,filebno, &ppdiskbno, 1)) < 0)
 		return r;
-	if (*ppdiskbno == 0) {
-		uint32_t blknum = alloc_block();
-		if (blknum < 0)
+
+	if(*ppdiskbno == 0){
+		if((r = alloc_block()) < 0)
 			return -E_NO_DISK;
-		*ppdiskbno = blknum;
+		*ppdiskbno = r;
+		memset(diskaddr(*ppdiskbno), 0, BLKSIZE);
 	}
-
-//	*blk = (char*) (uint64_t)((*ppdiskbno * BLKSIZE) + DISKMAP);
-	*blk = (char*)diskaddr(*ppdiskbno);
-//	cprintf("read blk=%d", *ppdiskbno);
+	*blk = diskaddr(*ppdiskbno);
+	//cprintf("!!! %d %d\n",*ppdiskbno, filebno);
 	return 0;
-
-	panic("file_get_block not implemented");
+	//panic("file_get_block not implemented");
 }
 
 // Try to find a file named "name" in dir.  If so, set *file to it.
@@ -226,9 +229,10 @@ dir_lookup(struct File *dir, const char *name, struct File **file)
     assert((dir->f_size % BLKSIZE) == 0);
     nblock = dir->f_size / BLKSIZE;
     for (i = 0; i < nblock; i++) {
-        if ((r = file_get_block(dir, i, &blk)) < 0)
-            return r;
-        f = (struct File*) blk;
+		if ((r = file_get_block(dir, i, &blk)) < 0){
+			return r;
+		}
+		f = (struct File*) blk;
         for (j = 0; j < BLKFILES; j++)
             if (strcmp(f[j].f_name, name) == 0) {
                 *file = &f[j];
@@ -312,9 +316,9 @@ walk_path(const char *path, struct File **pdir, struct File **pf, char *lastelem
         name[path - p] = '\0';
         path = skip_slash(path);
 
-        if (dir->f_type != FTYPE_DIR)
-            return -E_NOT_FOUND;
-
+		if (dir->f_type != FTYPE_DIR) {
+			return -E_NOT_FOUND;
+		}
         if ((r = dir_lookup(dir, name, &f)) < 0) {
             if (r == -E_NOT_FOUND && *path == '\0') {
                 if (pdir)
@@ -429,15 +433,13 @@ file_free_block(struct File *f, uint32_t filebno)
     int r;
     uint32_t *ptr;
 
-	if ((r = file_block_walk(f, filebno, &ptr, 0)) < 0)
-		return r;
-	if (*ptr) {
-		//free_block(*ptr);
-		//*ptr = 0; //TODO: Mark *ptr to 0 if ref count is 0 
-		*ptr = 0;
-		//decrement_block_ref_count(get_block_struct_from_block(*ptr));
-	}
-	return 0;
+    if ((r = file_block_walk(f, filebno, &ptr, 0)) < 0)
+        return r;
+    if (*ptr) {
+        free_block(*ptr);
+        *ptr = 0;
+    }
+    return 0;
 }
 
 // Remove any blocks currently used by file 'f',

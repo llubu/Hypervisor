@@ -13,34 +13,31 @@
 // exception stack, and then it pushes a UTrapframe onto our user
 // exception stack:
 //
-//	trap-time esp
-//	trap-time eflags
-//	trap-time eip
-//	utf_regs.reg_rax
-//	...
-//	utf_regs.reg_rsi
-//	utf_regs.reg_rdi
-//	utf_err (error code)
-//	utf_fault_va            <-- %esp
-//
+//	<?Blank word?>
+//	uintptr_t utf_rsp;
+//	uint64_t utf_eflags;
+//	uintptr_t utf_rip;
+//	struct PushRegs utf_regs;
+//	uint64_t utf_err;
+//	uint64_t utf_fault_va;            <-- %esp
 // If this is a recursive fault, the kernel will reserve for us a
 // blank word above the trap-time esp for scratch work when we unwind
 // the recursive call.
 //
-// We then have call up to the appropriate page fault handler in C
+// We then have to call up to the appropriate page fault handler in C
 // code, pointed to by the global variable '_pgfault_handler'.
 
 .text
 .globl _pgfault_upcall
 _pgfault_upcall:
 	// Call the C page fault handler.
-	pushq %rsp			// function argument: pointer to UTF
+	//pushq %rsp			// function argument: pointer to UTF
 	
 	movq  %rsp,%rdi
-	addq  $8,%rdi      // passing the function argument in rdi
+	//addq  $8,%rdi      // passing the function argument in rdi
 	movabs _pgfault_handler, %rax
 	call *%rax
-
+	
 	// Now the C page fault handler has returned and you must return
 	// to the trap time state.
 	// Push trap-time %eip onto the trap-time stack.
@@ -67,34 +64,38 @@ _pgfault_upcall:
 	// may find that you have to rearrange your code in non-obvious
 	// ways as registers become unavailable as scratch space.
 	//
+	//	<?Blank word?>
+	//	uintptr_t utf_rsp;				<-- %esp78 %rsp95
+	//	uint64_t utf_eflags;			<-- %rsp94
+	//	uintptr_t utf_rip;				<-- %esp76 %rsp88
+	//	struct PushRegs utf_regs;		<-- %esp75 %rsp83
+	//	uint64_t utf_err;
+	//	uint64_t utf_fault_va;			<-- %esp
 	// LAB 4: Your code here.
-        movq 0(%rsp),%rax
-      	movq 160(%rsp),%rbx 	//rsp of parent
-     	movq 144(%rsp),%rcx 	//IP of parent
-	movq %rbx,%rsp
-	pushq %rcx
-        movq %rax,%rsp 		//restore rsp
-	subq $8,152(%rsp)
-	addq $16,%rsp 		//skip fault_va and err
-
-	
+	//popq %rsp
+	movq 136(%rsp), %rdx				//tt_rip
+	movq 152(%rsp), %rax				//tt_rsp
+	subq $8, %rax						//subtract one word to write there
+	movq %rdx, (%rax)					//write tt_rip to tt_rsp-8
+	movq %rax, 152(%rsp)				// write the updated tt_rsp value to tt_rsp on the stack.
+	addq $16, %rsp
+		
 	// Restore the trap-time registers.  After you do this, you
 	// can no longer modify any general-purpose registers.
 	// LAB 4: Your code here.
-        POPA_			//registers
-        addq $8,%rsp		//skip rip
-
+	POPA_
+	
 	// Restore eflags from the stack.  After you do this, you can
 	// no longer use arithmetic operations or anything else that
 	// modifies eflags.
 	// LAB 4: Your code here.
-        popfq			//eflags
+	addq $8, %rsp
+	popfq
 
 	// Switch back to the adjusted trap-time stack.
 	// LAB 4: Your code here.
-    	popq %rsp		//rsp of tf(parent)
+	popq %rsp
 
 	// Return to re-execute the instruction that faulted.
 	// LAB 4: Your code here.
-        ret			//return execution to user mode
-
+	ret

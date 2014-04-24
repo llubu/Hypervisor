@@ -72,7 +72,8 @@ KERN_BINFILES += user/divzero \
 		 user/forktree \
 		 user/sendpage \
 		 user/pingpong \
-		 user/primes
+		 user/primes 
+
 # Binary files for LAB5
 KERN_BINFILES +=	user/testfile \
 			user/writemotd \

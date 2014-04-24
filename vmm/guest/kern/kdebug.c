@@ -305,7 +305,7 @@ debuginfo_rip(uintptr_t addr, struct Ripdebuginfo *info)
 	dbg->dbg_info_offset_elf = (uint64_t)sect->ds_data; 
 	dbg->dbg_info_size = sect->ds_size;
 
-	assert(dbg->dbg_info_size);
+//	assert(dbg->dbg_info_size);
 	while(_get_next_cu(dbg, &cu) == 0)
 	{
 		if(dwarf_siblingof(dbg, NULL, &cudie, &cu) == DW_DLE_NO_ENTRY)

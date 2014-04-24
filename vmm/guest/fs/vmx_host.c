@@ -15,7 +15,7 @@ static union Fsipc host_fsipcbuf __attribute__((aligned(PGSIZE)));
 static int
 host_fsipc(unsigned type, void *dstva)
 {
-	ipc_host_send(VMX_HOST_FS_ENV, type, &host_fsipcbuf, PTE_P | PTE_W | PTE_U);
+    ipc_host_send(VMX_HOST_FS_ENV, type, &host_fsipcbuf, PTE_P | PTE_W | PTE_U);
     return ipc_host_recv(dstva);
 }
 
@@ -37,7 +37,7 @@ host_read(uint32_t secno, void *dst, size_t nsecs)
         if ((r = host_fsipc(FSREQ_READ, NULL)) < 0)
             return r;
         // FIXME: Handle case where r < SECTSIZE * 2;
-        memmove(dst+read, &host_fsipcbuf, r);
+        memmove(dst+read, &host_fsipcbuf, SECTSIZE * 2);
         read += SECTSIZE * 2;
     }
 
@@ -70,7 +70,9 @@ host_ipc_init()
 {
     int r;
     if ((r = fd_alloc(&host_fd)) < 0)
-        panic("Couldn't allocate an fd!");
+    //if(( host_fd = (struct Fd*)malloc(sizeof(host_fd)))< 0)
+     if((r = sys_page_alloc(0, (void*)host_fd, PTE_P|PTE_W|PTE_U)) < 0)
+		panic("Couldn't allocate an fd!");
 
     strcpy(host_fsipcbuf.open.req_path, HOST_FS_FILE);
     host_fsipcbuf.open.req_omode = O_RDWR;

@@ -50,35 +50,43 @@
    Find the PUSHA,POPA macros in kern/macro.h. Since amd64 doesn't support
    pusha,popa so you will find these macros handy.
  */
-TRAPHANDLER_NOEC(divide_error_handler, T_DIVIDE)
-TRAPHANDLER_NOEC(debug_exception_handler, T_DEBUG)
-TRAPHANDLER_NOEC(non_maskable_interrupt_handler, T_NMI)
-TRAPHANDLER_NOEC(breakpoint_handler, T_BRKPT)
-TRAPHANDLER_NOEC(overflow_handler, T_OFLOW)
-TRAPHANDLER_NOEC(bounds_check_handler, T_BOUND)
-TRAPHANDLER_NOEC(illegal_opcode_handler, T_ILLOP)
-TRAPHANDLER_NOEC(device_no_available_handler, T_DEVICE)
-TRAPHANDLER(double_fault_handler, T_DBLFLT)
-#TRAPHANDLER_NOEC(reserved_9_handler, T_COPROC)
-TRAPHANDLER(invalid_tss_handler, T_TSS)
-TRAPHANDLER(segment_not_present_handler, T_SEGNP)
-TRAPHANDLER(stack_exception_handler, T_STACK)
-TRAPHANDLER(general_protection_fault_handler, T_GPFLT)
-TRAPHANDLER(page_fault_handler_1, T_PGFLT)
-#TRAPHANDLER(reserved_15_handler, T_RES)
-TRAPHANDLER_NOEC(floating_point_error_handler, T_FPERR)
-TRAPHANDLER_NOEC(allign_check_handler, T_ALIGN)
-TRAPHANDLER_NOEC(machine_check_handler, T_MCHK)
-TRAPHANDLER_NOEC(SIMD_floating_point_error_handler, T_SIMDERR)
-TRAPHANDLER_NOEC(system_call_handler, T_SYSCALL)
-#TRAPHANDLER(catchall_handler, T_DEFAULT)
+	TRAPHANDLER_NOEC(trap_divide, T_DIVIDE);
+	TRAPHANDLER_NOEC(trap_debug, T_DEBUG);
+	TRAPHANDLER_NOEC(trap_nmi, T_NMI);
+	TRAPHANDLER_NOEC(trap_brkpt, T_BRKPT);
+	TRAPHANDLER_NOEC(trap_oflow, T_OFLOW);
+	TRAPHANDLER_NOEC(trap_bound, T_BOUND);
+	TRAPHANDLER_NOEC(trap_illop, T_ILLOP);
+	TRAPHANDLER_NOEC(trap_device, T_DEVICE);
+	TRAPHANDLER(trap_dblflt, T_DBLFLT); 
+	TRAPHANDLER(trap_tss, T_TSS);
+	TRAPHANDLER(trap_segnp, T_SEGNP);
+	TRAPHANDLER(trap_stack, T_STACK);
+	TRAPHANDLER(trap_gpflt, T_GPFLT);
+	TRAPHANDLER(trap_pgflt, T_PGFLT);
+	TRAPHANDLER_NOEC(trap_fperr, T_FPERR);
+	TRAPHANDLER_NOEC(trap_align, T_ALIGN);
+	TRAPHANDLER_NOEC(trap_mchk, T_MCHK);
+	TRAPHANDLER_NOEC(trap_simderr, T_SIMDERR);
+	
+	TRAPHANDLER_NOEC(trap_syscall, T_SYSCALL);
 
-//IRQs
-TRAPHANDLER_NOEC(irq_timer_handler, IRQ_TIMER+IRQ_OFFSET)
-TRAPHANDLER_NOEC(irq_kbd_handler, IRQ_KBD+IRQ_OFFSET)
-TRAPHANDLER_NOEC(irq_serial_handler, IRQ_SERIAL+IRQ_OFFSET)
-TRAPHANDLER_NOEC(irq_spurious_handler, IRQ_SPURIOUS+IRQ_OFFSET)
-TRAPHANDLER_NOEC(irq_ide_handler, IRQ_IDE+IRQ_OFFSET)
+	TRAPHANDLER_NOEC(trap_IRQ0, T_IRQ0)
+	TRAPHANDLER_NOEC(trap_IRQ1, T_IRQ1)
+	TRAPHANDLER_NOEC(trap_IRQ2, T_IRQ2)
+	TRAPHANDLER_NOEC(trap_IRQ3, T_IRQ3)
+	TRAPHANDLER_NOEC(trap_IRQ4, T_IRQ4)
+	TRAPHANDLER_NOEC(trap_IRQ5, T_IRQ5)
+	TRAPHANDLER_NOEC(trap_IRQ6, T_IRQ6)
+	TRAPHANDLER_NOEC(trap_IRQ7, T_IRQ7)
+	TRAPHANDLER_NOEC(trap_IRQ8, T_IRQ8)
+	TRAPHANDLER_NOEC(trap_IRQ9, T_IRQ9)
+	TRAPHANDLER_NOEC(trap_IRQ10, T_IRQ10)
+	TRAPHANDLER_NOEC(trap_IRQ11, T_IRQ11)
+	TRAPHANDLER_NOEC(trap_IRQ12, T_IRQ12)
+	TRAPHANDLER_NOEC(trap_IRQ13, T_IRQ13)
+	TRAPHANDLER_NOEC(trap_IRQ14, T_IRQ14)
+	TRAPHANDLER_NOEC(trap_IRQ15, T_IRQ15)
 
 
 /*
@@ -87,16 +95,29 @@ TRAPHANDLER_NOEC(irq_ide_handler, IRQ_IDE+IRQ_OFFSET)
  * Hint: Be sure to review the x64 calling convention from lab1
  *       for how to pass a pointer to the trapframe.
  */
-
 _alltraps:
-	movw %ds, %r10;
-	pushq %r10;
-	movw %es, %r10;
-	pushq %r10;
-	PUSHA;
-	movw $GD_KD, %r10;
-	movw %r10, %ds
-	movw %r10, %es
-	movq %rsp,%rdi
-	call trap;
-	#TODO: POP? iretq?
+	//int $0x30;
+     subq $16, %rsp
+     movl $0, 12(%rsp)
+     movw $0, 10(%rsp)
+	movw	%ds, 8(%rsp)
+	movl $0, 4(%rsp)
+     movw $0, 2(%rsp)
+	movw	%es, 0(%rsp)
+	PUSHA
+	//	int3
+	xorq %rax,%rax
+	movw $GD_KD, %ax
+	movw %ax, %ds
+	movw %ax, %es
+	movq	%rsp, %rdi
+	//call to traphandler
+	call trap
+	//restore system
+	POPA_
+	movq	(%rsp), %rcx
+	movw %cx,	%es
+	movq	8(%rsp), %rcx	
+	movw	%cx, %ds
+//	addq $24, %rsp
+	iretq

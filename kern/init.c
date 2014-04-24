@@ -74,9 +74,12 @@ i386_init(void)
 #ifndef VMM_GUEST
 	// Lab 4 multiprocessor initialization functions
 //	mp_init();
+	// llubu: This enables timercheck if this somehow init any MP code
 //	lapic_init();
 #endif
 
+//	mp_init();
+//	lapic_init();
 	// Lab 4 multitasking initialization functions
 	pic_init();
 
@@ -109,7 +112,7 @@ i386_init(void)
 	test_ept_map();
 #endif
 	ENV_CREATE(user_icode, ENV_TYPE_USER);
-//	ENV_CREATE(user_primes, ENV_TYPE_USER);
+//	ENV_CREATE(user_testtime, ENV_TYPE_USER);
 //	ENV_CREATE(user_yield, ENV_TYPE_USER);
 #endif // No environments until lab3
 

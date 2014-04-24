@@ -26,29 +26,29 @@
 ipc_recv(envid_t *from_env_store, void *pg, int *perm_store)
 {
     // LAB 4: Your code here.
-    if (pg == NULL)
-	pg=(void*)UTOP;
+    //If pg is NULL, then set pg to something that sys_ipc_rev can decode
+        if (pg == NULL)
+                pg=(void*)UTOP;
 
-    //Try receiving value
-    int r = sys_ipc_recv(pg);
-    	if (r < 0)
-	{
-	    if (from_env_store)
-		*from_env_store = 0;
-	    if (perm_store)
-		*perm_store = 0;
-	    return r;
-	}
-	else
-	{
-	    if (from_env_store != NULL)
-		*from_env_store = thisenv->env_ipc_from;
-            if (thisenv->env_ipc_dstva && perm_store != NULL)
-                *perm_store = thisenv->env_ipc_perm;
+        //Try receiving value
+        int r = sys_ipc_recv(pg);
+        if (r < 0) {
+                if (from_env_store)
+                        *from_env_store = 0;
+                if (perm_store)
+                        *perm_store = 0;
+                return r;
+        }
+        else {
+                if (from_env_store != NULL)
+                        *from_env_store = thisenv->env_ipc_from;
+                if (thisenv->env_ipc_dstva && perm_store != NULL)
+                        *perm_store = thisenv->env_ipc_perm;
 
-	    return thisenv->env_ipc_value; //return the received value
-	}  
-//	panic("ipc_recv not implemented");
+                return thisenv->env_ipc_value; //return the received value
+        }
+    panic("ipc_recv not implemented");
+    return 0;
 }
 
 // Send 'val' (and 'pg' with 'perm', if 'pg' is nonnull) to 'toenv'.
@@ -63,21 +63,27 @@ ipc_recv(envid_t *from_env_store, void *pg, int *perm_store)
 ipc_send(envid_t to_env, uint32_t val, void *pg, int perm)
 {
     // LAB 4: Your code here.
-    if (pg == NULL)
-	pg=(void*)UTOP;
+    //If pg is NULL, then set pg to something that sys_ipc_rev can decode
+        if (pg == NULL)
+                pg=(void*)UTOP;
 
-    //Loop until succeeded/
-    while (1)
-    {
-	//Try sending the value to dst
-	int r = sys_ipc_try_send(to_env, val, pg, perm);
-	if (r == 0)
-	    break;
-	if (r < 0 && r != -E_IPC_NOT_RECV) //Receiver is not ready to receive.
-	    panic("error in sys_ipc_try_send %e\n", r);
-	else if (r == -E_IPC_NOT_RECV) 
-	    sys_yield();
-    }
+        //Loop until succeeded/
+        while (1) {
+                //Try sending the value to dst
+
+                
+                int r = sys_ipc_try_send(to_env, val, pg, perm);
+
+                if (r == 0)
+                        break;
+                if (r < 0 && r != -E_IPC_NOT_RECV) //Receiver is not ready to receive.
+                        panic("error in sys_ipc_try_send %e\n", r);
+                else if (r == -E_IPC_NOT_RECV){
+			//cprintf("Calling sys_yield");
+                        sys_yield();
+
+        	}
+	}
 }
 
 #ifdef VMM_GUEST
@@ -104,6 +110,13 @@ ipc_host_recv(void *pg) {
     {
            pg = (void *) PTE_ADDR( vpt[VPN(tmp_adr)] );
     }
+    else
+    {
+	if((ret = sys_page_alloc(0, (void *) tmp_adr , PTE_P|PTE_W|PTE_U|PTE_SHARE)) < 0)
+	    return ret;
+        pg = (void *) PTE_ADDR( vpt[VPN(tmp_adr)] );
+    }
+
     a1 = (uint64_t) pg;
     a2 = (uint64_t) 0;
     a3 = (uint64_t) 0;
@@ -125,9 +138,9 @@ ipc_host_recv(void *pg) {
 	    panic("vmcall %d returned %d (> 0) in ipc_host_send", num, ret);
 	return ret;
 }
-
 // Access to host IPC interface through VMCALL.
 // Should behave similarly to ipc_send, except replacing the system call with a vmcall.
+
 void
 ipc_host_send(envid_t to_env, uint32_t val, void *pg, int perm)
 {
@@ -142,19 +155,23 @@ ipc_host_send(envid_t to_env, uint32_t val, void *pg, int perm)
     int num = VMX_VMCALL_IPCSEND;
 
     tmp_adr = (uintptr_t)pg;
-    if (tmp_adr)
+    if (pg == NULL)
     {
 	pg = (void *) UTOP;
     }
     a1 = (uint64_t) to_env;
     a2 = (uint64_t) val;
-    a3 = (uint64_t) pg;
     a4 = (uint64_t) perm;
     a5 = 0;
 
     if ((vpml4e[VPML4E(tmp_adr)] & PTE_P) && (vpde[VPDPE(tmp_adr)] & PTE_P) && (vpd[VPD(tmp_adr)] & PTE_P) && (vpt[VPN(tmp_adr)] &PTE_P))
+    {
+//    cprintf("\n DABRAL \n");
 	pg = (void *) PTE_ADDR(vpt[VPN(tmp_adr)]);
-    
+    }
+
+    a3 = (uint64_t) pg;
+//    cprintf("\n DABRAL -2 \n");
     while(1)
     {
 	asm volatile("vmcall\n"
@@ -179,7 +196,6 @@ ipc_host_send(envid_t to_env, uint32_t val, void *pg, int perm)
      }  
 	
 }
-
 #endif
 
 // Find the first environment of the given type.  We'll use this to

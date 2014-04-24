@@ -35,9 +35,9 @@ bc_pgfault(struct UTrapframe *utf)
     int r;
 
     // Check that the fault was within the block cache region
-    if (addr < (void*)DISKMAP || addr >= (void*)(DISKMAP + DISKSIZE))
-        panic("page fault in FS: eip %08x, va %08x, err %04x",
-                utf->utf_rip, addr, utf->utf_err);
+	if (addr < (void*)DISKMAP || addr >= (void*)(DISKMAP + DISKSIZE))
+		panic("page fault in FS: eip %08x, va %08x, err %04x",
+		      utf->utf_rip, addr, utf->utf_err);
 
     // Sanity check the block number.
     if (super && blockno >= super->s_nblocks)
@@ -49,26 +49,35 @@ bc_pgfault(struct UTrapframe *utf)
     // the page dirty).
     //
     // LAB 5: Your code here
-    //panic("bc_pgfault not implemented");
-	void *block_addr = ROUNDDOWN(addr, BLKSIZE);
-    if((r = sys_page_alloc(thisenv->env_id, block_addr, PTE_SYSCALL)) < 0)
-            panic("bc_pgfault:failed(err = %d) to map page at block %d\n",r,blockno);
+	
+	
+	if((r= sys_page_alloc(0, ROUNDDOWN(addr,PGSIZE), PTE_SYSCALL)) < 0)
+	panic("File System page fault handler couldn't alloc new page at addr %d. %e",addr, r);
+	
+	//if(super)
+	//	cprintf("12 %d\n",super->s_nblocks);
 #ifndef VMM_GUEST
-    if((r = ide_read(BLKSECTS * blockno, block_addr, BLKSECTS) < 0))
-            panic("bc_pgfault:failed to read the sector\n");
-#endif
-#ifdef VMM_GUEST
-    if ((r = host_read(BLKSECTS * blockno, block_addr, BLKSECTS) < 0))
-	panic("bc_pgfault:failed to read the sctor:GUEST CALL\n");
-#endif
-    if((r = sys_page_map(thisenv->env_id, block_addr, thisenv->env_id, block_addr, PTE_SYSCALL)) < 0)
-            panic("bc_pgfault:failed to map the page back as not-dirty\n");
+	if((r = ide_read(blockno*BLKSECTS, ROUNDDOWN(addr,BLKSIZE), BLKSECTS)) < 0)
+#else
+     if((r = host_read(BLKSECTS*blockno, ROUNDDOWN(addr,BLKSIZE), BLKSECTS)) < 0)
 
-    // Check that the block we read was allocated. (exercise for
-    // the reader: why do we do this *after* reading the block
-    // in?)
-    if (bitmap && block_is_free(blockno))
-        panic("reading free block %08x\n", blockno);
+#endif	
+	panic("File System page fault handler couldn't read in the data from disk. %e", r);
+	
+	//if(super)
+	//	cprintf("13 %d\n",super->s_nblocks);
+	if((r = sys_page_map(0, ROUNDDOWN(addr,PGSIZE), 0, ROUNDDOWN(addr,BLKSIZE), PTE_P| PTE_U | PTE_W)) < 0) //PTE_SYSCALL&~PTE_D
+			panic("Couldn't map page not dirty bc_pageflt %e",r);
+	
+	//if(super)
+	//	cprintf("14 %d\n",super->s_nblocks);
+	//cprintf("Handled the Fault\n");
+	//panic("bc_pgfault not implemented");
+	// Check that the block we read was allocated. (exercise for
+	// the reader: why do we do this *after* reading the block
+	// in?)
+	if (bitmap && block_is_free(blockno))
+		panic("reading free block %08x\n", blockno);
 }
 
 // Flush the contents of the block containing VA out to disk if
@@ -81,29 +90,21 @@ bc_pgfault(struct UTrapframe *utf)
     void
 flush_block(void *addr)
 {
-    uint64_t blockno = ((uint64_t)addr - DISKMAP) / BLKSIZE;
+	uint64_t blockno = ((uint64_t)addr - DISKMAP) / BLKSIZE;
+	int r;
 
     if (addr < (void*)DISKMAP || addr >= (void*)(DISKMAP + DISKSIZE))
         panic("flush_block of bad va %08x", addr);
-
-	// LAB 5: Your code here.
-	int r;
-       void *block_addr = ROUNDDOWN(addr, BLKSIZE);
-       if (va_is_mapped(block_addr) && va_is_dirty(block_addr))
-       {
-#ifndef VMM_GUEST
-               if((r = ide_write(BLKSECTS * blockno, block_addr, BLKSECTS) < 0))
-		   panic("flush_block:failed to write the sector\n");
-#endif
-#ifdef VMM_GUEST
-	      if((r = host_write(BLKSECTS * blockno, block_addr, BLKSECTS) < 0))
-		  panic("flush_block:failed to write the sector: GUEST CALL\n");
-#endif
-
-               if((r = sys_page_map(thisenv->env_id, block_addr, thisenv->env_id, block_addr, PTE_SYSCALL) < 0))
-                       panic("flush_block:failed to map the page as not-dirty\n");
-       }
-//	panic("flush_block not implemented");
+		
+			// LAB 5: Your code here.
+	if((va_is_mapped(addr))&&(va_is_dirty(addr)))
+	#ifndef VMM_GUEST
+		ide_write(blockno*BLKSECTS, ROUNDDOWN(addr,BLKSIZE), BLKSECTS);
+	#else
+		host_write(blockno*BLKSECTS, ROUNDDOWN(addr,BLKSIZE), BLKSECTS);
+	#endif	
+	if((va_is_mapped(addr)) && ((r = sys_page_map(0, ROUNDDOWN(addr,PGSIZE), 0, ROUNDDOWN(addr,PGSIZE), PTE_SYSCALL&~PTE_D)) < 0))
+			panic("Couldn't flush disk page%e",r);
 }
 
 // Test that the block cache works, by smashing the superblock and
@@ -111,20 +112,23 @@ flush_block(void *addr)
     static void
 check_bc(void)
 {
-    struct Super backup;
+	struct Super backup;
 
-    // back up super block
-    memmove(&backup, diskaddr(1), sizeof backup);
+	//cprintf("\nEntered check_bc\n");
+	// back up super block
+	memmove(&backup, diskaddr(1), sizeof(backup));
 
-    // smash it
-    strcpy(diskaddr(1), "OOPS!\n");
-    flush_block(diskaddr(1));
-    assert(va_is_mapped(diskaddr(1)));
-    assert(!va_is_dirty(diskaddr(1)));
-
-    // clear it out
-    sys_page_unmap(0, diskaddr(1));
-    assert(!va_is_mapped(diskaddr(1)));
+	// smash it
+	//cprintf("\nhere0\n");
+	strcpy(diskaddr(1), "OOPS!\n");
+	flush_block(diskaddr(1));
+	assert(va_is_mapped(diskaddr(1)));
+	assert(!va_is_dirty(diskaddr(1)));
+	
+	//cprintf("\nhere\n");
+	// clear it out
+	sys_page_unmap(0, diskaddr(1));
+	assert(!va_is_mapped(diskaddr(1)));
 
     // read it back in
     assert(strcmp(diskaddr(1), "OOPS!\n") == 0);
@@ -139,7 +143,9 @@ check_bc(void)
     void
 bc_init(void)
 {
+
     set_pgfault_handler(bc_pgfault);
+
     check_bc();
 }
 

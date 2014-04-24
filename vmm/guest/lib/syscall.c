@@ -123,11 +123,3 @@ sys_time_msec(void)
     return (unsigned int) syscall(SYS_time_msec, 0, 0, 0, 0, 0, 0);
 }
 
-/*
-int
-sys_ept_map(envid_t srcenvid, void *srcva, envid_t guest, void* guest_pa, int perm) 
-{
-    return syscall(SYS_ept_map, 0, srcenvid, 
-		   (uint64_t)srcva, guest, (uint64_t)guest_pa, perm);
-}
-*/

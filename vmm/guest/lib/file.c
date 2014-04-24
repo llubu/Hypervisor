@@ -58,13 +58,35 @@ struct Dev devfile =
 int
 open(const char *path, int mode)
 {
+	// LAB 5: Your code here.
 	// Find an unused file descriptor page using fd_alloc.
+	int r;
+	struct Fd *fd_store;
+	if(strlen(path) >= MAXPATHLEN)
+		return -E_BAD_PATH;
+	
+	if((r = fd_alloc(&fd_store)) < 0)
+		return r;
+		
 	// Then send a file-open request to the file server.
 	// Include 'path' and 'omode' in request,
 	// and map the returned file descriptor page
 	// at the appropriate fd address.
 	// FSREQ_OPEN returns 0 on success, < 0 on failure.
-	//
+	// struct Fsreq_open {
+	//	 char req_path[MAXPATHLEN];
+	//	 int req_omode;
+	// } open;
+	
+	strcpy(fsipcbuf.open.req_path, path);
+	fsipcbuf.open.req_omode = mode;
+	
+	if((r = fsipc(FSREQ_OPEN, (void *)fd_store)) < 0) {
+		fd_close(fd_store, 0);
+		cprintf("Open Failed! :%d\n",r);
+		return r;
+	}
+	
 	// (fd_alloc does not allocate a page, it just returns an
 	// unused fd address.  Do you need to allocate a page?)
 	//
@@ -72,26 +94,8 @@ open(const char *path, int mode)
 	// If any step after fd_alloc fails, use fd_close to free the
 	// file descriptor.
 
-	// LAB 5: Your code here.
-	if (strlen(path) > MAXPATHLEN)
-		return -E_BAD_PATH;
-
-	struct Fd *fd;
-	int r;
-	if ((r < fd_alloc(&fd)) < 0)
-		return r;
-
-        strcpy(fsipcbuf.open.req_path, path);
-        fsipcbuf.open.req_omode = mode;
-
-        if ((r = fsipc(FSREQ_OPEN, fd)) < 0) {
-		fd_close(fd, 0);
-                return r;
-	}
-
-	return fd2num(fd);
-
-	panic("open not implemented");
+	return fd2num(fd_store);
+	//panic("open not implemented");
 }
 
 // Flush the file descriptor.  After this the fileid is invalid.
@@ -114,23 +118,26 @@ devfile_flush(struct Fd *fd)
 // Returns:
 // 	The number of bytes successfully read.
 // 	< 0 on error.
+//
+//	int req_fileid;
+//	size_t req_n;
 static ssize_t
 devfile_read(struct Fd *fd, void *buf, size_t n)
 {
+	int r;
 	// Make an FSREQ_READ request to the file system server after
 	// filling fsipcbuf.read with the request arguments.  The
 	// bytes read will be written back to fsipcbuf by the file
 	// system server.
 	// LAB 5: Your code here
-        int r;
-       	fsipcbuf.read.req_fileid = fd->fd_file.id;
-       	fsipcbuf.read.req_n = n;
-        if ((r = fsipc(FSREQ_READ, NULL)) < 0)
-                return r;
-       	memcpy(buf,fsipcbuf.readRet.ret_buf,r);
-       	return r;
-
-	panic("devfile_read not implemented");
+	fsipcbuf.read.req_fileid = fd->fd_file.id;
+	fsipcbuf.read.req_n = n;
+	if((r =  fsipc(FSREQ_READ, fsipcbuf.readRet.ret_buf))<0)
+		return r;	
+	memmove(buf, fsipcbuf.readRet.ret_buf, r);
+	//cprintf("In devfile_read returning %d\n",r);
+	return r;
+	//panic("devfile_read not implemented");
 }
 
 // Write at most 'n' bytes from 'buf' to 'fd' at the current seek position.
@@ -138,6 +145,11 @@ devfile_read(struct Fd *fd, void *buf, size_t n)
 // Returns:
 //	 The number of bytes successfully written.
 //	 < 0 on error.
+//struct Fsreq_write {
+//		int req_fileid;
+//		size_t req_n;
+//		char req_buf[PGSIZE - (sizeof(int) + sizeof(size_t))];
+//	} write;
 static ssize_t
 devfile_write(struct Fd *fd, const void *buf, size_t n)
 {
@@ -147,14 +159,17 @@ devfile_write(struct Fd *fd, const void *buf, size_t n)
 	// bytes than requested.
 	// LAB 5: Your code here
 	int r;
-       	fsipcbuf.write.req_fileid = fd->fd_file.id;
-	if (n > PGSIZE)
-		n = PGSIZE; //TODO: How to deal with this?
-
-       	fsipcbuf.write.req_n = n;
-	memcpy(fsipcbuf.write.req_buf, buf, n);
-	return fsipc(FSREQ_WRITE, NULL);
-	panic("devfile_write not implemented");
+	size_t temp = (PGSIZE - (sizeof(int) + sizeof(size_t)));
+	n = (n > temp) ? temp : n;
+	
+	fsipcbuf.write.req_fileid = fd->fd_file.id;
+	fsipcbuf.write.req_n = n;
+	memmove(fsipcbuf.write.req_buf, buf, n);
+	
+	r =  fsipc(FSREQ_WRITE, NULL);
+	//cprintf("In devfile_write returning %d\n",r);
+	return r;
+	//panic("devfile_write not implemented");
 }
 
 static int

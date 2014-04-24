@@ -311,7 +311,7 @@ trap_dispatch(struct Trapframe *tf)
 	// LAB 6: Your code here.
 
 	if(tf->tf_trapno == T_IRQ0) {
-//		lapic_eoi();
+		lapic_eoi();
 	
 		// Add time tick increment to clock interrupts.
 		// Be careful! In multiprocessors, clock interrupts are

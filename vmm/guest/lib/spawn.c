@@ -301,15 +301,27 @@ map_segment(envid_t child, uintptr_t va, size_t memsz,
 copy_shared_pages(envid_t child)
 {
 	// LAB 7: Your code here.
-        uint64_t addr;
-	for (addr = UTEXT; addr < USTACKTOP-PGSIZE; addr += PGSIZE) {
-               if((vpml4e[VPML4E(addr)] & PTE_P) && (vpde[VPDPE(addr)] & PTE_P)  
-                 && (vpd[VPD(addr)] & PTE_P) && (vpt[VPN(addr)] & PTE_P)) {
-                        int perm_share = vpt[VPN(addr)] & PTE_USER;
-                        if (perm_share & PTE_SHARE)
-                                sys_page_map(0, (void *)addr, child, (void *)addr, perm_share);
-                }
-        }
+	uint64_t r;
+	int ret;
+  	extern unsigned char end[];
+    	for (r = 0; r < (uint64_t)(UXSTACKTOP-PGSIZE); r += PGSIZE) {
+    		if(	(vpml4e[VPML4E(r)] & PTE_P) && 
+    			(vpde[VPDPE(r)] & PTE_P) && 
+    			(vpd[VPD(r)] & PTE_P) && 
+    			(vpt[VPN(r)] & PTE_P) &&
+			(vpt[VPN(r)] & PTE_SHARE)) 
+    		{
+			unsigned pn = VPN(r);
+			pte_t pte = vpt[pn];
+			void * addr = (void *)((uint64_t)pn * PGSIZE);
+			int perm = pte & PTE_USER;
+			
+			if((pte&PTE_SHARE)) {	//if shared pages
+				if((ret = sys_page_map(0, addr, child, addr, perm)) < 0)	//map readonly pages
+					panic("Couldn't map page into child %e",r);
+			}
+		}
+	}
 
 	return 0;
 }

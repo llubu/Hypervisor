@@ -282,26 +282,21 @@ handle_vmcall(struct Trapframe *tf, struct VmxGuestInfo *gInfo, uint64_t *eptrt)
 	    if ( to_env == 1 && curenv->env_type == ENV_TYPE_GUEST)
 	    {
 //	    cprintf("ABHIROOP:%d:\n",__LINE__);
-	    to_env = tf->tf_regs.reg_rdx;
 		for (i = 0; i < NENV; i++)
 		{
 		    if (envs[i].env_type == ENV_TYPE_FS)
 		    {
-			to_env = (uint64_t) envs[i].env_id;
+			to_env = (uint64_t)( envs[i].env_id);
 			break;
 		    }
 		}
 	    }
 			
 //	    cprintf("ABHIROOP:%d:%d\n",__LINE__, to_env);
-		ret = syscall(SYS_ipc_try_send, to_env, (uint64_t)tf->tf_regs.reg_rcx, (uint64_t)tf->tf_regs.reg_rbx, (uint64_t)tf->tf_regs.reg_rdi, (uint64_t)tf->tf_regs.reg_rsi);
-		if (0 == ret)
-		{
-		    break;
-		}
+            ret = syscall(SYS_ipc_try_send,(uint64_t) to_env, (uint64_t)tf->tf_regs.reg_rcx, (uint64_t)tf->tf_regs.reg_rbx, (uint64_t)tf->tf_regs.reg_rdi, (uint64_t)0);
 
 //	    cprintf("ABHIROOP:%d:\n",__LINE__);
-	    tf->tf_regs.reg_rax = ret;
+	    tf->tf_regs.reg_rax = (uint64_t) ret;
 //	    cprintf("IPC send hypercall not implemented\n");	    
 	    handled = true;
             break;
@@ -312,6 +307,7 @@ handle_vmcall(struct Trapframe *tf, struct VmxGuestInfo *gInfo, uint64_t *eptrt)
 	    // you should go ahead and increment rip before this call.
 	    /* Your code here */
 
+//	    cprintf("ABHIROOP:%d:\n",__LINE__);
     	    tf->tf_rip += vmcs_read32(VMCS_32BIT_VMEXIT_INSTRUCTION_LENGTH);  //cause it never returns
 //	    cprintf("ABHIROOP:%d:\n",__LINE__);
 	    ret = syscall(SYS_ipc_recv, (uint64_t)tf->tf_regs.reg_rdx, (uint64_t)0, (uint64_t)0, (uint64_t)0,(uint64_t)0);

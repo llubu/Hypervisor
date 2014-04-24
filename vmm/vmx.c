@@ -384,7 +384,7 @@ void vmexit() {
     bool exit_handled = false;
     exit_reason = vmcs_read32(VMCS_32BIT_VMEXIT_REASON);
 
-    cprintf( "---VMEXIT Reason: %d : %16x---\n", exit_reason, exit_reason & EXIT_REASON_MASK );
+//    cprintf( "---VMEXIT Reason: %d : %16x---\n", exit_reason, exit_reason & EXIT_REASON_MASK );
     // Get the reason for VMEXIT from the VMCS.
     // Your code here.
 
@@ -422,7 +422,7 @@ void vmexit() {
         vmcs_dump_cpu();
         env_destroy(curenv);
     }
-    cprintf("\n Before YIELD\n");
+//    cprintf("\n Before YIELD\n");
 //curenv->env_runs++;
 //vmx_vmrun(curenv);
 //	while(1);    
@@ -431,7 +431,7 @@ void vmexit() {
 
 void asm_vmrun(struct Trapframe *tf) {
 
-     cprintf("VMRUN\n"); 
+//     cprintf("VMRUN\n"); 
     // NOTE: Since we re-use Trapframe structure, tf.tf_err contains the value
     // of cr2 of the guest.
     tf->tf_ds = curenv->env_runs;
@@ -575,7 +575,7 @@ void asm_vmrun(struct Trapframe *tf) {
     } else {
         curenv->env_tf.tf_rsp = vmcs_read64(VMCS_GUEST_RSP);
         curenv->env_tf.tf_rip = vmcs_read64(VMCS_GUEST_RIP);
-	cprintf("END OF VMRUN\n");
+//	cprintf("END OF VMRUN\n");
         vmexit();
     }
 }

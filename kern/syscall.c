@@ -396,7 +396,7 @@ sys_ipc_try_send(envid_t envid, uint32_t value, void *srcva, unsigned perm)
 {
     // LAB 4: Your code here.
 	struct Env *env;
-	pte_t *pte;
+	pte_t *pte = NULL;
 	struct Page *gu_pa = NULL;
 	uint64_t ept_ret = 0;
 	int i = 0;
@@ -428,12 +428,13 @@ sys_ipc_try_send(envid_t envid, uint32_t value, void *srcva, unsigned perm)
 //			return -ept_ret;
 //		    }
 		    pte = (pte_t *) ept_ret;
-		    gu_pa = pa2page((physaddr_t)PTE_ADDR(*pte));
+		    gu_pa = pa2page((physaddr_t)(PTE_ADDR(*pte)));
 		}
 //cprintf("ABHIROOP:%d:\n", __LINE__);
 		if (gu_pa == NULL)
 		{
 		    cprintf("\n SYS_TRY_IPC_SEND: PAGE NOT FOUND\n");
+			return -1;
 		}
 
 	  	//Check if srcva is mapped to in caller's address space.
@@ -528,7 +529,7 @@ sys_ipc_recv(void *dstva)
 					    //Note that this function does not return. Thus, set rax so that
 					    //if anyone schedules this env, it returns will rax=0 in lib/syscall.
 
-	if(curenv->env_type == ENV_TYPE_GUEST)
+/*	if(curenv->env_type == ENV_TYPE_GUEST)
 	{
 
 	    ept_gpa2hva(curenv->env_pml4e,dstva,&hva);
@@ -537,7 +538,7 @@ sys_ipc_recv(void *dstva)
 	else
 	{
 	    curenv->env_ipc_dstva = dstva;
-	}
+	} */
         curenv->env_ipc_dstva = dstva;
         curenv->env_ipc_perm = 0;
         curenv->env_ipc_from = 0;
@@ -556,7 +557,8 @@ sys_ipc_recv(void *dstva)
 sys_time_msec(void)
 {
     // LAB 6: Your code here.
-    panic("sys_time_msec not implemented");
+    return time_msec();
+//    panic("sys_time_msec not implemented");
 }
 
 // Maps a page from the evnironment corresponding to envid into the guest vm 
