@@ -78,14 +78,14 @@ i386_init(void)
 //	lapic_init();
 #endif
 
-//	mp_init();
-//	lapic_init();
+	mp_init();
+	lapic_init();
 	// Lab 4 multitasking initialization functions
 	pic_init();
 
 	// Lab 6 hardware initialization functions
-//	time_init();
-//	pci_init();
+	time_init();
+	pci_init();
 
 	// Acquire the big kernel lock before waking up APs
 	// Your code here:
