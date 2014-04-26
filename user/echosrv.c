@@ -44,7 +44,7 @@ umain(int argc, char **argv)
     char buffer[BUFFSIZE];
     unsigned int echolen;
     int received = 0;
-
+cprintf("\n Starting echo Serve \n");
     // Create the TCP socket
     if ((serversock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0)
         die("Failed to create socket");

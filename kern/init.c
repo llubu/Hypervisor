@@ -104,7 +104,8 @@ i386_init(void)
 
 	// Start fs.
 	ENV_CREATE(fs_fs, ENV_TYPE_FS);
-
+	// Start NW
+	ENV_CREATE(net_ns, ENV_TYPE_NS);
 #if defined(TEST)
 	// Don't touch -- used by grading script!
 	ENV_CREATE(TEST, ENV_TYPE_USER);
@@ -114,7 +115,7 @@ i386_init(void)
 	test_ept_map();
 #endif
 	ENV_CREATE(user_icode, ENV_TYPE_USER);
-//	ENV_CREATE(user_testtime, ENV_TYPE_USER);
+//	ENV_CREATE(user_echosrv, ENV_TYPE_USER);
 //	ENV_CREATE(user_yield, ENV_TYPE_USER);
 #endif // No environments until lab3
 
