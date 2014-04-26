@@ -123,6 +123,17 @@ sys_time_msec(void)
     return (unsigned int) syscall(SYS_time_msec, 0, 0, 0, 0, 0, 0);
 }
 
+int
+sys_net_try_send(char *data, int len)
+{
+    return syscall(SYS_net_try_send, 0, (uint64_t)data, len, 0, 0, 0);
+}
+
+int
+sys_net_try_receive(char *data, int *len)
+{
+    return syscall(SYS_net_try_receive, 0, (uint64_t)data, (uint64_t)len, 0, 0, 0); 
+}
 
 int
 sys_ept_map(envid_t srcenvid, void *srcva, envid_t guest, void* guest_pa, int perm) 

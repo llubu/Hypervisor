@@ -61,6 +61,9 @@ int	sys_page_unmap(envid_t env, void *pg);
 int	sys_ipc_try_send(envid_t to_env, uint64_t value, void *pg, int perm);
 int	sys_ipc_recv(void *rcv_pg);
 unsigned int sys_time_msec(void);
+int sys_net_try_send(char *data, int len);
+int sys_net_try_receive(char *data, int *len);
+
 int sys_ept_map(envid_t srcenvid, void *srcva, envid_t guest, void* guest_pa, int perm);
 envid_t sys_env_mkguest(uint64_t gphysz, uint64_t gRIP);
 

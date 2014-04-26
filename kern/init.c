@@ -19,6 +19,8 @@
 #include <kern/spinlock.h>
 #include <kern/time.h>
 #include <kern/pci.h>
+#include <kern/e1000.h>
+
 //#include <vmm/ept.h>
 #if defined(TEST_EPT_MAP)
 int test_ept_map(void);
@@ -116,6 +118,11 @@ i386_init(void)
 //	ENV_CREATE(user_yield, ENV_TYPE_USER);
 #endif // No environments until lab3
 
+	// Testing Net Transmit directly
+//	char *pc1 = "abcd";
+//	char *pc2 = "defg";
+//	e1000_transmit(pc1, 5);
+//	e1000_transmit(pc2, 5);
 	// Should not be necessary - drains keyboard because interrupt has given up.
 	kbd_intr();
 

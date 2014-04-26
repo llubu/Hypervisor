@@ -50,8 +50,10 @@ GCCPREFIX := $(shell if i386-jos-elf-objdump -i 2>&1 | grep '^elf64-x86-64$$' >/
 endif
 
 # try to infer the correct QEMU
-ifndef QEMU
-QEMU := $(shell if which qemu-system-x86_64 > /dev/null; \
+QEMU := /home/cse591/qemu_build/bin/qemu-system-x86_64
+#
+#ifndef QEMU
+#QEMU := $(shell if which qemu-system-x86_64 > /dev/null; \
 	then echo qemu-system-x86_64; exit; \
 	else \
 	qemu=/Applications/Q.app/Contents/MacOS/i386-softmmu.app/Contents/MacOS/i386-softmmu; \
@@ -61,7 +63,7 @@ QEMU := $(shell if which qemu-system-x86_64 > /dev/null; \
 	echo "*** Is the directory containing the qemu binary in your PATH" 1>&2; \
 	echo "*** or have you tried setting the QEMU variable in conf/env.mk?" 1>&2; \
 	echo "***" 1>&2; exit 1)
-endif
+#endif
 
 # try to generate a unique GDB port
 GDBPORT	:= $(shell expr `id -u` % 5000 + 25000)

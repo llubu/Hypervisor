@@ -13,6 +13,7 @@
 #include <kern/console.h>
 #include <kern/sched.h>
 #include <kern/time.h>
+#include <kern/e1000.h>
 #include <vmm/ept.h>
 
 // Print a string to the system console.
@@ -561,6 +562,35 @@ sys_time_msec(void)
 //    panic("sys_time_msec not implemented");
 }
 
+// Network related sycalls 
+int
+sys_net_try_send(char * data, int len)
+{
+	if ((uintptr_t)data >= UTOP)
+		return -E_INVAL;
+
+	return e1000_transmit(data, len);
+}
+
+int
+sys_net_try_receive(char *data, int *len)
+{
+    int r;
+    if ((uintptr_t)data >= UTOP)
+    {
+	return -E_INVAL;
+    }
+    
+    *len = e1000_receive(data);
+    if (*len > 0)
+    {
+	return 0;
+    }
+    
+    return *len;
+}
+
+
 // Maps a page from the evnironment corresponding to envid into the guest vm 
 // environments phys addr space. 
 //
@@ -710,6 +740,11 @@ syscall(uint64_t syscallno, uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
 //	default:
 //	    return -E_INVAL;
 //	    break;
+	case SYS_net_try_send:
+	    return sys_net_try_send((char *)a1, (int) a2);
+	case SYS_net_try_receive:
+	    return sys_net_try_receive((char *)a1, (int *)a2);
+
 // Virtualization related Syscalls
 
         case SYS_ept_map:
