@@ -116,14 +116,15 @@ i386_init(void)
 #endif
 	ENV_CREATE(user_icode, ENV_TYPE_USER);
 //	ENV_CREATE(user_echosrv, ENV_TYPE_USER);
-//	ENV_CREATE(user_yield, ENV_TYPE_USER);
+	ENV_CREATE(user_httpd, ENV_TYPE_USER);
+//	ENV_CREATE(user_testtime, ENV_TYPE_USER);
 #endif // No environments until lab3
 
 	// Testing Net Transmit directly
-//	char *pc1 = "abcd";
-//	char *pc2 = "defg";
-//	e1000_transmit(pc1, 5);
-//	e1000_transmit(pc2, 5);
+	char *pc1 = "abcd";
+	char *pc2 = "defg";
+	e1000_transmit(pc1, 5);
+	e1000_transmit(pc2, 5);
 	// Should not be necessary - drains keyboard because interrupt has given up.
 	kbd_intr();
 

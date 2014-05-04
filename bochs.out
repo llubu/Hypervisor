@@ -12,6 +12,11 @@ Physical memory: 128M available, base = 636K, extended = 130048K, npages = 32768
 check_page_alloc() succeeded!
 page_check() succeeded!
 check_boot_pml4e() succeeded!
+Abhiroop:178:kern/mpconfig.c:
+Abhiroop:140:kern/mpconfig.c:
+Abhiroop:111:kern/mpconfig.c:
+Abhiroop:87:kern/mpconfig.c:
+Abhiroop:87:kern/mpconfig.c:
 SMP: too many CPUs, CPU 0 disabled
 SMP: CPU 0 found 1 CPU(s)
 enabled interrupts: 1 2 4
@@ -25,6 +30,7 @@ PCI function 00:02.0 (8086:100e) enabled
 [00000000] new env 00001001
 [00000000] new env 00001002
 [00000000] new env 00001003
+[00000000] new env 00001004
 CURENV:0
 In IDLE
 FS is running
@@ -33,7 +39,7 @@ Device 1 presence: 1
 block cache is good
 superblock is good
 bitmap is good
-[00001002] new env 00001004
+[00001002] new env 00001005
 icode startup
 icode: open /motd
 icode: read /motd
@@ -43,15 +49,16 @@ This is /motd, the message of the day.
 Welcome to the JOS kernel, now with a file system!
 
 :147
-[00001002] new env 00001005
+[00001002] new env 00001006
 icode: close /motd
 icode: spawn /sbin/init
 :147
-[00001002] new env 00001006
-[00001003] new env 00001007
+[00001002] new env 00001007
+[00001003] new env 00001008
 :147
 ns: 52:54:00:12:34:56 bound to static IP 10.0.2.15
 NS: TCP/IP initialized.
+Waiting for http connections...
 :147
 icode: exiting
 [00001003] exiting gracefully
@@ -63,68 +70,8 @@ init: bss seems okay
 init: args: 'init' 'initarg1' 'initarg2'
 init: running sh
 init: starting sh
-[00001007] new env 00002003
+[00001008] new env 00002003
 :147
 init waiting
 11
-$ vmm
-[00002003] new env 00001008
-:147
-11
-[00001008] new env 00001009
-:147
-11
-
- Making guest environment 
-
- IN ENV_GUEST_ALLOC 
-
- AFTER CREATING VMM ENV 
-BOOT147
-:147
-11
-VMXON
-6828 decimal is 15254 octal!
-VMX extension hidden from guest.
-
-e820 MEMORY MAP
-size: 20, base_addr_high : 0, base_addr_low : 0, length_high : 0, length_low : a0000,   type : 549755813889 
-
-size: 20, base_addr_high : 0, base_addr_low : a0000, length_high : 0, length_low : 60000,   type : 549755813890 
-
-size: 20, base_addr_high : 0, base_addr_low : 100000, length_high : 0, length_low : f00000,   type : 549755813889 
-
-
-Physical memory: 16M available, base = 640K, extended = 15360K, npages = 4096
-check_page() succeeded!
-check_boot_pml4e() succeeded!
-enabled interrupts: 1 2 4
-hello, world
-i am environment 00001001
-FS is running
-FS can do I/O
-block cache is good
-superblock is good
-bitmap is good
-icode startup
-icode: open /motd
-icode: read /motd
-Writing MOTD
-
-This is /motd, the message of the day.
-
-Welcome to the JOS guest kernel.
-
-THE VM IS UP AND RUNNING with FS support!!
-
-icode: close /motd
-icode: spawn /sbin/init
-icode: exiting
-init: running
-init: data seems okay
-init: bss seems okay
-init: args: 'init' 'initarg1' 'initarg2'
-init: running sh
-init: starting sh
-init waiting
-$$ 
+$ 

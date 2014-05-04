@@ -35,6 +35,12 @@ enum {
     E_VMCS_INIT = 20, // Couldn't init the VMCS region
     E_NO_ENT = 21,
 
+    //Network Error Codes
+    E_PKT_TOO_LONG = 16,	//Packet too large
+    E_TX_FULL      = 17,	//E1000 has fallen behind. Too many packets outstanding.
+    E_RCV_EMPTY	   = 18,	//E1000 didn't recieve any packets. Try again.
+
+
 	MAXERROR
 };
 

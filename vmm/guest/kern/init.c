@@ -71,15 +71,17 @@ i386_init(void)
 #ifndef VMM_GUEST
 	// Lab 4 multiprocessor initialization functions
 //	mp_init();
-	lapic_init();
+//	lapic_init();
 #endif
 
+	mp_init();
+	lapic_init();
 	// Lab 4 multitasking initialization functions
 	pic_init();
 
 	// Lab 6 hardware initialization functions
 	time_init();
-//	pci_init();
+	pci_init();
 
 
 #ifndef VMM_GUEST
@@ -113,11 +115,15 @@ i386_init(void)
 	// Touch all you want.
 
 	ENV_CREATE(user_icode, ENV_TYPE_USER);
+//	ENV_CREATE(user_testtime, ENV_TYPE_USER);
 #endif // TEST*
 
 	// Should not be necessary - drains keyboard because interrupt has given up.
 //	kbd_intr();
-
+//	cprintf("TIME : %u : \n", time_msec());
+//	cprintf("TIME : %u : \n", time_msec());
+//	cprintf("TIME : %u : \n", time_msec());
+//	cprintf("TIME : %u : \n", time_msec());
 	// Schedule and run the first user environment!
 	sched_yield();
 }

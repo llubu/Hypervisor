@@ -84,7 +84,7 @@ bool
 handle_eptviolation(uint64_t *eptrt, struct VmxGuestInfo *ginfo) {
     uint64_t gpa = vmcs_read64(VMCS_64BIT_GUEST_PHYSICAL_ADDR);
     int r;
-//    cprintf("EPT_VIO:%x::", gpa);
+    cprintf("EPT_VIO:0x%x::\n", gpa);
     if(gpa < 0xA0000 || (gpa >= 0x100000 && gpa < ginfo->phys_sz)) {
         // Allocate a new page to the guest.
         struct Page *p = page_alloc(0);
@@ -102,7 +102,17 @@ handle_eptviolation(uint64_t *eptrt, struct VmxGuestInfo *ginfo) {
                 (void *)(KERNBASE + CGA_BUF), (void *)CGA_BUF, __EPTE_FULL, 0);
         assert(r >= 0);
         return true;
-    } 
+    }
+
+    else if (gpa >= 0xF0000 && gpa <= 0xF0000  + 0x10000) {
+	r = ept_map_hva2gpa(eptrt, (void *)(KERNBASE + gpa), (void *)gpa, __EPTE_FULL, 0);
+	assert(r >= 0);
+	return true;
+    } else if (gpa >= 0xfee00000 /*0xF0000 && gpa <= 0xF0000  + 0x10000*/) {
+	r = ept_map_hva2gpa(eptrt, (void *)(KERNBASE + gpa), (void *)(gpa), __EPTE_FULL, 0);
+	assert(r >= 0);
+	return true;
+    }   
     return false;
 }
 
@@ -315,7 +325,17 @@ handle_vmcall(struct Trapframe *tf, struct VmxGuestInfo *gInfo, uint64_t *eptrt)
 	    tf->tf_regs.reg_rax = (uint64_t)ret;
             handled = true;
             break;
+
+	case VMX_VMCALL_NETSEND:
+	    // handles vmcalls for NW send requests from the guest
+	    ret = syscall(SYS_net_try_send, (uint64_t) tf->tf_regs.reg_rdx, (uint64_t)tf->tf_regs.reg_rcx, (uint64_t)0, (uint64_t)0,(uint64_t)0) ; 
+	    tf->tf_regs.reg_rax = (uint64_t) ret;
+	    handled = true;
+	    break;
+
     }
+
+
     if(handled) {
 	    /* Advance the program counter by the length of the vmcall instruction. 
 	     * 

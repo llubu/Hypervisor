@@ -12,6 +12,7 @@
 #include <kern/console.h>
 #include <kern/sched.h>
 #include <kern/time.h>
+#include <inc/vmx.h>
 
 // Print a string to the system console.
 // The string is exactly 'len' characters long.
@@ -453,7 +454,36 @@ sys_ipc_recv(void *dstva)
 sys_time_msec(void)
 {
     // LAB 6: Your code here.
-    panic("sys_time_msec not implemented");
+//    cprintf("should return corretc tiem here\n");
+    return time_msec(); 
+}
+
+// Network related VMCALLS
+int
+sys_net_try_send(char * data, int len)
+{
+    cprintf("\n IN GUEST NET SEND :0x%x:\n", data, len);
+    int ret = 0;
+    int num = VMX_VMCALL_NETSEND;
+    uint64_t a1 = (uint64_t) data; // the packet buffer ptr
+    uint64_t a2 = (uint64_t) len;
+
+    if ((uintptr_t)data >= UTOP)
+	return -E_INVAL;
+
+//	return e1000_transmit(data, len);
+// vmexit to host to send a packet
+
+    asm volatile("vmcall\n"
+		: "=a" (ret)
+		: "a" (num),
+		  "d" (a1),
+		  "c" (a2)
+		: "cc", "memory");
+
+    if (ret > 0)
+	panic("vmcall %d returned %d (> 0) in ipc_host_send", num, ret);
+    return ret;
 }
 
 

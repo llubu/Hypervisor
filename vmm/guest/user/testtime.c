@@ -4,16 +4,20 @@
     void
 sleep(int sec)
 {
+    unsigned chk = 0;
     unsigned now = sys_time_msec();
-    unsigned end = now + sec * 1000;
-
+//    unsigned end = now + sec * 1000;
+    unsigned end = now + sec * 100;
     if ((int)now < 0 && (int)now > -MAXERROR)
         panic("sys_time_msec: %e", (int)now);
     if (end < now)
         panic("sleep: wrap");
 
-    while (sys_time_msec() < end)
+    while ((chk = sys_time_msec()) < end)
+    {
+//	cprintf("IN TEST TIME END-WHILE IS :%u::%u\n", end, chk);
         sys_yield();
+    }
 }
 
     void

@@ -1,5 +1,4 @@
 #include <inc/assert.h>
-
 #include <kern/env.h>
 #include <kern/pmap.h>
 #include <kern/monitor.h>
@@ -26,7 +25,6 @@ sched_yield(void)
     // idle environment (env_type == ENV_TYPE_IDLE).  If there are
     // no runnable environments, simply drop through to the code
     // below to switch to this CPU's idle environment.
-
     // LAB 4: Your code here.
 	  if (curenv) {
             for (i = ENVX(curenv->env_id)+1; i != ENVX(curenv->env_id); i = (i+1)%NENV) {

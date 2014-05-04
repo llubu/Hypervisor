@@ -84,6 +84,7 @@ sum(void *addr, int len)
 static struct mp *
 mpsearch1(physaddr_t a, int len)
 {
+	cprintf("Abhiroop:%d:%s:\n", __LINE__, __FILE__);
 	struct mp *mp = KADDR(a), *end = KADDR(a + len);
 
 	for (; mp < end; mp++)
@@ -107,6 +108,7 @@ mpsearch(void)
 
 	//static_assert(sizeof(*mp) == 32);
 
+	cprintf("Abhiroop:%d:%s:\n", __LINE__, __FILE__);
 	// The BIOS data area lives in 16-bit segment 0x40.
 	bda = (uint8_t *) KADDR(0x40 << 4);
 
@@ -135,6 +137,7 @@ mpconfig(struct mp **pmp)
 	struct mpconf *conf;
 	struct mp *mp;
 
+	cprintf("Abhiroop:%d:%s:\n", __LINE__, __FILE__);
 	if ((mp = mpsearch()) == 0)
 		return NULL;
 	if (mp->physaddr == 0 || mp->type != 0) {
@@ -172,6 +175,7 @@ mp_init(void)
 	unsigned int i;
 
 	bootcpu = &cpus[0];
+	cprintf("Abhiroop:%d:%s:\n", __LINE__, __FILE__);
 	if ((conf = mpconfig(&mp)) == 0)
 		return;
 	ismp = 1;
