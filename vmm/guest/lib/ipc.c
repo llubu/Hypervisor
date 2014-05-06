@@ -105,7 +105,7 @@ ipc_host_recv(void *pg) {
 
     if (pg == NULL)
 	pg=(void*)UTOP;
-
+//gives the physical address
     if((vpml4e[VPML4E(tmp_adr)] & PTE_P) && (vpde[VPDPE(tmp_adr)] & PTE_P) && (vpd[VPD(tmp_adr)] & PTE_P)  &&  (vpt[VPN(tmp_adr)] & PTE_P))
     {
            pg = (void *) PTE_ADDR( vpt[VPN(tmp_adr)] );

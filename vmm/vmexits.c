@@ -219,6 +219,9 @@ handle_vmcall(struct Trapframe *tf, struct VmxGuestInfo *gInfo, uint64_t *eptrt)
     physaddr_t page_addr = 0x0;
     pte_t *pte_page = NULL;
     pte_t *host_va = NULL;
+    uint64_t gpa_net;
+    uintptr_t *hva_net;
+
     
 
     // phys address of the multiboot map in the guest.
@@ -328,8 +331,15 @@ handle_vmcall(struct Trapframe *tf, struct VmxGuestInfo *gInfo, uint64_t *eptrt)
 
 	case VMX_VMCALL_NETSEND:
 	    // handles vmcalls for NW send requests from the guest
-	    ret = syscall(SYS_net_try_send, (uint64_t) tf->tf_regs.reg_rdx, (uint64_t)tf->tf_regs.reg_rcx, (uint64_t)0, (uint64_t)0,(uint64_t)0) ; 
+	    gpa_net =  tf->tf_regs.reg_rdx;
+
+	    ept_gpa2hva(eptrt, (void *) gpa_net, (void *) &hva_net);
+	    cprintf("GPA: HVA IS: 0x%x:0x%x\n", gpa_net, hva_net);
+	    cprintf("LEN IS :%d:\n", tf->tf_regs.reg_rcx);
+	    ret = -1;
+	    ret = syscall(SYS_net_try_send, (uint64_t) hva_net, (uint64_t)tf->tf_regs.reg_rcx, (uint64_t)0, (uint64_t)0,(uint64_t)0) ; 
 	    tf->tf_regs.reg_rax = (uint64_t) ret;
+	    cprintf("RET IS :%d:\n", ret);
 	    handled = true;
 	    break;
 

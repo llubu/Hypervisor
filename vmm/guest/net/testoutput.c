@@ -12,6 +12,8 @@ static struct jif_pkt *pkt = (struct jif_pkt*)REQVA;
     void
 umain(int argc, char **argv)
 {
+
+    cprintf("\n DABRAL : IN TEST OUTPUT \n");
     envid_t ns_envid = sys_getenvid();
     int i, r;
 

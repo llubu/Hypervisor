@@ -91,17 +91,24 @@ e1000_transmit(char *data, int len)
 	if (len > E1000_TXPCKTSZ) {
 		return -E_PKT_TOO_LONG;
 	}
-
+	cprintf("\n IN E1000 transmit \n");
+	cprintf("\n DATA :0x%x:%d\n", data, len);
 	uint32_t tdt = e1000[E1000_TDT];
-
+cprintf("DABRAL:%d:%s\n", __LINE__, __FILE__);
 	// Check if next tx_desc is free
 	if (tx_desc_array[tdt].status & E1000_TXD_STAT_DD) {
+cprintf("DABRAL:%d:%s\n", __LINE__, __FILE__);
 		memmove(tx_pkt_bufs[tdt].buf, data, len);
+cprintf("DABRAL:%d:%s\n", __LINE__, __FILE__);
 		tx_desc_array[tdt].length = len;
 
+cprintf("DABRAL:%d:%s\n", __LINE__, __FILE__);
 		tx_desc_array[tdt].status &= ~E1000_TXD_STAT_DD;		// Clear DD so that we can use it to check whether the packet got sent
+cprintf("DABRAL:%d:%s\n", __LINE__, __FILE__);
 		tx_desc_array[tdt].cmd |= E1000_TXD_CMD_RS;			// to get the card to set dd when done sending
+cprintf("DABRAL:%d:%s\n", __LINE__, __FILE__);
 		tx_desc_array[tdt].cmd |= E1000_TXD_CMD_EOP;			// to indicate last packet
+cprintf("DABRAL:%d:%s\n", __LINE__, __FILE__);
 
 		e1000[E1000_TDT] = (tdt + 1) % E1000_TXDESCSZ;
 	}
@@ -118,6 +125,7 @@ e1000_receive(char *data)
 	uint32_t rdt, len;
 	rdt = e1000[E1000_RDT];
 	
+//	cprintf("\n IN E1000 RECEIVE \n");
 	//if next rcvdesc is filled
 	if (rcv_desc_array[rdt].status & E1000_RXD_STAT_DD) {
 		

@@ -457,21 +457,41 @@ sys_time_msec(void)
 //    cprintf("should return corretc tiem here\n");
     return time_msec(); 
 }
-
+/*
 // Network related VMCALLS
 int
 sys_net_try_send(char * data, int len)
 {
     cprintf("\n IN GUEST NET SEND :0x%x:\n", data, len);
     int ret = 0;
+    uintptr_t tmp_adr = (uintptr_t) data;
     int num = VMX_VMCALL_NETSEND;
-    uint64_t a1 = (uint64_t) data; // the packet buffer ptr
-    uint64_t a2 = (uint64_t) len;
+    uint64_t a1, a2;
+
+    if (data == NULL)
+	return -E_INVAL;
 
     if ((uintptr_t)data >= UTOP)
 	return -E_INVAL;
 
-//	return e1000_transmit(data, len);
+
+    if((vpml4e[VPML4E(tmp_adr)] & PTE_P) && (vpde[VPDPE(tmp_adr)] & PTE_P) && (vpd[VPD(tmp_adr)] & PTE_P)  &&  (vpt[VPN(tmp_adr)] & PTE_P))
+    {
+           data = (void *) PTE_ADDR( vpt[VPN(tmp_adr)] );
+    }
+    else
+    {
+	cprintf("\n Packet address not mapped SOMETHING IS REALLY WRONG \n");
+	if((ret = sys_page_alloc(0, (void *) tmp_adr , PTE_P|PTE_W|PTE_U|PTE_SHARE)) < 0)
+	    return ret;
+        data = (void *) PTE_ADDR( vpt[VPN(tmp_adr)] );
+    }
+    
+    a1 = (uint64_t) data; // the packet buffer ptr
+    a2 = (uint64_t) len;
+
+
+ //	return e1000_transmit(data, len);
 // vmexit to host to send a packet
 
     asm volatile("vmcall\n"
@@ -485,7 +505,7 @@ sys_net_try_send(char * data, int len)
 	panic("vmcall %d returned %d (> 0) in ipc_host_send", num, ret);
     return ret;
 }
-
+*/
 
 // Dispatches to the correct kernel function, passing the arguments.
     int64_t

@@ -101,6 +101,7 @@ i386_init(void)
 	ENV_CREATE(fs_fs, ENV_TYPE_FS);
 
 
+	ENV_CREATE(net_ns, ENV_TYPE_NS);
      
 
 #if !defined(TEST_NO_NS) && !defined(VMM_GUEST)
@@ -116,6 +117,7 @@ i386_init(void)
 
 	ENV_CREATE(user_icode, ENV_TYPE_USER);
 //	ENV_CREATE(user_testtime, ENV_TYPE_USER);
+	ENV_CREATE(net_testoutput, ENV_TYPE_USER);
 #endif // TEST*
 
 	// Should not be necessary - drains keyboard because interrupt has given up.

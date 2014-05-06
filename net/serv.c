@@ -316,7 +316,7 @@ umain(int argc, char **argv)
 	envid_t ns_envid = sys_getenvid();
 
 	binaryname = "ns";
-
+	cprintf("SERVINF NET NOW \n");
 	// fork off the timer thread which will send us periodic messages
 	timer_envid = fork();
 	if (timer_envid < 0)
