@@ -13,6 +13,7 @@
 #include <kern/syscall.h>
 #include <kern/env.h>
 #include <kern/sched.h>
+#include <kern/e1000.h>
 
 extern char *multiboot_info;
 
@@ -337,7 +338,8 @@ handle_vmcall(struct Trapframe *tf, struct VmxGuestInfo *gInfo, uint64_t *eptrt)
 	    cprintf("GPA: HVA IS: 0x%x:0x%x\n", gpa_net, hva_net);
 	    cprintf("LEN IS :%d:\n", tf->tf_regs.reg_rcx);
 	    ret = -1;
-	    ret = syscall(SYS_net_try_send, (uint64_t) hva_net, (uint64_t)tf->tf_regs.reg_rcx, (uint64_t)0, (uint64_t)0,(uint64_t)0) ; 
+//	    ret = syscall(SYS_net_try_send, (uint64_t) hva_net, (uint64_t)tf->tf_regs.reg_rcx, (uint64_t)0, (uint64_t)0,(uint64_t)0) ; 
+	    ret = e1000_transmit((char *) hva_net, (int) tf->tf_regs.reg_rcx);
 	    tf->tf_regs.reg_rax = (uint64_t) ret;
 	    cprintf("RET IS :%d:\n", ret);
 	    handled = true;

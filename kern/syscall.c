@@ -566,8 +566,12 @@ sys_time_msec(void)
 int
 sys_net_try_send(char * data, int len)
 {
+
 	if ((uintptr_t)data >= UTOP)
+	{
+	    cprintf("\n NET SEND ERROR UTOP \n");
 		return -E_INVAL;
+	}
 
 	return e1000_transmit(data, len);
 }
