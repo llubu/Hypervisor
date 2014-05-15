@@ -5,7 +5,7 @@
 #define MASK "255.255.255.0"
 #define DEFAULT "10.0.2.2"
 
-#define TIMER_INTERVAL 30 //250 original value
+#define TIMER_INTERVAL 20 //250 //original value
 
 // Virtual address at which to receive page mappings containing client requests.
 #define QUEUE_SIZE	20

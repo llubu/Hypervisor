@@ -584,7 +584,7 @@ sys_net_try_receive(char *data, int *len)
     {
 	return -E_INVAL;
     }
-    
+  //  cprintf("\n sys_net_try_receive \n");
     *len = e1000_receive(data);
     if (*len > 0)
     {

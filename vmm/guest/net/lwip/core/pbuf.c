@@ -352,6 +352,8 @@ pbuf_header(struct pbuf *p, s16_t header_size_increment)
   u16_t type;
   void *payload;
   u16_t increment_magnitude;
+cprintf("HEADR SIZE INCREMENT IN LWIP:%d:P LEN IS :%d:\n",header_size_increment, p->len);
+
 
   LWIP_ASSERT("p != NULL", p != NULL);
   if ((header_size_increment == 0) || (p == NULL))
@@ -361,6 +363,8 @@ pbuf_header(struct pbuf *p, s16_t header_size_increment)
     increment_magnitude = -header_size_increment;
     /* Check that we aren't going to move off the end of the pbuf */
     LWIP_ERROR("increment_magnitude <= p->len", (increment_magnitude <= p->len), return 1;);
+    // this was not here added to test -- change later -llubu
+//    increment_magnitude = header_size_increment;
   } else {
     increment_magnitude = header_size_increment;
 #if 0

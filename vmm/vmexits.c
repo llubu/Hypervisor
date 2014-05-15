@@ -85,7 +85,7 @@ bool
 handle_eptviolation(uint64_t *eptrt, struct VmxGuestInfo *ginfo) {
     uint64_t gpa = vmcs_read64(VMCS_64BIT_GUEST_PHYSICAL_ADDR);
     int r;
-    cprintf("EPT_VIO:0x%x::\n", gpa);
+//    cprintf("EPT_VIO:0x%x::\n", gpa);
     if(gpa < 0xA0000 || (gpa >= 0x100000 && gpa < ginfo->phys_sz)) {
         // Allocate a new page to the guest.
         struct Page *p = page_alloc(0);
@@ -224,7 +224,8 @@ handle_vmcall(struct Trapframe *tf, struct VmxGuestInfo *gInfo, uint64_t *eptrt)
     uintptr_t *hva_net;
     int *len_pt;	// to pass packet length to the guest
     int rcv_len = 0;
-
+    int rv_ret = 0;
+    int len = 0;
     
 
     // phys address of the multiboot map in the guest.
@@ -335,13 +336,14 @@ handle_vmcall(struct Trapframe *tf, struct VmxGuestInfo *gInfo, uint64_t *eptrt)
 	case VMX_VMCALL_NETSEND:
 	    // handles vmcalls for NW send requests from the guest
 	    gpa_net =  tf->tf_regs.reg_rdx;
-
+	    len = tf->tf_regs.reg_rcx;
+		
 	    ept_gpa2hva(eptrt, (void *) gpa_net, (void *) &hva_net);
 //	    cprintf("GPA: HVA IS: 0x%x:0x%x\n", gpa_net, hva_net);
 //	    cprintf("LEN IS :%d:\n", tf->tf_regs.reg_rcx);
 	    ret = -1;
 //	    ret = syscall(SYS_net_try_send, (uint64_t) hva_net, (uint64_t)tf->tf_regs.reg_rcx, (uint64_t)0, (uint64_t)0,(uint64_t)0) ; 
-	    ret = e1000_transmit((char *) hva_net, (int) tf->tf_regs.reg_rcx);
+	    ret = e1000_transmit((char *) hva_net, len);
 	    tf->tf_regs.reg_rax = (uint64_t) ret;
 //	    cprintf("RET IS :%d:\n", ret);
 	    handled = true;
@@ -356,33 +358,26 @@ handle_vmcall(struct Trapframe *tf, struct VmxGuestInfo *gInfo, uint64_t *eptrt)
 	    ept_gpa2hva(eptrt, (void *) gpa_net, (void *) &hva_net);
 //	    cprintf("RCV:GPA: HVA IS: 0x%x:0x%x\n", gpa_net, hva_net);
 //	    cprintf("RCV:LEN IS :%d:\n", tf->tf_regs.reg_rcx);
-	    ret = -1;
-
 	    // copying pkt 
 
-	   ret = guest_rcv((char *) hva_net); //ret is the len of the pkt returned 
-	   cprintf("RET IN RCV VMEXIT IS:%d:\n", ret);
-	   if (ret > 0)
+	   ret = (int) guest_rcv((char *) hva_net, &rcv_len, &rv_ret); //ret is the len of the pkt returned 
+//	   cprintf("RET-ABHI- IN RCV VMEXIT IS:%d:\n", rv_ret);
+	   if (rv_ret == 0)
 	   {
-	       tf->tf_regs.reg_rax = (uint64_t) 0;
-	       *len_pt = ret;
-	         
+	       tf->tf_regs.reg_rax = (uint64_t) rcv_len;
+
 	       char *buf=(char *)hva_net;
 	       int i=0;
-    cprintf("\n DATA in VMEXIST  of len=[%d]=[",*len_pt);
-    for(i=0;i<*len_pt;i++)
-	cprintf("%u ",buf[i]);
-
-	cprintf("]\n");
+	       cprintf("\n DATA in VMEXIST  of len=[%d]=[",rcv_len);
+	       for(i=0;i<rcv_len;i++)
+		   cprintf("%u ",buf[i]);
+	       cprintf("]\n");
 	   }
 	   else
 	   {
-	       tf->tf_regs.reg_rax = (uint64_t) ret;
-	       *len = 0;
+	       tf->tf_regs.reg_rax = (uint64_t) 0;
 	   }
 
-
-	   cprintf("RCV:RET IS :%d:\n", ret);
 	   handled = true;
 	   break;
     }

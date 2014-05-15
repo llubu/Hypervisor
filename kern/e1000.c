@@ -59,6 +59,11 @@ int e1000_attach (struct pci_func *f) {
 	for (i = 0; i < E1000_RCVDESCSZ; i++) {
 		rcv_desc_array[i].addr = PADDR(rcv_pkt_bufs[i].buf);
 		guest_rcv_desc_array[i].addr = PADDR(guest_rcv_pkt_bufs[i].buf);	// Initializing Guest desc also
+		guest_rcv_desc_array[i].length = 0;
+		guest_rcv_desc_array[i].status = 0;
+		guest_rcv_desc_array[i].pktcsum = 0;
+		guest_rcv_desc_array[i].errors = 0;
+		guest_rcv_desc_array[i].special = 0;
 	}	
 	
 	//Program the Receive Address Register(s) (RAL/RAH) with the desired Ethernet addresses
@@ -120,32 +125,42 @@ cprintf("DABRAL:%d:%s\n", __LINE__, __FILE__);
 int
 e1000_receive(char *data)
 {
-	uint32_t rdt, len;
+	uint32_t rdt, len, i = 0;
 	rdt = e1000[E1000_RDT];
 //	cprintf("\n THE GEUST HEAD IN E1000_RCV is:%d\n", guest_hd);
 //	cprintf("\n IN E1000 RECEIVE \n");
 	//if next rcvdesc is filled
+//	guest_rcv_desc_array[guest_hd].status = rcv_desc_array[rdt].status;
 	if (rcv_desc_array[rdt].status & E1000_RXD_STAT_DD) {
 		
+//	guest_rcv_desc_array[guest_hd].status = rcv_desc_array[rdt].status;
 		if (!(rcv_desc_array[rdt].status & E1000_RXD_STAT_EOP)) {
 			panic("We don't allow jumbo frames!\n");
 		}
 		
+		guest_rcv_desc_array[guest_hd].status = rcv_desc_array[rdt].status;
 		len = rcv_desc_array[rdt].length;
-		guest_rcv_desc_array[guest_hd].length = len;			//copying the length to the guest desc
+		guest_rcv_desc_array[guest_hd].length = rcv_desc_array[rdt].length;			//copying the length to the guest desc
 		memmove(data, rcv_pkt_bufs[rdt].buf, len);
 		// Copying the pkt into guest pkt buf
 		memmove(guest_rcv_pkt_bufs[guest_hd].buf, rcv_pkt_bufs[rdt].buf, len);
+                cprintf("\n DATA od LEN=[%d]=[",guest_rcv_desc_array[guest_hd].length);
+		for(i = 0;i < guest_rcv_desc_array[guest_hd].length; i++)
+		     cprintf("%u ",guest_rcv_pkt_bufs[guest_hd].buf[i]);
+		cprintf("]\n");
+//		cprintf("\n HOST BUF OKT DATA \n");
+//		for(i = 0;i < rcv_desc_array[rdt].length; i++)
+//		     cprintf("%u ",data[i]);
+//		cprintf("]\n");
+		
+		rcv_desc_array[rdt].status &= ~E1000_RXD_STAT_DD;
+		rcv_desc_array[rdt].status &= ~E1000_RXD_STAT_EOP;
+		e1000[E1000_RDT] = (rdt + 1) % E1000_RCVDESCSZ;
 
 		if (guest_hd == 63)
 		    guest_hd = 0;
 		else
 		    ++guest_hd;
-
-		guest_rcv_desc_array[guest_hd].status = rcv_desc_array[rdt].status;
-		rcv_desc_array[rdt].status &= ~E1000_RXD_STAT_DD;
-		rcv_desc_array[rdt].status &= ~E1000_RXD_STAT_EOP;
-		e1000[E1000_RDT] = (rdt + 1) % E1000_RCVDESCSZ;
 
 		return len;
 	}
@@ -155,11 +170,13 @@ e1000_receive(char *data)
 
 
 int 
-guest_rcv(char *data)
+guest_rcv(char *data, int *rlen, int *rret)
 {
-    int len = 0;
-    if (guest_tl > 2)
-	cprintf("\n GUEST HEAD AND TAILS IN GUEST RCV:%d:%d\n", guest_hd, guest_tl);
+    int len = 0,i=0;
+    char *g_src = NULL;
+
+ //   cprintf("\n GUEST HEAD AND TAILS IN GUEST RCV:%d:%d\n", guest_hd, guest_tl);
+
     if (guest_rcv_desc_array[guest_tl].status & E1000_RXD_STAT_DD) 
     {
 	if (!(guest_rcv_desc_array[guest_tl].status & E1000_RXD_STAT_EOP)) 
@@ -169,15 +186,40 @@ guest_rcv(char *data)
 
     	len = guest_rcv_desc_array[guest_tl].length;
 	memmove(data, guest_rcv_pkt_bufs[guest_tl].buf, len);
-    	guest_rcv_desc_array[guest_tl].status &= ~E1000_RXD_STAT_DD;
-    	guest_rcv_desc_array[guest_tl].status &= ~E1000_RXD_STAT_EOP;
+        g_src = (char *) guest_rcv_pkt_bufs[guest_tl].buf;	
+//	for(i = 0; i < guest_rcv_desc_array[guest_tl].length; i++)
+//	{
+//	    data[i] = guest_rcv_pkt_bufs[guest_tl].buf[i];
+//	    data[i] = g_src[i];
+//	}
 
-    	if (guest_tl == 63)
+//        cprintf("\n DATA-GUEST od LEN=[%d]=[",guest_rcv_desc_array[guest_tl].length);
+//	for(i=0;i<guest_rcv_desc_array[guest_tl].length;i++)
+//	     cprintf("%u ",guest_rcv_pkt_bufs[guest_tl].buf[i]);
+//	cprintf("]\n");
+//    	cprintf("\n CHEK PRINT IN GUEST BUF \n");
+//	for(i=0;i<guest_rcv_desc_array[guest_tl].length;i++)
+//	     cprintf("%u ",data[i]);
+//	cprintf("]\n");
+
+//   	guest_rcv_desc_array[guest_tl].status &= ~E1000_RXD_STAT_DD;
+//    	guest_rcv_desc_array[guest_tl].status &= ~E1000_RXD_STAT_EOP;
+	guest_rcv_desc_array[i].length = 0;
+	guest_rcv_desc_array[i].status = 0;
+	guest_rcv_desc_array[i].pktcsum = 0;
+	guest_rcv_desc_array[i].errors = 0;
+	guest_rcv_desc_array[i].special = 0;
+
+	if (guest_tl == 63)
 		guest_tl = 0;
     	else
 		++guest_tl;
-    	return len;
+	*rlen = len;
+	*rret = 0;
+     	return 0;
     }
+    *rlen = (int) 0;
+    *rret =(int) -E_RCV_EMPTY;
 
     return -E_RCV_EMPTY;
 }

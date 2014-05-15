@@ -1,5 +1,6 @@
 #include "ns.h"
 #include <inc/vmx.h>
+
 extern union Nsipc nsipcbuf;
 
 
@@ -10,6 +11,7 @@ int net_try_receive(char *data, int *len)
     uintptr_t tmp_adr = (uintptr_t) data;
     int num = VMX_VMCALL_NETRECV;
     uint64_t a1, a2;
+    char * tm_data = (char *)data;
 
     if (NULL == data)
     {
@@ -43,15 +45,26 @@ int net_try_receive(char *data, int *len)
 		  "c" (a2)
 		: "cc", "memory");
 
-    vmret = (int) ret;
-    cprintf("RET IN GUEST INPUT:%d:\n", vmret);
-    if (vmret > 0)
-	panic("vmcall %d returned %d (> 0) in NET_RECEIVE VM CALL", num, vmret);
+//    vmret = (int) ret;
+//    *len = (int) ret;
+    if (0 == ret)
+    {
+	vmret = -1;
+	*len = 0;
+    }
+    else
+    {
+	vmret = ret;
+	*len = ret;
+    }
+//    cprintf("RET IN GUEST INPUT:%d:\n", vmret);
+    if (vmret > 0) 
+    {
 //    cprintf("\n DATA in GUEST_INPUT of len=[%d]=[",*len);
-//    for(i=0;i<*len;i++)
-//	cprintf("%u ",data[i]);
-
-//	cprintf("]\n");
+    	for(i=0;i<*len;i++)
+	    cprintf("%u ",tm_data[i]);
+	cprintf("]\n");
+    }
      return vmret;
 
 }
@@ -69,15 +82,15 @@ input(envid_t ns_envid)
 	// another packet in to the same physical page.
 //	char buf[2048];
 	char *buf = NULL;
-	buf = malloc(sizeof(char) * 2048);
-
+	buf = (char *) malloc(sizeof(char) * 2048);
+	memset(buf, 0, 2048);
+		
 	int len = 0, r, i;
 
 	while (1) {
 		// 	- read a packet from the device driver
 		while ((r = net_try_receive(buf, &len)) < 0)
 			sys_yield();
-		cprintf("RECV BUF IN GUEST INPUT.C:%s:\n", buf);
 cprintf("DABRAL:%d:%s\n", __LINE__, __FILE__);
 		// Whenever a new page is allocated, old will be deallocated by page_insert automatically.
 		while ((r = sys_page_alloc(0, &nsipcbuf, PTE_U | PTE_P | PTE_W)) < 0);
