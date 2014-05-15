@@ -115,9 +115,11 @@ i386_init(void)
 #else
 	// Touch all you want.
 
-	ENV_CREATE(user_icode, ENV_TYPE_USER);
+//	ENV_CREATE(user_icode, ENV_TYPE_USER);
 //	ENV_CREATE(user_testtime, ENV_TYPE_USER);
-	ENV_CREATE(net_testoutput, ENV_TYPE_USER);
+	ENV_CREATE(user_httpd, ENV_TYPE_USER);
+//	ENV_CREATE(net_testoutput, ENV_TYPE_USER);
+//	ENV_CREATE(net_testinput, ENV_TYPE_USER);
 #endif // TEST*
 
 	// Should not be necessary - drains keyboard because interrupt has given up.

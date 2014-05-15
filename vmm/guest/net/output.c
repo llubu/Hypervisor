@@ -46,7 +46,7 @@ cprintf("DATA IS LEN IS: 0x%x:%d\n", data, len);
 		: "cc", "memory");
 
     if (ret > 0)
-	panic("vmcall %d returned %d (> 0) in ipc_host_send", num, ret);
+	panic("vmcall %d returned %d (> 0) in GUEST NET_SEND", num, ret);
     return ret;
 }
 

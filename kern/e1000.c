@@ -6,6 +6,12 @@ struct tx_pkt tx_pkt_bufs[E1000_TXDESCSZ];
 struct rcv_desc rcv_desc_array[E1000_RCVDESCSZ] __attribute__ ((aligned (16)));
 struct rcv_pkt rcv_pkt_bufs[E1000_RCVDESCSZ];
 
+// Guest pkt buffer
+struct rcv_desc guest_rcv_desc_array[E1000_RCVDESCSZ] __attribute__ ((aligned (16)));	// Guest desc for receiving -- cant do only with the buffer
+struct rcv_pkt guest_rcv_pkt_bufs[E1000_RCVDESCSZ]; // 64 -each of size 2048
+int guest_hd = 0;	// head counter for guest buf
+int guest_tl = 0;	// tail counter for guest buf
+
 // LAB 6: Your driver code here
 int e1000_attach (struct pci_func *f) {
 	
@@ -17,7 +23,7 @@ int e1000_attach (struct pci_func *f) {
 	e1000 = mmio_map_region(f->reg_base[0], f->reg_size[0]);
 	//check that the mapping is right
 	assert(e1000[E1000_STATUS] == 0x80080783);
-	// Initialize tx buffer array
+	// Initialize tx buffer array - zeroing out the arrays
 	memset(tx_desc_array, 0x0, sizeof(struct tx_desc) * E1000_TXDESCSZ);
 	memset(tx_pkt_bufs, 0x0, sizeof(struct tx_pkt) * E1000_TXDESCSZ);
 	for (i = 0; i < E1000_TXDESCSZ; i++) {
@@ -52,6 +58,7 @@ int e1000_attach (struct pci_func *f) {
 	memset(rcv_pkt_bufs, 0x0, sizeof(struct rcv_pkt) * E1000_RCVDESCSZ);
 	for (i = 0; i < E1000_RCVDESCSZ; i++) {
 		rcv_desc_array[i].addr = PADDR(rcv_pkt_bufs[i].buf);
+		guest_rcv_desc_array[i].addr = PADDR(guest_rcv_pkt_bufs[i].buf);	// Initializing Guest desc also
 	}	
 	
 	//Program the Receive Address Register(s) (RAL/RAH) with the desired Ethernet addresses
@@ -80,7 +87,6 @@ int e1000_attach (struct pci_func *f) {
 	e1000[E1000_RCTL] &= ~E1000_RCTL_SZ; // 2048 byte size
 	e1000[E1000_RCTL] |= E1000_RCTL_SECRC;
 
-	
 	return 0;
 }
 
@@ -94,28 +100,20 @@ e1000_transmit(char *data, int len)
 	cprintf("\n IN E1000 transmit \n");
 	cprintf("\n DATA :0x%x:%d\n", data, len);
 	uint32_t tdt = e1000[E1000_TDT];
-cprintf("DABRAL:%d:%s\n", __LINE__, __FILE__);
 	// Check if next tx_desc is free
 	if (tx_desc_array[tdt].status & E1000_TXD_STAT_DD) {
-cprintf("DABRAL:%d:%s\n", __LINE__, __FILE__);
 		memmove(tx_pkt_bufs[tdt].buf, data, len);
-cprintf("DABRAL:%d:%s\n", __LINE__, __FILE__);
 		tx_desc_array[tdt].length = len;
 
-cprintf("DABRAL:%d:%s\n", __LINE__, __FILE__);
 		tx_desc_array[tdt].status &= ~E1000_TXD_STAT_DD;		// Clear DD so that we can use it to check whether the packet got sent
-cprintf("DABRAL:%d:%s\n", __LINE__, __FILE__);
 		tx_desc_array[tdt].cmd |= E1000_TXD_CMD_RS;			// to get the card to set dd when done sending
-cprintf("DABRAL:%d:%s\n", __LINE__, __FILE__);
 		tx_desc_array[tdt].cmd |= E1000_TXD_CMD_EOP;			// to indicate last packet
 cprintf("DABRAL:%d:%s\n", __LINE__, __FILE__);
-
 		e1000[E1000_TDT] = (tdt + 1) % E1000_TXDESCSZ;
 	}
 	else { // tx queue is full!
 		return -E_TX_FULL;
 	}
-	
 	return 0;
 }
 
@@ -124,17 +122,27 @@ e1000_receive(char *data)
 {
 	uint32_t rdt, len;
 	rdt = e1000[E1000_RDT];
-	
+//	cprintf("\n THE GEUST HEAD IN E1000_RCV is:%d\n", guest_hd);
 //	cprintf("\n IN E1000 RECEIVE \n");
 	//if next rcvdesc is filled
 	if (rcv_desc_array[rdt].status & E1000_RXD_STAT_DD) {
 		
 		if (!(rcv_desc_array[rdt].status & E1000_RXD_STAT_EOP)) {
-			panic("Don't allow jumbo frames!\n");
+			panic("We don't allow jumbo frames!\n");
 		}
 		
 		len = rcv_desc_array[rdt].length;
+		guest_rcv_desc_array[guest_hd].length = len;			//copying the length to the guest desc
 		memmove(data, rcv_pkt_bufs[rdt].buf, len);
+		// Copying the pkt into guest pkt buf
+		memmove(guest_rcv_pkt_bufs[guest_hd].buf, rcv_pkt_bufs[rdt].buf, len);
+
+		if (guest_hd == 63)
+		    guest_hd = 0;
+		else
+		    ++guest_hd;
+
+		guest_rcv_desc_array[guest_hd].status = rcv_desc_array[rdt].status;
 		rcv_desc_array[rdt].status &= ~E1000_RXD_STAT_DD;
 		rcv_desc_array[rdt].status &= ~E1000_RXD_STAT_EOP;
 		e1000[E1000_RDT] = (rdt + 1) % E1000_RCVDESCSZ;
@@ -145,3 +153,31 @@ e1000_receive(char *data)
 	return -E_RCV_EMPTY;
 }
 
+
+int 
+guest_rcv(char *data)
+{
+    int len = 0;
+    if (guest_tl > 2)
+	cprintf("\n GUEST HEAD AND TAILS IN GUEST RCV:%d:%d\n", guest_hd, guest_tl);
+    if (guest_rcv_desc_array[guest_tl].status & E1000_RXD_STAT_DD) 
+    {
+	if (!(guest_rcv_desc_array[guest_tl].status & E1000_RXD_STAT_EOP)) 
+	{
+	    panic("We don't allow jumbo frames in guest_RCV!\n");
+	}
+
+    	len = guest_rcv_desc_array[guest_tl].length;
+	memmove(data, guest_rcv_pkt_bufs[guest_tl].buf, len);
+    	guest_rcv_desc_array[guest_tl].status &= ~E1000_RXD_STAT_DD;
+    	guest_rcv_desc_array[guest_tl].status &= ~E1000_RXD_STAT_EOP;
+
+    	if (guest_tl == 63)
+		guest_tl = 0;
+    	else
+		++guest_tl;
+    	return len;
+    }
+
+    return -E_RCV_EMPTY;
+}

@@ -64,6 +64,7 @@
 int e1000_attach(struct pci_func *f);
 int e1000_transmit(char *data, int len);
 int e1000_receive(char *data);
+int guest_rcv(char *data);
 
 volatile uint32_t *e1000;
 

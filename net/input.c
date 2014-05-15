@@ -1,6 +1,9 @@
 #include "ns.h"
 
 extern union Nsipc nsipcbuf;
+extern struct rcv_pkt guest_rcv_pkt_bufs;	//defined in host-kern/e1000.c
+extern int guest_hd;
+extern int guest_tl;
 
 void
 input(envid_t ns_envid)

@@ -309,9 +309,10 @@ umain(int argc, char **argv)
     if (listen(serversock, MAXPENDING) < 0)
         die("Failed to listen on server socket");
 
-    cprintf("Waiting for http connections...\n");
+    cprintf("Waiting for http connections..in.. GUEST.\n");
 
     while (1) {
+	cprintf("IN HTTPD WHILE");
         unsigned int clientlen = sizeof(client);
         // Wait for client connection
         if ((clientsock = accept(serversock,

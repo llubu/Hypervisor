@@ -109,7 +109,7 @@ handle_eptviolation(uint64_t *eptrt, struct VmxGuestInfo *ginfo) {
 	r = ept_map_hva2gpa(eptrt, (void *)(KERNBASE + gpa), (void *)gpa, __EPTE_FULL, 0);
 	assert(r >= 0);
 	return true;
-    } else if (gpa >= 0xfee00000 /*0xF0000 && gpa <= 0xF0000  + 0x10000*/) {
+    } else if (gpa >= 0xfee00000 ) {
 	r = ept_map_hva2gpa(eptrt, (void *)(KERNBASE + gpa), (void *)(gpa), __EPTE_FULL, 0);
 	assert(r >= 0);
 	return true;
@@ -222,6 +222,8 @@ handle_vmcall(struct Trapframe *tf, struct VmxGuestInfo *gInfo, uint64_t *eptrt)
     pte_t *host_va = NULL;
     uint64_t gpa_net;
     uintptr_t *hva_net;
+    int *len_pt;	// to pass packet length to the guest
+    int rcv_len = 0;
 
     
 
@@ -335,16 +337,54 @@ handle_vmcall(struct Trapframe *tf, struct VmxGuestInfo *gInfo, uint64_t *eptrt)
 	    gpa_net =  tf->tf_regs.reg_rdx;
 
 	    ept_gpa2hva(eptrt, (void *) gpa_net, (void *) &hva_net);
-	    cprintf("GPA: HVA IS: 0x%x:0x%x\n", gpa_net, hva_net);
-	    cprintf("LEN IS :%d:\n", tf->tf_regs.reg_rcx);
+//	    cprintf("GPA: HVA IS: 0x%x:0x%x\n", gpa_net, hva_net);
+//	    cprintf("LEN IS :%d:\n", tf->tf_regs.reg_rcx);
 	    ret = -1;
 //	    ret = syscall(SYS_net_try_send, (uint64_t) hva_net, (uint64_t)tf->tf_regs.reg_rcx, (uint64_t)0, (uint64_t)0,(uint64_t)0) ; 
 	    ret = e1000_transmit((char *) hva_net, (int) tf->tf_regs.reg_rcx);
 	    tf->tf_regs.reg_rax = (uint64_t) ret;
-	    cprintf("RET IS :%d:\n", ret);
+//	    cprintf("RET IS :%d:\n", ret);
 	    handled = true;
 	    break;
+	
+	case VMX_VMCALL_NETRECV:
+	    // handles vmcall for NW receive requests from the guest
 
+	    gpa_net = tf->tf_regs.reg_rdx;
+	    len_pt = (int *) tf->tf_regs.reg_rcx;	// pointer to len variable in input.c in guest
+
+	    ept_gpa2hva(eptrt, (void *) gpa_net, (void *) &hva_net);
+//	    cprintf("RCV:GPA: HVA IS: 0x%x:0x%x\n", gpa_net, hva_net);
+//	    cprintf("RCV:LEN IS :%d:\n", tf->tf_regs.reg_rcx);
+	    ret = -1;
+
+	    // copying pkt 
+
+	   ret = guest_rcv((char *) hva_net); //ret is the len of the pkt returned 
+	   cprintf("RET IN RCV VMEXIT IS:%d:\n", ret);
+	   if (ret > 0)
+	   {
+	       tf->tf_regs.reg_rax = (uint64_t) 0;
+	       *len_pt = ret;
+	         
+	       char *buf=(char *)hva_net;
+	       int i=0;
+    cprintf("\n DATA in VMEXIST  of len=[%d]=[",*len_pt);
+    for(i=0;i<*len_pt;i++)
+	cprintf("%u ",buf[i]);
+
+	cprintf("]\n");
+	   }
+	   else
+	   {
+	       tf->tf_regs.reg_rax = (uint64_t) ret;
+	       *len = 0;
+	   }
+
+
+	   cprintf("RCV:RET IS :%d:\n", ret);
+	   handled = true;
+	   break;
     }
 
 

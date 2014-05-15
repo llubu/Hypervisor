@@ -67,6 +67,7 @@ hexdump(const char *prefix, const void *data, int len)
     void
 umain(int argc, char **argv)
 {
+    cprintf("IN TEST INPUT\n");
     envid_t ns_envid = sys_getenvid();
     int i, r, first = 1;
 

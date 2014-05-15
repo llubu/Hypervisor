@@ -118,6 +118,8 @@ i386_init(void)
 //	ENV_CREATE(user_echosrv, ENV_TYPE_USER);
 //	ENV_CREATE(user_httpd, ENV_TYPE_USER);
 //	ENV_CREATE(user_testtime, ENV_TYPE_USER);
+//	ENV_CREATE(net_testinput, ENV_TYPE_USER);
+
 #endif // No environments until lab3
 
 	// Testing Net Transmit directly
