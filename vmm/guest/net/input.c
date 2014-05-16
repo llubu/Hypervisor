@@ -91,15 +91,15 @@ input(envid_t ns_envid)
 		// 	- read a packet from the device driver
 		while ((r = net_try_receive(buf, &len)) < 0)
 			sys_yield();
-cprintf("DABRAL:%d:%s\n", __LINE__, __FILE__);
+//cprintf("DABRAL:%d:%s\n", __LINE__, __FILE__);
 		// Whenever a new page is allocated, old will be deallocated by page_insert automatically.
 		while ((r = sys_page_alloc(0, &nsipcbuf, PTE_U | PTE_P | PTE_W)) < 0);
-cprintf("\n LEN AFTER UPDATE is :%d\n", len);
-cprintf("DABRAL:%d:%s\n", __LINE__, __FILE__);
+//cprintf("\n LEN AFTER UPDATE is :%d\n", len);
+//cprintf("DABRAL:%d:%s\n", __LINE__, __FILE__);
 		nsipcbuf.pkt.jp_len = len;
 		memmove(nsipcbuf.pkt.jp_data, buf, len);
 
-cprintf("DABRAL:%d:%s\n", __LINE__, __FILE__);
+//cprintf("DABRAL:%d:%s\n", __LINE__, __FILE__);
 		while ((r = sys_ipc_try_send(ns_envid, NSREQ_INPUT, &nsipcbuf, PTE_P | PTE_W | PTE_U)) < 0);
 	}  
 }

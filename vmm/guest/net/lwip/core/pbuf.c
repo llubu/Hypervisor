@@ -352,7 +352,7 @@ pbuf_header(struct pbuf *p, s16_t header_size_increment)
   u16_t type;
   void *payload;
   u16_t increment_magnitude;
-cprintf("HEADR SIZE INCREMENT IN LWIP:%d:P LEN IS :%d:\n",header_size_increment, p->len);
+//cprintf("HEADR SIZE INCREMENT IN LWIP:%d:P LEN IS :%d:\n",header_size_increment, p->len);
 
 
   LWIP_ASSERT("p != NULL", p != NULL);
