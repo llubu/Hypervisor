@@ -5,7 +5,7 @@ extern union Nsipc nsipcbuf;
 int
 net_try_send(char * data, int len)
 {
-    cprintf("\n IN GUEST NET SEND :0x%x:\n", data, len);
+//    cprintf("\n IN GUEST NET SEND :0x%x:\n", data, len);
     int ret = 0;
     uintptr_t tmp_adr = (uintptr_t) data;
     int num = VMX_VMCALL_NETSEND;
@@ -30,7 +30,7 @@ net_try_send(char * data, int len)
         data = (void *) PTE_ADDR( vpt[VPN(tmp_adr)] );
     }
     
-    cprintf("DATA IS LEN IS: 0x%x:%d\n", data, len);
+//    cprintf("DATA IS LEN IS: 0x%x:%d\n", data, len);
     a1 = (uint64_t) data; // the packet buffer ptr
     a2 = (uint64_t) len;
 
@@ -44,7 +44,7 @@ net_try_send(char * data, int len)
 		  "d" (a1),
 		  "c" (a2)
 		: "cc", "memory");
-cprintf("RET IN TRANSMIT _GUEST:%d:\n", ret);
+//cprintf("RET IN TRANSMIT _GUEST:%d:\n", ret);
     if (ret > 0)
 	panic("vmcall %d returned %d (> 0) in GUEST NET_SEND", num, ret);
     return ret;

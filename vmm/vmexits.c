@@ -368,10 +368,10 @@ handle_vmcall(struct Trapframe *tf, struct VmxGuestInfo *gInfo, uint64_t *eptrt)
 
 	       char *buf=(char *)hva_net;
 	       int i=0;
-	       cprintf("\n DATA in VMEXIST  of len=[%d]=[",rcv_len);
-	       for(i=0;i<rcv_len;i++)
-		   cprintf("%u ",buf[i]);
-	       cprintf("]\n");
+//	       cprintf("\n DATA in VMEXIST  of len=[%d]=[",rcv_len);
+//	       for(i=0;i<rcv_len;i++)
+//		   cprintf("%u ",buf[i]);
+//	       cprintf("]\n");
 	   }
 	   else
 	   {

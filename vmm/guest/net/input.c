@@ -61,9 +61,9 @@ int net_try_receive(char *data, int *len)
     if (vmret > 0) 
     {
 //    cprintf("\n DATA in GUEST_INPUT of len=[%d]=[",*len);
-    	for(i=0;i<*len;i++)
-	    cprintf("%u ",tm_data[i]);
-	cprintf("]\n");
+//    	for(i=0;i<*len;i++)
+//	    cprintf("%u ",tm_data[i]);
+//	cprintf("]\n");
     }
      return vmret;
 

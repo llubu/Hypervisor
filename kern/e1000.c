@@ -102,8 +102,8 @@ e1000_transmit(char *data, int len)
 	if (len > E1000_TXPCKTSZ) {
 		return -E_PKT_TOO_LONG;
 	}
-	cprintf("\n IN E1000 transmit \n");
-	cprintf("\n DATA :0x%x:%d\n", data, len);
+//	cprintf("\n IN E1000 transmit \n");
+//	cprintf("\n DATA :0x%x:%d\n", data, len);
 	uint32_t tdt = e1000[E1000_TDT];
 	// Check if next tx_desc is free
 	if (tx_desc_array[tdt].status & E1000_TXD_STAT_DD) {
@@ -113,7 +113,7 @@ e1000_transmit(char *data, int len)
 		tx_desc_array[tdt].status &= ~E1000_TXD_STAT_DD;		// Clear DD so that we can use it to check whether the packet got sent
 		tx_desc_array[tdt].cmd |= E1000_TXD_CMD_RS;			// to get the card to set dd when done sending
 		tx_desc_array[tdt].cmd |= E1000_TXD_CMD_EOP;			// to indicate last packet
-cprintf("DABRAL:%d:%s\n", __LINE__, __FILE__);
+//cprintf("DABRAL:%d:%s\n", __LINE__, __FILE__);
 		e1000[E1000_TDT] = (tdt + 1) % E1000_TXDESCSZ;
 	}
 	else { // tx queue is full!
@@ -144,10 +144,10 @@ e1000_receive(char *data)
 		memmove(data, rcv_pkt_bufs[rdt].buf, len);
 		// Copying the pkt into guest pkt buf
 		memmove(guest_rcv_pkt_bufs[guest_hd].buf, rcv_pkt_bufs[rdt].buf, len);
-                cprintf("\n DATA od LEN=[%d]=[",guest_rcv_desc_array[guest_hd].length);
-		for(i = 0;i < guest_rcv_desc_array[guest_hd].length; i++)
-		     cprintf("%u ",guest_rcv_pkt_bufs[guest_hd].buf[i]);
-		cprintf("]\n");
+//                cprintf("\n DATA od LEN=[%d]=[",guest_rcv_desc_array[guest_hd].length);
+//		for(i = 0;i < guest_rcv_desc_array[guest_hd].length; i++)
+//		     cprintf("%u ",guest_rcv_pkt_bufs[guest_hd].buf[i]);
+//		cprintf("]\n");
 //		cprintf("\n HOST BUF OKT DATA \n");
 //		for(i = 0;i < rcv_desc_array[rdt].length; i++)
 //		     cprintf("%u ",data[i]);

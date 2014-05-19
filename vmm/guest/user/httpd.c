@@ -330,8 +330,8 @@ umain(int argc, char **argv)
 	server.sin_family = AF_INET;			// Internet/IP
 	server.sin_addr.s_addr = htonl(INADDR_ANY);	// IP address
 	server.sin_port = htons(PORT);			// server port
-	cprintf("SERV IP CK:%x:\n", server.sin_addr.s_addr);
-	cprintf("PORT SERC:%d:\n", server.sin_port);
+//	cprintf("SERV IP CK:%x:\n", server.sin_addr.s_addr);
+//	cprintf("PORT SERC:%d:\n", server.sin_port);
 
 	// Bind the server socket
 	if (bind(serversock, (struct sockaddr *) &server,
