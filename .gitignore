@@ -20,3 +20,6 @@
 *~
 vivek.map
 vmm/guest/vivek.map
+/cscope.out
+/bochs.log
+/bochs.out
